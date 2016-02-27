@@ -2,8 +2,9 @@
 
 ## Installation
 
-    $ wget https://raw.githubusercontent.com/BobuSumisu/dotfiles/master/boot.sh
-    $ ./boot.sh
+    $ git clone https://github.com/BobuSumisu/dotfiles.git 
+    $ cd dotfiles
+    $ ./provision.sh
 
 ## Overview
 
