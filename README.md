@@ -38,19 +38,19 @@
 
 * Debian
 
-    git wget stow vim-nox build-essential cmake python-dev (fonts-hack-ttf)
+    `git wget stow vim-nox build-essential cmake python-dev (fonts-hack-ttf)`
 
 * Ubuntu
 
-    git wget stow vim-nox build-essential cmake python-dev fonts-hack-ttf
+    `git wget stow vim-nox build-essential cmake python-dev fonts-hack-ttf`
 
 * CentOS
 
-    git wget stow vim-nox build-essential cmake python-dev fonts-hack-ttf
+    `git wget stow vim-nox build-essential cmake python-dev fonts-hack-ttf`
 
 * FreeBSD
 
-    git wget stow vim-nox build-essential cmake python-dev fonts-hack-ttf
+    `git wget stow vim-nox build-essential cmake python-dev fonts-hack-ttf`
 
 ### Other
 
