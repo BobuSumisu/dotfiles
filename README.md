@@ -2,6 +2,11 @@
 
 ## Installation
 
+    $ wget https://raw.githubusercontent.com/BobuSumisu/dotfiles/master/provision.sh
+    $ ./provision.sh
+
+or
+
     $ git clone https://github.com/BobuSumisu/dotfiles.git
     $ cd dotfiles
     $ make

@@ -14,10 +14,12 @@ setup_vim() {
 }
 
 setup_git() {
-    #dpkg -s git > /dev/null 2>&1 || sudo apt-get install git
-    #git remote show origin
-    git submodule init
-    git submodule update
+    dpkg -s git > /dev/null 2>&1 || sudo apt-get install git
+
+    git remote -v | grep -i BobuSumisu/dotfiles > /dev/null && echo "nop"
+
+    #git submodule init
+    #git submodule update
 }
 
-#main $@
+main $@
