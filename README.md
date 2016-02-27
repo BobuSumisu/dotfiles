@@ -1,33 +1,57 @@
 # dotfiles
 
+## Installation
+
+    $ git clone https://github.com/BobuSumisu/dotfiles.git
+    $ cd dotfiles
+    $ make
+    $ ./provision.sh
+
 ## Overview
 
-* `.Xresources`: sets a solarized theme for X client applications and set up `urxvt`.
+### Installing
 
-## Requirements
+* `Makefile`
+* `provision.sh`
 
-### Applications
+### GNU/Linux 
 
-Expected to be used with `urxvt`:
+* `~/.bashrc` 
+* `~/.bash_aliases`
+* `~/.Xresources`
 
-    $ sudo apt-get install rxvt-unicode-256color 
+### Vim
 
-### Fonts
+* `~/.vimrc`
+* `~/.vim`
 
-Uses fonts [Hack](http://sourcefoundry.org/hack/), [Inconsolata](http://www.levien.com/type/myfonts/inconsolata.html),
-or [GNU Unifont](http://unifoundry.com/unifont.html).
+### i3
 
-    # if Debian unstable is enabled:
-    $ sudo apt-get install fonts-hack-ttf
+* `~/.i3/config`
+* `~/.i3status.conf`
 
-    # else:
-    $ wget http://no.archive.ubuntu.com/ubuntu/pool/universe/f/fonts-hack/fonts-hack-ttf_2.019-1_all.deb
-    $ sudo dpkg -i fonts-hack-ttf_2.019-1_all.deb
+### Scripts
 
+* `~/.bin/`
 
-    # other fonts:
-    $ sudo apt-get install fonts-inconsolata unifont
+## Packages installed
 
-## Install
-    
-    $ make install
+* Debian
+
+    git wget stow vim-nox build-essential cmake python-dev (fonts-hack-ttf)
+
+* Ubuntu
+
+    git wget stow vim-nox build-essential cmake python-dev fonts-hack-ttf
+
+* CentOS
+
+    git wget stow vim-nox build-essential cmake python-dev fonts-hack-ttf
+
+* FreeBSD
+
+    git wget stow vim-nox build-essential cmake python-dev fonts-hack-ttf
+
+### Other
+
+* [Hack ttf](https://github.com/chrissimpkins/Hack/releases/download/v2.019/Hack-v2_019-ttf.zip)
