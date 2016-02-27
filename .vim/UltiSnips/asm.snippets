@@ -1,0 +1,10 @@
+snippet func "standard function template"
+;; $1 -> ${2:void} -> ${3:void}
+$1:
+	push		ebp
+	mov			ebp, esp
+	$0
+	mov			esp, ebp
+	pop			ebp
+	ret
+endsnippet
