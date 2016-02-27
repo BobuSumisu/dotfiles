@@ -1,66 +1,53 @@
 #!/usr/bin/env bash
 
 DOTFILES_REPO=https://github.com/BobuSumisu/dotfiles.git
-DOTFILES_DIR=$(pwd -P)
-
-HACK_TTF_URL=https://github.com/chrissimpkins/Hack/releases/download/v2.019/Hack-v2_019-ttf.zip
+DOTFILES_DIR=
+HACK_DEB=fonts-hack-ttf_2.019-1_all.deb
+HACK_DEB_URL=http://no.archive.ubuntu.com/ubuntu/pool/universe/f/fonts-hack/$HACK_DEB
 
 main() {
+    install_packages
     setup_git
+    install_dotfiles
     setup_vim
     setup_hack
-    install_dotfiles
 }
 
-setup_vim() {
-    dpkg -s vim-nox > /dev/null 2>&1 || sudo apt-get install vim-nox
-    dpkg -s build-essential > /dev/null 2>&1 || sudo apt-get install build-essential
-    dpkg -s cmake > /dev/null 2>&1 || sudo apt-get install cmake
-    dpkg -s python-dev > /dev/null 2>&1 || sudo apt-get install python-dev
-
-    vim +NeoBundleInstall +qall
-    cd $DOTFILES_DIR/.vim/bundle/YouCompleteMe
-    ./install.py --clang-completer
-
-    cd $DOTFILES_DIR
+install_packages() {
+    sudo apt-get install git stow unzip vim-nox build-essential cmake python-dev rxvt-unicode-256color
+    sudo apt-get install fonts-hack-ttf || {
+        wget $HACK_DEB_URL
+        sudo dpkg -i $HACK_DEB
+        rm $HACK_DEB
+    }
 }
 
 setup_git() {
-    dpkg -s git > /dev/null 2>&1 || sudo apt-get install git
-
-    git remote -v > /dev/null 2>&1 | grep dotfiles || {
-        git clone https://github.com/BobuSumisu/dotfiles.git
-        cd dotfiles
-        DOTFILES_DIR=$(pwd -P)
-    }
-
+    git clone https://github.com/BobuSumisu/dotfiles.git
+    pusdh . > /dev/null
+    cd dotfiles
+    DOTFILES_DIR=$(pwd) 
     git submodule init
     git submodule update
-}
-
-setup_hack() {
-    fc-list | grep -i Hack > /dev/null || {
-        grep -R "^deb" /etc/apt/ | grep "unstable" && {
-            dpkg -s fonts-hack-ttf > /dev/null 2>&1 || sudo apt-get install fonts-hack-ttf
-            return
-        }
-
-        dpkg -s unzip > /dev/null 2>&1 || sudo apt-get install unzip
-        wget $HACK_TTF_URL -o Hack-ttf.zip
-        unzip Hack-ttf.zip -d /usr/share/fonts/truetype/hack
-        fc-cache -s
-    }
+    popd
 }
 
 install_dotfiles() {
-    dpkg -s stow > /dev/null 2>&1 || sudo apt-get install stow
-    
+    cd $DOTFILES_DIR
     stow -n -v -R -t $HOME      \
         --ignore='\.'           \
         --ignore='\.git.*'      \
         --ignore='README.md'    \
         --ignore='boot.sh'      \
         .
+}
+
+setup_vim() {
+    vim +NeoBundleInstall +qall
+    pushd . > /dev/null
+    cd $HOME/.vim/bundle/YouCompleteMe
+    ./install.py --clang-completer
+    popd > /dev/null
 }
 
 main $@
