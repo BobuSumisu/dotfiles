@@ -2,15 +2,8 @@
 
 ## Installation
 
-    $ wget https://raw.githubusercontent.com/BobuSumisu/dotfiles/master/provision.sh
-    $ ./provision.sh
-
-or
-
-    $ git clone https://github.com/BobuSumisu/dotfiles.git
-    $ cd dotfiles
-    $ make
-    $ ./provision.sh
+    $ wget https://raw.githubusercontent.com/BobuSumisu/dotfiles/master/boot.sh
+    $ ./boot.sh
 
 ## Overview
 
@@ -43,19 +36,7 @@ or
 
 * Debian
 
-    `git wget stow vim-nox build-essential cmake python-dev (fonts-hack-ttf)`
-
-* Ubuntu
-
-    `git wget stow vim-nox build-essential cmake python-dev fonts-hack-ttf`
-
-* CentOS
-
-    `git wget stow vim-nox build-essential cmake python-dev fonts-hack-ttf`
-
-* FreeBSD
-
-    `git wget stow vim-nox build-essential cmake python-dev fonts-hack-ttf`
+    `git stow vim-nox build-essential cmake python-dev (fonts-hack-ttf)`
 
 ### Other
 
