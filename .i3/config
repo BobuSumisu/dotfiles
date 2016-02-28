@@ -50,10 +50,10 @@ set $S_base00                   #657b83
 # set $S_base01                   #93a1a1
 # set $S_base00                   #839496
 
-
 font                            pango:$font $font_size
 default_orientation             horizontal
 hide_edge_borders               both
+new_window                      pixel 2
 
 bindsym $mod+Return             exec $terminal
 bindsym $mod+Shift+q            kill

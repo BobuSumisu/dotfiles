@@ -51,6 +51,10 @@
 *color14:                               S_base1
 *color15:                               S_base3
 
+URxvt*internalBorder:                   0
+URxvt*externalBorder:                   0
+URxvt*thickness:                        0
+URxvt*borderColor:                      S_base03
 URxvt*colorIT:                          S_red
 URxvt*colorBD:                          S_blue
 URxvt*colorUL:                          S_base0
