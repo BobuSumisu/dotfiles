@@ -60,6 +60,7 @@ set expandtab
 set number
 set background=dark
 set t_Co=256
+let g:solarized_termcolors=16
 silent! colorscheme solarized
 set colorcolumn=120
 set laststatus=2

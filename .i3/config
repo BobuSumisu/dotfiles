@@ -18,10 +18,38 @@ set $volume_down                amixer -q set Master 5%- unmute
 set $volume_mute                amixer -q set Master toggle
 set $volume_mic_mute            amixer -q set Capture toggle
 
-set $backlight_up               xbacklight -inc 10
-set $backlight_down             xbacklight -dec 10
+set $backlight_up               xbacklight -time 0 -steps 1 -inc 10
+set $backlight_down             xbacklight -time 0 -steps 1 -dec 10
 
 set $reload_statusbar           pkill -SIGUSR1 i3status
+
+set $S_yellow                   #b58900
+set $S_orange                   #cb4b16
+set $S_red                      #dc322f
+set $S_magenta                  #d33682
+set $S_violet                   #6c71c4
+set $S_blue                     #268bd2
+set $S_cyan                     #2aa198
+set $S_green                    #859900
+# Dark
+set $S_base0                    #839496
+set $S_base1                    #93a1a1
+set $S_base2                    #eee8d5
+set $S_base3                    #fdf6e3
+set $S_base03                   #002b36
+set $S_base02                   #073642
+set $S_base01                   #586e75
+set $S_base00                   #657b83
+# Light
+# set $S_base0                    #657b83
+# set $S_base1                    #586e75
+# set $S_base2                    #073642
+# set $S_base3                    #002b36
+# set $S_base03                   #fdf6e3
+# set $S_base02                   #eee8d5
+# set $S_base01                   #93a1a1
+# set $S_base00                   #839496
+
 
 font                            pango:$font $font_size
 default_orientation             horizontal
@@ -88,34 +116,28 @@ bindsym XF86MonBrightnessUp     exec $backlight_up
 bindsym Shift+Ctrl+l            mode "$metamode"
 bindsym $mod+q                  mode "$quicklaunch"
 
-set $sol_bg             #002b36
-set $sol_sel_bg         #839496
-set $sol_fg             #93a1a1
-set $sol_sel_fg         #002b36
-set $sol_curs           #eee8d5
-set $sol_line           #073642
-set $sol_red            #dc322f
+bindsym $mod+c                  exec --no-startup-id $HOME/.bin/mousecol
 
 # class                     # border        # background    # foreground    # indicator
-client.focused              $sol_bg         $sol_line       $sol_fg         $sol_curs
-client.focused_inactive     $sol_bg         $sol_bg         $sol_fg         $sol_curs
-client.unfocused            $sol_bg         $sol_bg         $sol_sel_bg     $sol_curs
-client.urgent               $sol_bg         $sol_bg         $sol_sel_bg     $sol_curs
-client.background           $sol_bg
+client.focused              $footer         $S_base02       $S_base0        $S_red
+client.focused_inactive     $S_base03       $S_base02       $S_base0        $S_red
+client.unfocused            $S_base03       $S_base03       $S_base01       $S_red
+client.urgent               $S_base03       $S_base03       $S_base01       $S_red
+client.background           $S_base03
 
 bar {
     status_command i3status
 
     colors {
-        background              $sol_line
-        statusline              $sol_fg
-        separator               $sol_sel_bg
+        background              $S_base02
+        statusline              $S_base1
+        separator               $S_base01
 
         # class                 # border    # background    # foreground
-        focused_workspace       $sol_line   $sol_bg         $sol_fg
-        active_workspace        $sol_line   $sol_bg         $sol_fg
-        inactive_workspace      $sol_line   $sol_line       $sol_fg
-        urgent_workspace        $sol_line   $sol_line       $sol_fg
+        focused_workspace       $S_base02   $S_base03       $S_base0
+        active_workspace        $S_base02   $S_base02       $S_base0
+        inactive_workspace      $S_base02   $S_base02       $S_base0
+        urgent_workspace        $S_base02   $S_base02       $S_base0
     }
 }
 
@@ -142,5 +164,5 @@ mode "$quicklaunch" {
   bindsym Escape mode "default"
 }
 
-exec --no-startup-id xsetroot -solid "#002b36"
+exec --no-startup-id xsetroot -solid "$S_base03"
 exec --no-startup-id nm-applet
