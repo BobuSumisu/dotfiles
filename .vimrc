@@ -11,16 +11,16 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
+NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'bling/vim-airline'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'fatih/vim-go'
-NeoBundle 'elixir-lang/vim-elixir'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'godlygeek/tabular'
-NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 
 NeoBundle '~/projects/vim/i3'
@@ -62,6 +62,7 @@ set background=dark
 set t_Co=256
 silent! colorscheme solarized
 set colorcolumn=120
+set laststatus=2
 
 """ Stop concealing, please
 set conceallevel=0
@@ -136,3 +137,7 @@ nnoremap <Leader>tw :%s/\s\+$//<CR>
 
 nnoremap <Leader>l :set list<CR>
 nnoremap <Leader>L :set nolist<CR>
+
+nnoremap <Leader>jd :YcmCompleter GoTo<CR>
+
+
