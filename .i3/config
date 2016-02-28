@@ -7,7 +7,7 @@ set $mail_client                icedove
 set $vm_manager                 virtualbox
 set $music_player               spotify
 
-set $lock_command               $HOME/projects/unix/scripts/i3blurlock 
+set $lock_command               $HOME/.bin/i3blurlock
 set $suspend_command            systemctl suspend
 set $hibernate_command          systemctl hibernate
 set $reboot_command             systemctl reboot

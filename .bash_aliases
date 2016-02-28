@@ -1,7 +1,13 @@
 # ~/.bash_aliases
 # vim: set ft=sh:
 
-alias ls='ls --color=auto'
+alias ls='ls --color=always'
 alias ll='ls -al'
+alias grep='grep --color=always'
 
-alias grep='grep --color=auto'
+alias cd='pushd $PWD > /dev/null; cd'
+alias pop='popd > /dev/null'
+alias dshow='dirs -v -l'
+alias dclear='dirs -c'
+
+alias \:w='echo "you are not in vim now..."'

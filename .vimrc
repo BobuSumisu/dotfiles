@@ -72,6 +72,9 @@ autocmd VimEnter,BufEnter,BufNewFile,BufRead * set conceallevel=0
 """ Help
 autocmd FileType help wincmd L
 
+""" Make
+set makeprg=make\ -j$(nproc)
+
 """ NERDTree
 " autocmd vimenter * NERDTree
 " autocmd VimEnter * wincmd p
@@ -119,28 +122,21 @@ let g:tex_conceal = ""
 """ Keys
 let mapleader=" "
 
-nnoremap <Leader>n :NERDTree<CR>
-nnoremap <Leader>N :NERDTreeClose<CR>
-
-nnoremap <Leader>v :vsplit $MYVIMRC<CR>
-nnoremap <Leader>V :so $MYVIMRC<CR>
-
-nnoremap <Leader>p :set paste<CR>
-nnoremap <Leader>P :set nopaste<CR>
-
-nnoremap <Leader>se :UltiSnipsEdit<CR>
-
-nnoremap <Leader>t= :Tabularize /=<CR>
-vnoremap <Leader>t= :Tabularize /=<CR>
-nnoremap <Leader>t\| :Tabularize /\|<CR>
-vnoremap <Leader>t\| :Tabularize /\|<CR>
-
-nnoremap <Leader>ss :w !sudo tee %<CR>
-nnoremap <Leader>tw :%s/\s\+$//<CR>
-
+nnoremap <Leader>jd :YcmCompleter GoTo<CR>
 nnoremap <Leader>l :set list<CR>
 nnoremap <Leader>L :set nolist<CR>
-
-nnoremap <Leader>jd :YcmCompleter GoTo<CR>
-
-
+nnoremap <Leader>m :make!<CR>
+nnoremap <Leader>n :NERDTree<CR>
+nnoremap <Leader>N :NERDTreeClose<CR>
+nnoremap <Leader>P :set nopaste<CR>
+nnoremap <Leader>p :set paste<CR>
+nnoremap <Leader>se :UltiSnipsEdit<CR>
+nnoremap <Leader>so :so %<CR>
+nnoremap <Leader>ss :w !sudo tee %<CR>
+nnoremap <Leader>t= :Tabularize /=<CR>
+nnoremap <Leader>t\| :Tabularize /\|<CR>
+nnoremap <Leader>tw :%s/\s\+$//<CR><C-o>
+nnoremap <Leader>V :so $MYVIMRC<CR>
+nnoremap <Leader>v :vsplit $MYVIMRC<CR>
+vnoremap <Leader>t= :Tabularize /=<CR>
+vnoremap <Leader>t\| :Tabularize /\|<CR>
