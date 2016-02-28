@@ -1,0 +1,10 @@
+#!/bin/bash
+IMAGE_PATH=/tmp/scrot-$(date "+%Y-%m-%d-%H%M%S").png
+
+eval $(xdotool getmouselocation --shell)
+scrot $IMAGE_PATH
+
+color=$(convert $IMAGE_PATH -depth 8 -crop 1x1+$X+$Y txt:- | grep -o "#[a-fA-F0-9]\{6\}")
+echo -n $color | xclip -i -selection CLIPBOARD
+notify-send "$(basename $0)" "Color at cursor: <b>$color</b> (copied to clipboard)."
+rm $IMAGE_PATH
