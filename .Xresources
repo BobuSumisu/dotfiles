@@ -47,12 +47,8 @@ URxvt*iso14755:                         false
 URxvt*iso14755_52:                      false
 URxvt*title:                          	黑客在進步
 URxvt*scrollBar:                      	false
-URxvt*font:                             xft:Hack:pixelsize=13,\
-                                        xft:Inconsolata:pixelsize=14,\
-                                        xft:unifont
+URxvt*font:                             xft:Inconsolata
 
 Xft.dpi:                                96
 Xft.antialias:                          true
-Xft.rgba:                               none
-Xft.hinting:                            false
-Xft.hintstyle:                          hintfull
+Xft.hinting:                            true

@@ -1,5 +1,5 @@
 set $mod                        Mod4
-set $font                       Hack
+set $font                       Inconsolata
 set $font_size                  10
 set $terminal                   urxvt
 set $web_browser                google-chrome

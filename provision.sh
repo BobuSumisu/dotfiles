@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-HACK_URL=http://no.archive.ubuntu.com/ubuntu/pool/universe/f/fonts-hack/fonts-hack-ttf_2.019-1_all.deb
-
 main() {
     install_packages
     setup_git
@@ -10,12 +8,7 @@ main() {
 }
 
 install_packages() {
-    sudo apt-get install git stow unzip vim-nox build-essential cmake python-dev rxvt-unicode-256color
-    sudo apt-get install fonts-hack-ttf || {
-        wget $HACK_URL -O fonts-hack-ttf.deb
-        sudo dpkg -i fonts-hack-ttf.deb
-        rm fonts-hack-ttf.deb
-    }
+    sudo apt-get install git stow unzip vim-nox build-essential cmake python-dev rxvt-unicode-256color fonts-inconsolata
 }
 
 setup_git() {

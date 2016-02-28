@@ -69,13 +69,16 @@ set conceallevel=0
 autocmd FileType * setlocal conceallevel=0
 autocmd VimEnter,BufEnter,BufNewFile,BufRead * set conceallevel=0
 
+""" Help
+autocmd FileType help wincmd L
+
 """ NERDTree
 " autocmd vimenter * NERDTree
 " autocmd VimEnter * wincmd p
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 """ VimAirline
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 0
 
 """ SuperTab
 let g:SuperTabDefaultCompletionType='<C-n>'
