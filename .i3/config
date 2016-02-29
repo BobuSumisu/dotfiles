@@ -6,6 +6,7 @@ set $web_browser                google-chrome
 set $mail_client                icedove
 set $vm_manager                 virtualbox
 set $music_player               spotify
+set $doc_viewer                 evince
 
 set $lock_command               $HOME/.bin/i3blurlock
 set $suspend_command            systemctl suspend
@@ -55,7 +56,7 @@ default_orientation             horizontal
 hide_edge_borders               both
 new_window                      pixel 2
 
-bindsym $mod+Return             exec $terminal
+bindsym $mod+Return             exec $confirm $terminal
 bindsym $mod+Shift+q            kill
 bindsym $mod+d                  exec dmenu_run
 
@@ -141,24 +142,25 @@ bar {
     }
 }
 
-set $metamode Meta: e(x)it i3, (l)ock screen, (h)ibernate, (s)uspend, (r)eboot, shut(d)own
+set $metamode Meta: e(X)it i3, (l)ock screen, (H)ibernate, (S)uspend, (R)eboot, shut(D)own
 mode "$metamode" {
-    bindsym x exec i3-msg exit, mode "default"
+    bindsym Shift+x exec i3-msg exit, mode "default"
     bindsym l exec --no-startup-id $lock_command, mode "default"
-    bindsym s exec --no-startup-id $lock_command && sleep 1 && $suspend_command, mode "default"
-    bindsym h exec --no-startup-id $lock_command && sleep 1 && $hibernate_command, mode "default"
-    bindsym r exec --no-startup-id $reboot_command, mode "default"
-    bindsym d exec --no-startup-id $shutdown_command, mode "default"
+    bindsym Shift+s exec --no-startup-id $lock_command && sleep 1 && $suspend_command, mode "default"
+    bindsym Shift+h exec --no-startup-id $lock_command && sleep 1 && $hibernate_command, mode "default"
+    bindsym Shift+r exec --no-startup-id $reboot_command, mode "default"
+    bindsym Shift+d exec --no-startup-id $shutdown_command, mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
-set $quicklaunch Quicklaunch: (w)eb browser, (m)ail client, (v)m manager, mu(s)ic player
+set $quicklaunch Quicklaunch: (w)eb browser, (m)ail client, (v)m manager, mu(s)ic player, (d)oc viewer
 mode "$quicklaunch" {
   bindsym w exec --no-startup-id $web_browser, mode "default"
   bindsym m exec --no-startup-id $mail_client, mode "default"
   bindsym v exec --no-startup-id $vm_manager, mode "default"
   bindsym s exec --no-startup-id $music_player, mode "default"
+  bindsym d exec --no-startup-id $doc_viewer, mode "default"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"

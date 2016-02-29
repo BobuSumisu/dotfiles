@@ -28,6 +28,8 @@ NeoBundle '~/projects/vim/i3'
 call neobundle#end()
 NeoBundleCheck
 
+runtime! ftplugin/man.vim
+
 if has('autocmd')
   filetype plugin indent on
 endif
@@ -72,6 +74,7 @@ autocmd VimEnter,BufEnter,BufNewFile,BufRead * set conceallevel=0
 
 """ Help
 autocmd FileType help wincmd L
+autocmd FileType man wincmd L
 
 """ Make
 set makeprg=make\ -j$(nproc)
@@ -126,7 +129,8 @@ let mapleader=" "
 nnoremap <Leader>jd :YcmCompleter GoTo<CR>
 nnoremap <Leader>l :set list<CR>
 nnoremap <Leader>L :set nolist<CR>
-nnoremap <Leader>m :make!<CR>
+nnoremap <Leader>mm :make!<CR>
+nnoremap <Leader>mc :make! clean<CR>
 nnoremap <Leader>n :NERDTree<CR>
 nnoremap <Leader>N :NERDTreeClose<CR>
 nnoremap <Leader>P :set nopaste<CR>

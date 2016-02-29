@@ -51,7 +51,7 @@
 *color14:                               S_base1
 *color15:                               S_base3
 
-URxvt*internalBorder:                   0
+URxvt*internalBorder:                   3
 URxvt*externalBorder:                   0
 URxvt*thickness:                        0
 URxvt*borderColor:                      S_base03
@@ -59,12 +59,15 @@ URxvt*colorIT:                          S_red
 URxvt*colorBD:                          S_blue
 URxvt*colorUL:                          S_base0
 URxvt*letterSpace:                      0
+URxvt*lineSpace:                        0
 URxvt*iso14755:                         false
 URxvt*iso14755_52:                      false
 URxvt*title:                          	黑客在進步
 URxvt*scrollBar:                      	false
-URxvt*font:                             xft:Inconsolata
+URxvt*font:                             xft:Inconsolata:medium:pixelsize=15
 
 Xft.dpi:                                96
+Xft.rgba:                               none
 Xft.antialias:                          true
 Xft.hinting:                            true
+Xft.hintstyle:                          hintfull

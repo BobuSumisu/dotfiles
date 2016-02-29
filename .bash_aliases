@@ -10,4 +10,6 @@ alias pop='popd > /dev/null'
 alias dshow='dirs -v -l'
 alias dclear='dirs -c'
 
+alias www="google-chrome"
+
 alias \:w='echo "you are not in vim now..."'
