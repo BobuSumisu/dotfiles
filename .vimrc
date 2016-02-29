@@ -1,4 +1,5 @@
 if has('vim_starting')
+
   if &compatible
     set nocompatible
   endif
@@ -15,13 +16,10 @@ NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'ervandew/supertab'
 NeoBundle 'SirVer/ultisnips'
-NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'fatih/vim-go'
-NeoBundle 'tpope/vim-markdown'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'Valloric/YouCompleteMe', { 'build': { 'unix': './install.sh --clang-completer --system-libclang' } }
 
 NeoBundle '~/projects/vim/i3'
 
@@ -38,29 +36,18 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
-""" Backup
-set nobackup
-set noswapfile
-
-""" Syncing
-"""
-""" Warning: This is potentially risky and may cause data loss!
-"""
-"""          This turns off fsync(2) syncing after file writes.
-"""          The reason being that fsync(2) often hangs when virtualization software
-"""          (vmware/virtualbox) is running (because of their high number of
-"""          unsynced I/O operations).
-set swapsync=
-set nofsync
-
-""" Modeline
-set modeline
-set modelines=5
-
-""" Encoding
+""" File options
 set fileformat=unix
 set fileencoding=utf-8
 set encoding=utf-8
+set nobackup
+set noswapfile
+set nowritebackup
+set autoread
+set swapsync=
+set nofsync
+set modeline
+set modelines=5
 
 """ Indentation
 set smartindent
@@ -77,84 +64,53 @@ let g:solarized_termcolors=16
 silent! colorscheme solarized
 set colorcolumn=120
 set laststatus=2
-
-""" Stop concealing, please
 set conceallevel=0
-autocmd FileType * setlocal conceallevel=0
-autocmd VimEnter,BufEnter,BufNewFile,BufRead * set conceallevel=0
-
-""" Help
-autocmd FileType help wincmd L
-autocmd FileType man wincmd L
-
-""" Make
-set makeprg=make\ -j$(nproc)
-
-""" NERDTree
-" autocmd vimenter * NERDTree
-" autocmd VimEnter * wincmd p
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-""" VimAirline
-"let g:airline_powerline_fonts = 0
-
-""" SuperTab
-let g:SuperTabDefaultCompletionType='<C-n>'
-let g:SuperTabCrMapping=0
 
 """ UltiSnips
-let g:UltiSnipsExpandTrigger='<tab>'
-let g:UltiSnipsJumpForwardTrigger='<tab>'
-let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger                = '<C-j>'
+let g:UltiSnipsJumpForwardTrigger           = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger          = '<s-tab>'
+let g:UltiSnipsEditSplit                    = "vertical"
 
 """ YouCompleteMe
-" let g:ycm_path_to_python_interpreter='/usr/bin/python2'
-let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
-let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
-autocmd CompleteDone * pclose
-
-""" Scheme
-set lispwords+=match,receive,module
-syn keyword schemeFunc match receive module
-
-""" Go
-let g:go_fmt_command="goimports"
-
-""" Markdown
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "stem:\[.*\]"
-autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "_"
-
-""" Json
-autocmd BufNewFile,BufRead,BufEnter *.json setl cole=0
-let g:vim_json_syntax_conceal = 0
-
-""" Tex
-let g:tex_conceal = ""
+let g:ycm_min_num_of_chars_for_completion   = 1
+let g:ycm_filetype_blacklist                = { }
+let g:ycm_global_ycm_extra_conf             ='~/.vim/.ycm_extra_conf.py'
 
 """ Keys
 let mapleader=" "
+nnoremap <Leader>cm     :!chmod +x %<CR>
+nnoremap <Leader>jd     :YcmCompleter GoTo<CR>
+nnoremap <Leader>l      :set list<CR>
+nnoremap <Leader>L      :set nolist<CR>
+nnoremap <Leader>mc     :make! clean<CR>
+nnoremap <Leader>mm     :make!<CR>
+nnoremap <Leader>n      :NERDTree<CR>
+nnoremap <Leader>N      :NERDTreeClose<CR>
+nnoremap <Leader>P      :set nopaste<CR>
+nnoremap <Leader>p      :set paste<CR>
+nnoremap <Leader>se     :UltiSnipsEdit<CR>
+nnoremap <Leader>so     :so %<CR>
+nnoremap <Leader>ss     :w !sudo tee %<CR>
+nnoremap <Leader>t=     :Tabularize /=<CR>
+nnoremap <Leader>t\|    :Tabularize /\|<CR>
+nnoremap <Leader>V      :so $MYVIMRC<CR>
+nnoremap <Leader>v      :vsplit $MYVIMRC<CR>
+vnoremap <Leader>t=     :Tabularize /=<CR>
+vnoremap <Leader>t\|    :Tabularize /\|<CR>
+nnoremap <Leader>x      :!./%<CR>
 
-nnoremap <Leader>cm :!chmod +x %<CR>
-nnoremap <Leader>jd :YcmCompleter GoTo<CR>
-nnoremap <Leader>l :set list<CR>
-nnoremap <Leader>L :set nolist<CR>
-nnoremap <Leader>mc :make! clean<CR>
-nnoremap <Leader>mm :make!<CR>
-nnoremap <Leader>n :NERDTree<CR>
-nnoremap <Leader>N :NERDTreeClose<CR>
-nnoremap <Leader>P :set nopaste<CR>
-nnoremap <Leader>p :set paste<CR>
-nnoremap <Leader>se :UltiSnipsEdit<CR>
-nnoremap <Leader>so :so %<CR>
-nnoremap <Leader>ss :w !sudo tee %<CR>
-nnoremap <Leader>t= :Tabularize /=<CR>
-nnoremap <Leader>t\| :Tabularize /\|<CR>
-nnoremap <Leader>tw :%s/\s\+$//<CR><C-o>
-nnoremap <Leader>V :so $MYVIMRC<CR>
-nnoremap <Leader>v :vsplit $MYVIMRC<CR>
-vnoremap <Leader>t= :Tabularize /=<CR>
-vnoremap <Leader>t\| :Tabularize /\|<CR>
-nnoremap <Leader>x :!./%<CR>
+""" Hooks
+autocmd BufWrite * :call RemoveTrailingWhiteSpace()
+autocmd FileType help wincmd L
+autocmd FileType man wincmd L
+autocmd FileType * setlocal conceallevel=0
+autocmd VimEnter,BufEnter,BufNewFile,BufRead * set conceallevel=0
+autocmd CompleteDone * pclose
+
+""" Funcs
+function! RemoveTrailingWhiteSpace()
+    execute "normal mz"
+    %s/\s\+$//ge
+    execute "normal 'z"
+endfunction
