@@ -8,11 +8,16 @@
 
 ## Overview
 
+### Meta
+
+* `provision.sh`
+
 ### GNU/Linux 
 
 * `~/.bashrc` 
 * `~/.bash_aliases`
 * `~/.Xresources`
+* `~/.config/user-dirs.dirs` 
 
 ### Vim
 
@@ -23,7 +28,14 @@
 
 * `~/.i3/config`
 * `~/.i3status.conf`
+* `~/.config/dunst/dunstrc`
 
 ### Scripts
 
 * `~/.bin/`
+
+## TODO
+
+* Test...
+* Make cross-linux...
+* Rename userdirs
