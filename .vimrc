@@ -42,6 +42,17 @@ endif
 set nobackup
 set noswapfile
 
+""" Syncing
+"""
+""" Warning: This is potentially risky and may cause data loss!
+"""
+"""          This turns off fsync(2) syncing after file writes.
+"""          The reason being that fsync(2) often hangs when virtualization software
+"""          (vmware/virtualbox) is running (because of their high number of
+"""          unsynced I/O operations).
+set swapsync=
+set nofsync
+
 """ Modeline
 set modeline
 set modelines=5
@@ -126,11 +137,12 @@ let g:tex_conceal = ""
 """ Keys
 let mapleader=" "
 
+nnoremap <Leader>cm :!chmod +x %<CR>
 nnoremap <Leader>jd :YcmCompleter GoTo<CR>
 nnoremap <Leader>l :set list<CR>
 nnoremap <Leader>L :set nolist<CR>
-nnoremap <Leader>mm :make!<CR>
 nnoremap <Leader>mc :make! clean<CR>
+nnoremap <Leader>mm :make!<CR>
 nnoremap <Leader>n :NERDTree<CR>
 nnoremap <Leader>N :NERDTreeClose<CR>
 nnoremap <Leader>P :set nopaste<CR>
@@ -145,3 +157,4 @@ nnoremap <Leader>V :so $MYVIMRC<CR>
 nnoremap <Leader>v :vsplit $MYVIMRC<CR>
 vnoremap <Leader>t= :Tabularize /=<CR>
 vnoremap <Leader>t\| :Tabularize /\|<CR>
+nnoremap <Leader>x :!./%<CR>
