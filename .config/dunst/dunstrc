@@ -1,0 +1,107 @@
+[global]
+    font                 = Inconsolata 11
+    allow_markup         = yes
+    plain_text           = no
+    format               = "<b>%s</b>: %b"
+    sort                 = yes
+    indicate_hidden      = yes
+    alignment            = left
+    bounce_freq          = 200
+    show_age_threshold   = 60
+    word_wrap            = no
+    ignore_newline       = no
+    geometry             = "x1-0-1"
+    shrink               = no
+    transparency         = 0
+    idle_threshold       = 120
+    monitor              = 0
+    follow               = mouse
+    sticky_history       = yes
+    history_length       = 20
+    show_indicators      = yes
+    line_height          = 0
+    notification_height  = 0
+    separator_height     = 0
+    padding              = 2
+    horizontal_padding   = 8
+    separator_color      = frame
+    startup_notification = false
+    dmenu                = /usr/bin/dmenu -p dunst:
+    icon_position        = off
+
+[frame]
+    width = 0
+    color = "#657b83"
+
+[shortcuts]
+    close = ctrl+space
+    close_all = ctrl+shift+space
+
+[urgency_low]
+    background = "#268bd2"
+    foreground = "#fdf6e3"
+    timeout = 10
+
+[urgency_normal]
+    background = "#268bd2"
+    foreground = "#fdf6e3"
+    timeout = 10
+
+[urgency_critical]
+    background = "#dc322f"
+    foreground = "#ffffff"
+    timeout = 0
+
+# Every section that isn't one of the above is interpreted as a rules to
+# override settings for certain messages.
+# Messages can be matched by "appname", "summary", "body", "icon", "category",
+# "msg_urgency" and you can override the "timeout", "urgency", "foreground",
+# "background", "new_icon" and "format".
+# Shell-like globbing will get expanded.
+#
+# SCRIPTING
+# You can specify a script that gets run when the rule matches by
+# setting the "script" option.
+# The script will be called as follows:
+#   script appname summary body icon urgency
+# where urgency can be "LOW", "NORMAL" or "CRITICAL".
+#
+# NOTE: if you don't want a notification to be displayed, set the format
+# to "".
+# NOTE: It might be helpful to run dunst -print in a terminal in order
+# to find fitting options for rules.
+
+#[espeak]
+#    summary = "*"
+#    script = dunst_espeak.sh
+
+#[script-test]
+#    summary = "*script*"
+#    script = dunst_test.sh
+
+#[ignore]
+#    # This notification will not be displayed
+#    summary = "foobar"
+#    format = ""
+
+#[signed_on]
+#    appname = Pidgin
+#    summary = "*signed on*"
+#    urgency = low
+#
+#[signed_off]
+#    appname = Pidgin
+#    summary = *signed off*
+#    urgency = low
+#
+#[says]
+#    appname = Pidgin
+#    summary = *says*
+#    urgency = critical
+#
+#[twitter]
+#    appname = Pidgin
+#    summary = *twitter.com*
+#    urgency = normal
+#
+# vim: ft=cfg
