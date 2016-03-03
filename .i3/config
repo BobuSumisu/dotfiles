@@ -22,6 +22,10 @@ set $volume_mic_mute            amixer -q set Capture toggle
 set $backlight_up               xbacklight -time 0 -steps 1 -inc 10
 set $backlight_down             xbacklight -time 0 -steps 1 -dec 10
 
+set $scrot                      scrot $HOME/pictures/scrot-$(date "+%Y-%m-%d-%H%M%S").png
+set $scrot_focused              scrot -u $HOME/pictures/scrot-$(date "+%Y-%m-%d-%H%M%S").png
+set $scrot_select               scrot -s $HOME/pictures/scrot-$(date "+%Y-%m-%d-%H%M%S").png
+
 set $reload_statusbar           pkill -SIGUSR1 i3status
 
 set $S_yellow                   #b58900
@@ -56,9 +60,13 @@ default_orientation             horizontal
 hide_edge_borders               both
 new_window                      pixel 2
 
-bindsym $mod+Return             exec $confirm $terminal
+bindsym $mod+Return             exec $terminal
 bindsym $mod+Shift+q            kill
 bindsym $mod+d                  exec dmenu_run
+
+bindsym $mod+p                  exec --no-startup-id $scrot
+bindsym $mod+Shift+p            exec --no-startup-id $scrot_focused
+bindsym $mod+Ctrl+p             exec --no-startup-id $scrot_select
 
 bindsym $mod+j                  focus left
 bindsym $mod+k                  focus down
@@ -81,6 +89,8 @@ bindsym $mod+e                  layout toggle split
 bindsym $mod+Shift+space        floating toggle
 bindsym $mod+space              focus mode_toggle
 bindsym $mod+a                  focus parent
+
+bindsym $mod+r                  exec i3-input -F 'rename workspace to "%s"' -P 'New name '
 
 bindsym $mod+1                  workspace 1
 bindsym $mod+2                  workspace 2

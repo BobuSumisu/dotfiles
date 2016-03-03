@@ -77,6 +77,9 @@ let g:ycm_min_num_of_chars_for_completion   = 1
 let g:ycm_filetype_blacklist                = { }
 let g:ycm_global_ycm_extra_conf             ='~/.vim/.ycm_extra_conf.py'
 
+""" Eclim
+let g:EclimCompletionMethod                 = 'omnifunc'
+
 """ Keys
 let mapleader=" "
 nnoremap <Leader>cm     :!chmod +x %<CR>
@@ -112,5 +115,5 @@ autocmd CompleteDone * pclose
 function! RemoveTrailingWhiteSpace()
     execute "normal mz"
     %s/\s\+$//ge
-    execute "normal 'z"
+    execute "normal `z"
 endfunction

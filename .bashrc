@@ -33,3 +33,5 @@ export VISUAL=vim
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export PS1="\[\u@$(tput setaf 4)\h$(tput sgr0):\w\]\n\$ "
 export PATH=$HOME/.bin:$PATH
+
+export WINEARCH=win32
