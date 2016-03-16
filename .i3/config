@@ -1,12 +1,14 @@
 set $mod                        Mod4
 set $font                       Inconsolata
 set $font_size                  10
+
 set $terminal                   urxvt
 set $web_browser                google-chrome
 set $mail_client                icedove
 set $vm_manager                 virtualbox
 set $music_player               spotify
 set $doc_viewer                 evince
+set $file_manager               nautilus
 
 set $lock_command               $HOME/.bin/i3blurlock
 set $suspend_command            systemctl suspend
@@ -66,7 +68,7 @@ bindsym $mod+d                  exec dmenu_run
 
 bindsym $mod+p                  exec --no-startup-id $scrot
 bindsym $mod+Shift+p            exec --no-startup-id $scrot_focused
-bindsym $mod+Ctrl+p             exec --no-startup-id $scrot_select
+bindsym $mod+Ctrl+p             exec --no-startup-id sleep 1 && $scrot_select
 
 bindsym $mod+j                  focus left
 bindsym $mod+k                  focus down
@@ -164,13 +166,14 @@ mode "$metamode" {
     bindsym Escape mode "default"
 }
 
-set $quicklaunch Quicklaunch: (w)eb browser, (m)ail client, (v)m manager, mu(s)ic player, (d)oc viewer
+set $quicklaunch Quicklaunch: (w)eb, (m)ail, (v)m, mu(s)ic, (d)oc, (f)iles
 mode "$quicklaunch" {
   bindsym w exec --no-startup-id $web_browser, mode "default"
   bindsym m exec --no-startup-id $mail_client, mode "default"
   bindsym v exec --no-startup-id $vm_manager, mode "default"
   bindsym s exec --no-startup-id $music_player, mode "default"
   bindsym d exec --no-startup-id $doc_viewer, mode "default"
+  bindsym f exec --no-startup-id $file_manager, mode "default"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"

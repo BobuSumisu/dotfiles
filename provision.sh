@@ -8,6 +8,7 @@ DOTFILES=(
     .bin
     .config/dunst
     .config/user-dirs.dirs
+    .gdbinit
     .i3
     .i3status.conf
     .vim
