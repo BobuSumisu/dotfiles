@@ -36,11 +36,10 @@ import ycm_core
 # CHANGE THIS LIST OF FLAGS. YES, THIS IS THE DROID YOU HAVE BEEN LOOKING FOR.
 flags = [
 '-Wall', '-Wextra', '-Werror', '-pedantic',
-'-std=cc99',
+'-std=c11',
 '-x', 'c',
 '-I', './src',
 '-I', '.',
-'-L', '.',
 ]
 
 not_flags = [

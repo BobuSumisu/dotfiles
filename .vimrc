@@ -20,6 +20,11 @@ NeoBundle 'SirVer/ultisnips'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'Valloric/YouCompleteMe', { 'build': { 'unix': './install.sh --clang-completer --system-libclang' } }
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'fatih/vim-go'
+NeoBundle 'diepm/vim-rest-console'
+NeoBundle 'rust-lang/rust.vim'
+NeoBundle 'eagletmt/neco-ghc'
 
 NeoBundle '~/projects/vim/i3'
 
@@ -55,6 +60,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
+set shiftround
 
 """ Looks
 set number
@@ -76,13 +82,19 @@ let g:UltiSnipsEditSplit                    = "vertical"
 let g:ycm_min_num_of_chars_for_completion   = 1
 let g:ycm_filetype_blacklist                = { }
 let g:ycm_global_ycm_extra_conf             ='~/.vim/.ycm_extra_conf.py'
+let g:ycm_semantic_triggers                 = {'haskell' : ['.']}
 
-""" Eclim
-let g:EclimCompletionMethod                 = 'omnifunc'
+""" Go
+let g:go_fmt_command                        = "goimports"
+
+""" Haskell
+let g:haskellmode_completion_ghc            = 0
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 """ Keys
 let mapleader=" "
 nnoremap <Leader>cm     :!chmod +x %<CR>
+nnoremap <Leader>cp     :!cat % \| xclip -selection clipboard<CR><CR>
 nnoremap <Leader>jd     :YcmCompleter GoTo<CR>
 nnoremap <Leader>l      :set list<CR>
 nnoremap <Leader>L      :set nolist<CR>
