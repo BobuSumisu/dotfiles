@@ -1,5 +1,4 @@
 if has('vim_starting')
-
   if &compatible
     set nocompatible
   endif
@@ -19,17 +18,13 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'Valloric/YouCompleteMe', { 'build': { 'unix': './install.sh --clang-completer --system-libclang' } }
-NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'fatih/vim-go'
-NeoBundle 'diepm/vim-rest-console'
 NeoBundle 'rust-lang/rust.vim'
-NeoBundle 'eagletmt/neco-ghc'
 
 NeoBundle '~/projects/vim/i3'
 
 call neobundle#end()
-NeoBundleCheck
 
 runtime! ftplugin/man.vim
 
@@ -40,6 +35,8 @@ endif
 if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
+
+NeoBundleCheck
 
 """ File options
 set fileformat=unix
@@ -122,6 +119,7 @@ autocmd FileType man wincmd L
 autocmd FileType * setlocal conceallevel=0
 autocmd VimEnter,BufEnter,BufNewFile,BufRead * set conceallevel=0
 autocmd CompleteDone * pclose
+au VimEnter,BufWinEnter * syn match ErrorMsg " "
 
 """ Funcs
 function! RemoveTrailingWhiteSpace()
