@@ -88,14 +88,12 @@ uninstall_dotfiles() {
         local src=$(readlink -e $f)
         local target=$HOME/$f
 
-        if [[ -e $target ]]; then
-            if [[ -L $target ]] && [[ $(readlink -e $target) == $src ]]; then
-                info "UNLINK: $target"
-                $DRY || rm $target
-            else
-                info "BACKUP: $target -> ${target}.bak"
-                $DRY || mv $target ${target}.bak
-            fi
+        if [[ -L $target ]]; then
+            info "UNLINK: $target"
+            $DRY || rm $target
+	    elif [[ -e $target ]]; then
+            info "BACKUP: $target -> ${target}.bak"
+            $DRY || mv $target ${target}.bak
         fi
     done
 }
