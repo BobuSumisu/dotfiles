@@ -91,7 +91,7 @@ uninstall_dotfiles() {
         if [[ -L $target ]]; then
             info "UNLINK: $target"
             $DRY || rm $target
-	    elif [[ -e $target ]]; then
+        elif [[ -e $target ]]; then
             info "BACKUP: $target -> ${target}.bak"
             $DRY || mv $target ${target}.bak
         fi
