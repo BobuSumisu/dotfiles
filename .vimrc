@@ -1,6 +1,8 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'altercation/vim-colors-solarized'
+Plug 'tomasr/molokai'
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Yggdroot/indentLine'
@@ -48,14 +50,19 @@ set expandtab
 set shiftround
 
 """ Looks
+set t_Co=256
 set number
-set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
 set colorcolumn=120
 set laststatus=2
 let g:airline_theme='solarized'
 let g:indentLine_color_term = 239
+
+"set background=dark
+"let g:solarized_termcolors=16
+"colorscheme solarized
+
+let g:molokai_original=1
+colorscheme molokai
 
 """ Keys
 set backspace=2
@@ -66,6 +73,7 @@ nnoremap <c-k>          <c-w><c-k>
 nnoremap <c-h>          <c-w><c-h>
 nnoremap <c-l>          <c-w><c-l>
 
+nnoremap <leader>w      :w!<cr>
 nnoremap <leader>li     :set invlist<CR>
 nnoremap <leader>nt     :NERDTreeToggle<CR>
 nnoremap <leader>pa     :set invpaste<CR>
@@ -111,7 +119,7 @@ let g:ycm_autoclose_preview_window_after_completion=1
 """ Go
 let g:go_fmt_command = "goimports"
 au FileType go nmap <leader>gb :GoBuild<CR>
-au FileType go nmap <leader>gc :GoCoverage<CR>
+au FileType go nmap <leader>gc :GoCoverageToggle<CR>
 au FileType go nmap <leader>gd :GoDoc<CR>
 au FileType go nmap <leader>ge :GoRename<CR>
 au FileType go nmap <leader>gi :GoInfo<CR>
