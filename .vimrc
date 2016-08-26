@@ -1,20 +1,12 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'altercation/vim-colors-solarized'
-Plug 'tomasr/molokai'
-
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'Yggdroot/indentLine'
-
 Plug 'SirVer/ultisnips'
-Plug 'majutsushi/tagbar'
 Plug 'godlygeek/tabular'
-Plug 'raimondi/delimitmate'
-
-Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree' ", { 'on':  'NERDTreeToggle' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 
 function! BuildYCM(info)
@@ -56,13 +48,9 @@ set colorcolumn=120
 set laststatus=2
 let g:airline_theme='solarized'
 let g:indentLine_color_term = 239
-
-"set background=dark
-"let g:solarized_termcolors=16
-"colorscheme solarized
-
-let g:molokai_original=1
-colorscheme molokai
+set background=dark
+let g:solarized_termcolors=16
+colorscheme solarized
 
 """ Keys
 set backspace=2
@@ -86,34 +74,27 @@ nnoremap <leader>bp     :echo eval(line2byte(line("."))+col("."))<CR>
 
 vnoremap <leader>t\|    :Tabularize /\|<CR>
 
-
 """ Hooks
+autocmd VimEnter * :call OpenNERDTree()
+autocmd BufEnter * :call QuitIfOnlyNERDTree()
 autocmd BufWrite * :call RemoveTrailingWhiteSpace()
 autocmd FileType help,man wincmd L
+autocmd FileType qf wincmd J
 
 """ UltiSnips
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
-let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-function! <SID>ExpandSnippetOrReturn()
-    let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-        return snippet
-    else
-        return "\<CR>"
-    endif
-endfunction
 
 inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 
 """ YouCompleteMe
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 let g:ycm_min_num_of_chars_for_completion=1
-let g:ycm_key_list_select_completion = ['<tab>', '<down>']
-let g:ycm_key_list_previous_completion = ['<s-tab>', '<up>']
+let g:ycm_key_list_select_completion = ['<c-n>', '<down>']
+let g:ycm_key_list_previous_completion = ['<c-p>', '<up>']
 let g:ycm_autoclose_preview_window_after_completion=1
 
 """ Go
@@ -125,14 +106,40 @@ au FileType go nmap <leader>ge :GoRename<CR>
 au FileType go nmap <leader>gi :GoInfo<CR>
 au FileType go nmap <leader>gl :GoLint<CR>
 au FileType go nmap <leader>gr :GoRun<CR>
-au FileType go nmap <leader>gs :GoImplementss<CR>
+au FileType go nmap <leader>gs :GoImplements<CR>
 au FileType go nmap <leader>gt :GoTest<CR>
+au FileType go nmap <leader>gn :GoTestFunc<CR>
 au FileType go nmap <leader>gv :GoVet<CR>
 au FileType go nmap <leader>gw :GoDocBrowser<CR>
 
 """ Funcs
+
+function! OpenNERDTree()
+    NERDTree
+    if argc() != 0
+        exe "normal \<C-W>\<C-L>"
+    endif
+endfunction
+
+function! QuitIfOnlyNERDTree()
+    if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree())
+        quit
+    endif
+endfunction
+
 function! RemoveTrailingWhiteSpace()
     execute "normal mz"
         %s/\s\+$//ge
     execute "normal `z"
 endfunction
+
+function! <SID>ExpandSnippetOrReturn()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<CR>"
+    endif
+endfunction
+
+
