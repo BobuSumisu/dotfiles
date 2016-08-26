@@ -1,42 +1,29 @@
-if has('vim_starting')
-  if &compatible
-    set nocompatible
-  endif
+call plug#begin('~/.vim/plugged')
 
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
+Plug 'altercation/vim-colors-solarized'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'Yggdroot/indentLine'
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+Plug 'SirVer/ultisnips'
+Plug 'majutsushi/tagbar'
+Plug 'godlygeek/tabular'
+Plug 'raimondi/delimitmate'
 
-NeoBundleFetch 'Shougo/neobundle.vim'
+Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'vim-airline/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
-NeoBundle 'Yggdroot/indentLine'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'fatih/vim-go'
-NeoBundle 'rust-lang/rust.vim'
+Plug 'fatih/vim-go', { 'for': 'go' }
 
-NeoBundle '~/projects/vim/i3'
+function! BuildYCM(info)
+    if a:info.status == "installed" || a:info.force
+        !./install.py --clang-completer --gocode-completer
+    endif
+endfunction
 
-call neobundle#end()
+Plug 'valloric/youcompleteme', { 'do': function('BuildYCM') }
 
-runtime! ftplugin/man.vim
-
-if has('autocmd')
-  filetype plugin indent on
-endif
-
-if has('syntax') && !exists('g:syntax_on')
-  syntax enable
-endif
-
-NeoBundleCheck
+call plug#end()
 
 """ File options
 set fileformat=unix
@@ -50,8 +37,9 @@ set swapsync=
 set nofsync
 set modeline
 set modelines=5
+set conceallevel=2
 
-""" Indentation
+""" Identation
 set smartindent
 set tabstop=4
 set softtabstop=4
@@ -62,68 +50,76 @@ set shiftround
 """ Looks
 set number
 set background=dark
-set t_Co=256
-let g:solarized_termcolors=16
-silent! colorscheme solarized
+let g:solarized_termcolors=256
+colorscheme solarized
 set colorcolumn=120
 set laststatus=2
-set conceallevel=0
-
-""" UltiSnips
-let g:UltiSnipsExpandTrigger                = '<C-j>'
-let g:UltiSnipsJumpForwardTrigger           = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger          = '<s-tab>'
-let g:UltiSnipsEditSplit                    = "vertical"
-
-""" YouCompleteMe
-let g:ycm_min_num_of_chars_for_completion   = 1
-let g:ycm_filetype_blacklist                = { }
-let g:ycm_global_ycm_extra_conf             ='~/.vim/.ycm_extra_conf.py'
-let g:ycm_semantic_triggers                 = {'haskell' : ['.']}
-
-""" Go
-let g:go_fmt_command                        = "goimports"
-
-""" Haskell
-let g:haskellmode_completion_ghc            = 0
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+let g:airline_theme='solarized'
+let g:indentLine_color_term = 239
 
 """ Keys
+set backspace=2
 let mapleader=" "
-nnoremap <Leader>cm     :!chmod +x %<CR>
-nnoremap <Leader>cp     :!cat % \| xclip -selection clipboard<CR><CR>
-nnoremap <Leader>jd     :YcmCompleter GoTo<CR>
-nnoremap <Leader>l      :set list<CR>
-nnoremap <Leader>L      :set nolist<CR>
-nnoremap <Leader>mc     :make! clean<CR>
-nnoremap <Leader>mm     :make!<CR>
-nnoremap <Leader>n      :NERDTree<CR>
-nnoremap <Leader>N      :NERDTreeClose<CR>
-nnoremap <Leader>P      :set nopaste<CR>
-nnoremap <Leader>p      :set paste<CR>
-nnoremap <Leader>se     :UltiSnipsEdit<CR>
-nnoremap <Leader>so     :so %<CR>
-nnoremap <Leader>ss     :w !sudo tee %<CR>
-nnoremap <Leader>t=     :Tabularize /=<CR>
-nnoremap <Leader>t\|    :Tabularize /\|<CR>
-nnoremap <Leader>V      :so $MYVIMRC<CR>
-nnoremap <Leader>v      :vsplit $MYVIMRC<CR>
-vnoremap <Leader>t=     :Tabularize /=<CR>
-vnoremap <Leader>t\|    :Tabularize /\|<CR>
-nnoremap <Leader>x      :!./%<CR>
+
+nnoremap <leader>li     :set invlist<CR>
+nnoremap <leader>nt     :NERDTreeToggle<CR>
+nnoremap <leader>pa     :set invpaste<CR>
+nnoremap <leader>so     :so %<CR>
+nnoremap <leader>sn     :UltiSnipsEdit<CR>
+nnoremap <leader>tb     :TagbarToggle<CR>
+nnoremap <leader>vi     :vsplit $MYVIMRC<CR>
+nnoremap <leader>t\|    :Tabularize /\|<CR>
+nnoremap <leader>bp     :echo eval(line2byte(line("."))+col("."))<CR>
+
+vnoremap <leader>t\|    :Tabularize /\|<CR>
+
 
 """ Hooks
 autocmd BufWrite * :call RemoveTrailingWhiteSpace()
-autocmd FileType help wincmd L
-autocmd FileType man wincmd L
-autocmd FileType * setlocal conceallevel=0
-autocmd VimEnter,BufEnter,BufNewFile,BufRead * set conceallevel=0
-autocmd CompleteDone * pclose
-au VimEnter,BufWinEnter * syn match ErrorMsg " "
+autocmd FileType help,man wincmd L
+
+""" UltiSnips
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+function! <SID>ExpandSnippetOrReturn()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<CR>"
+    endif
+endfunction
+
+inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
+
+""" YouCompleteMe
+let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+let g:ycm_min_num_of_chars_for_completion=1
+let g:ycm_key_list_select_completion = ['<tab>', '<down>']
+let g:ycm_key_list_previous_completion = ['<s-tab>', '<up>']
+let g:ycm_autoclose_preview_window_after_completion=1
+
+""" Go
+let g:go_fmt_command = "goimports"
+au FileType go nmap <leader>gb :GoBuild<CR>
+au FileType go nmap <leader>gc :GoCoverage<CR>
+au FileType go nmap <leader>gd :GoDoc<CR>
+au FileType go nmap <leader>ge :GoRename<CR>
+au FileType go nmap <leader>gi :GoInfo<CR>
+au FileType go nmap <leader>gl :GoLint<CR>
+au FileType go nmap <leader>gr :GoRun<CR>
+au FileType go nmap <leader>gs :GoImplementss<CR>
+au FileType go nmap <leader>gt :GoTest<CR>
+au FileType go nmap <leader>gv :GoVet<CR>
+au FileType go nmap <leader>gw :GoDocBrowser<CR>
 
 """ Funcs
 function! RemoveTrailingWhiteSpace()
     execute "normal mz"
-    %s/\s\+$//ge
+        %s/\s\+$//ge
     execute "normal `z"
 endfunction
