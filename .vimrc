@@ -61,6 +61,11 @@ let g:indentLine_color_term = 239
 set backspace=2
 let mapleader=" "
 
+nnoremap <c-j>          <c-w><c-j>
+nnoremap <c-k>          <c-w><c-k>
+nnoremap <c-h>          <c-w><c-h>
+nnoremap <c-l>          <c-w><c-l>
+
 nnoremap <leader>li     :set invlist<CR>
 nnoremap <leader>nt     :NERDTreeToggle<CR>
 nnoremap <leader>pa     :set invpaste<CR>
