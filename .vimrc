@@ -100,14 +100,17 @@ let g:ycm_key_list_previous_completion = ['<c-p>', '<up>']
 let g:ycm_autoclose_preview_window_after_completion=1
 
 """ Fugitive
+nnoremap <leader>Ga     :Git add %<CR>
 nnoremap <leader>Gb     :Gblame<CR>
-nnoremap <leader>Gc     :Gcommit<CR>
 nnoremap <leader>Gd     :Gsdiff<CR>
-nnoremap <leader>Gg     :Glog<CR>
-nnoremap <leader>Gm     :Gmerge<CR>
-nnoremap <leader>Gs     :Gstatus<CR>
+nnoremap <leader>Ge     :Gmerge<CR>
+nnoremap <leader>Gf     :Gfetch<CR>
+nnoremap <leader>Gg     :Ggrep<CR>
+nnoremap <leader>Gl     :Glog<CR>
+nnoremap <leader>Gm     :Gcommit<CR>
 nnoremap <leader>Gp     :Gpush<CR>
-nnoremap <leader>Gl     :Gpull<CR>
+nnoremap <leader>Gs     :Gstatus<CR>
+nnoremap <leader>Gu     :Gpull<CR>
 nnoremap <leader>Gw     :Gbrowse<CR>
 
 """ Go
