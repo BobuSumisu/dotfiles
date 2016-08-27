@@ -1,29 +1,40 @@
 # ~/.bash_aliases
 # vim: set ft=sh:
 
+# The standards.
 alias ls='ls --color=always'
 alias ll='ls -al'
 alias grep='grep --color=always'
 
+# Jesus.
 alias \:w='echo "you are not in vim now..."'
 
-# Some git shortcuts
-alias Ga='git add'
-alias Gb='git blame'
-alias Gc='git clone'
-alias Gd='git diff'
-alias Ge='git merge'
-alias Gf='git fetch'
-alias Gg='git grep'
-alias Gh='git show'
-alias Gi='git init'
-alias Gl='git log'
-alias Gm='git commit'
-alias Gn='git branch'
-alias Go='git checkout'
-alias Gp='git push'
-alias Gr='git rm'
-alias Gs='git status'
-alias Gt='git reset'
-alias Gu='git pull'
-alias Gv='git mv'
+# Some git shortcuts.
+alias gita='git add'
+alias gitb='git blame'
+alias gitc='git clone'
+alias gitd='git diff'
+alias gite='git merge'
+alias gitf='git fetch'
+alias gitg='git grep'
+alias gith='git show'
+alias giti='git init'
+alias gitl='git log'
+alias gitm='git commit'
+alias gitn='git branch'
+alias gito='git checkout'
+alias gitp='git push'
+alias gitr='git rm'
+alias gits='git status'
+alias gitt='git reset'
+alias gitu='git pull'
+alias gitv='git mv'
+
+# Apt
+alias aptup='sudo apt-get update'
+alias aptug='sudo apt-get upgrade'
+alias aptuu='sudo apt-get update && sudo apt-get upgrade'
+alias aptcs='apt-cache search'
+alias aptch='apt-cache show'
+alias aptcp='apt-cache showpkg'
+alias aptcd='apt-cache depends'
