@@ -24,8 +24,11 @@ export EDITOR=vim
 export VISUAL=vim
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export WINEARCH=win32
-export PS1='\u@$(tput setaf 4)\h$(tput sgr0) \w$(__git_ps1 " (%s)")\n\$ '
 export GOPATH=~/projects/go
 export GOROOT=/opt/go1.7
 
 export PATH=$PATH:~/.bin:~/.local/bin:$GOPATH/bin:$GOROOT/bin
+
+export PS1='\u@$(tput setaf 4)\h$(tput sgr0) \w$(__git_ps1 " (%s)")\n\$ '
+
+

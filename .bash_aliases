@@ -38,3 +38,7 @@ alias aptcs='apt-cache search'
 alias aptch='apt-cache show'
 alias aptcp='apt-cache showpkg'
 alias aptcd='apt-cache depends'
+
+# Golang
+alias go-deps='go list -f "{{ join .Deps \"\n\" }}"'
+alias go-imps='go list -f "{{ join .Imports \"\n\" }}"'
