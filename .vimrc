@@ -1,12 +1,13 @@
 call plug#begin('~/.vim/plugged')
 
+Plug 'tpope/vim-fugitive'
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'SirVer/ultisnips'
 Plug 'godlygeek/tabular'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree' ", { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 Plug 'fatih/vim-go', { 'for': 'go' }
 
 function! BuildYCM(info)
@@ -61,7 +62,7 @@ nnoremap <c-k>          <c-w><c-k>
 nnoremap <c-h>          <c-w><c-h>
 nnoremap <c-l>          <c-w><c-l>
 
-nnoremap <leader>w      :w!<cr>
+nnoremap <leader>mk     :make<CR>
 nnoremap <leader>li     :set invlist<CR>
 nnoremap <leader>nt     :NERDTreeToggle<CR>
 nnoremap <leader>pa     :set invpaste<CR>
@@ -80,6 +81,7 @@ autocmd BufEnter * :call QuitIfOnlyNERDTree()
 autocmd BufWrite * :call RemoveTrailingWhiteSpace()
 autocmd FileType help,man wincmd L
 autocmd FileType qf wincmd J
+autocmd BufReadPost qf nnoremap <buffer> <CR> <CR>
 
 """ UltiSnips
 let g:UltiSnipsEditSplit="vertical"
@@ -96,6 +98,17 @@ let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_key_list_select_completion = ['<c-n>', '<down>']
 let g:ycm_key_list_previous_completion = ['<c-p>', '<up>']
 let g:ycm_autoclose_preview_window_after_completion=1
+
+""" Fugitive
+nnoremap <leader>Gb     :Gblame<CR>
+nnoremap <leader>Gc     :Gcommit<CR>
+nnoremap <leader>Gd     :Gsdiff<CR>
+nnoremap <leader>Gg     :Glog<CR>
+nnoremap <leader>Gm     :Gmerge<CR>
+nnoremap <leader>Gs     :Gstatus<CR>
+nnoremap <leader>Gp     :Gpush<CR>
+nnoremap <leader>Gl     :Gpull<CR>
+nnoremap <leader>Gw     :Gbrowse<CR>
 
 """ Go
 let g:go_fmt_command = "goimports"
