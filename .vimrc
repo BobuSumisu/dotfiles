@@ -157,5 +157,3 @@ function! <SID>ExpandSnippetOrReturn()
         return "\<CR>"
     endif
 endfunction
-
-
