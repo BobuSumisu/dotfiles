@@ -1,0 +1,6 @@
+.gitignore
+.vim/*
+!.vim/.ycm_extra_conf.py
+!.vim/UltiSnips
+.config/nvim/*
+!.config/nvim/init.vim
