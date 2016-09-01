@@ -52,7 +52,7 @@ let g:airline_theme='solarized'
 let g:indentLine_color_term = 239
 set background=dark
 let g:solarized_termcolors=16
-colorscheme solarized
+silent! colorscheme solarized
 
 """ Keys
 set backspace=2

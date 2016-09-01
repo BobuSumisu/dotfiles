@@ -2,7 +2,9 @@
 cd $(dirname $0)
 DRY=false
 DOTFILES_ROOT=$(pwd -P)
+
 DOTFILES=(
+<<<<<<< HEAD
     .bash_aliases
     .bashrc
     .bin
@@ -15,6 +17,19 @@ DOTFILES=(
     .vim
     .vimrc
     .Xresources
+=======
+    .Xresources                     # Set up urxvt with a solarized theme and the inconsolate font.
+    .bash_aliases                   # My aliases.
+    .bashrc                         # Set up my bash enviroment.
+    .bin                            # To place small scripts.
+    .config/dunst                   # Dunst config (notification daemon).
+    .config/user-dirs.dirs          # I like small initial letters in my $HOME.
+    .gdbinit                        # Use intel syntax in gdb disassembly.
+    .i3                             # Contains the i3 config file.
+    .i3status.conf                  # Configuration for i3 status bar.
+    .vim                            # The holy vim folder.
+    .vimrc                          # The even holier vim config file.
+>>>>>>> bfce05bdcf318a56fefc911ae94984293478c3f8
 )
 
 usage() {
@@ -23,25 +38,28 @@ usage() {
     echo "Options:"
     echo "  -d, --dry               run dry (no actual file system changes)"
     echo "  -h, --help              show this info"
-    echo "  --no-dots               do not install dotfiles (default: false)"
-    echo "  --vim                   setup vim (default: false)"
-    echo "  --term                  setup terminal emulator (default: false)"
-    echo "  --i3                    setup i3 window manager (default: false)"
+    echo "  --all                   do everything"
+    echo "  --dots                  install dotfiles"
+    echo "  --vim                   setup vim"
+    echo "  --term                  setup terminal emulator"
+    echo "  --i3                    setup i3 window manager"
+    echo "  --go                    setup Go 1.7"
 }
 
 main() {
-    local dots=true
+    local dots=false
     local vim=false
     local term=false
     local i3=false
+    local go=false
 
     while [[ $# > 0 ]]; do
         case $1 in
             -d|--dry)
                 DRY=true
                 ;;
-            --no-dots)
-                dots=false
+            --dots)
+                dots=true
                 ;;
             --vim)
                 vim=true
@@ -51,6 +69,9 @@ main() {
                 ;;
             --i3)
                 i3=true
+                ;;
+            --go)
+                go=true
                 ;;
             -h|--help)
                 usage
@@ -74,6 +95,7 @@ main() {
     $vim && setup_vim
     $term && setup_term
     $i3 && setup_i3
+    $go && setup_go
 
     exit 0
 }
@@ -126,29 +148,47 @@ install_dotfiles() {
 setup_vim() {
     info "--- $FUNCNAME ---"
 
-    local vim_packages=( vim-nox build-essential cmake python-dev )
+    info "pulling latest vim source from https://github.com/vim/vim.git"
+    if [[ ! -d $DOTFILES_ROOT/vim ]]; then
+        git clone https://github.com/vim/vim.git $DOTFILES_ROOT/vim
+        cd $DOTFILES_ROOT/vim
+    else
+        cd $DOTFILES_ROOT/vim
+        git pull > /dev/null
+    fi
 
-    for p in ${vim_packages[@]}; do
-        info "INSTALL: $p"
-        $DRY || sudo apt-get install $p
-    done
+    info "configuring vim"
+    ./configure --enable-pythoninterp > /dev/null
+    if [[ $? != 0 ]]; then
+        info "configuration of vim failed!"
+        exit 1
+    fi
 
-    info "GIT: initializing NeoBundle git submodule"
-    $DRY || {
-        cd $DOTFILES_ROOT
-        git submodule init
-        git submodule update
-    }
+    info "compiling vim"
+    make -j$(nproc) >/dev/null
+    if [[ $? != 0 ]]; then
+        info "compilation of vim failed!"
+        exit 1
+    fi
 
-    info "VIM: installing NeoBundle packages"
-    $DRY || vim +NeoBundleInstall +qall
+    info "installing vim"
+    sudo make install > /dev/null
+    if [[ $? != 0 ]]; then
+        info "installation of vim failed!"
+        exit 1
+    fi
 
-    info "YCM: compiling YouCompleteMe (with clang support)"
-    $DRY || {
-        cd $HOME/.vim/bundle/YouCompleteMe
-        ./install.py --clang-completer
-        cd $DOTFILES_ROOT
-    }
+    info "vim installed to $(which vim)"
+    cd $DOTFILES_ROOT
+
+    info "setting up vim-plug"
+    if [[ ! -f $DOTFILES_ROOT/.vim/autoload/plug.vim ]]; then
+        curl -fLo $DOTFILES_ROOT/.vim/autoload/plug.vim --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    fi
+    vim +PlugInstall! +qall
+
+    info "vim installed and ready to roll!"
 }
 
 setup_neovim() {
@@ -177,6 +217,33 @@ setup_i3() {
         info "INSTALL: $p"
         $DRY || sudo apt-get install $p
     done
+}
+
+setup_go() {
+    info "--- $FUNCNAME ---"
+
+    which go > /dev/null
+    if [[ $? != 0 ]]; then
+        info "installing go debian package for bootstrapping"
+        sudo apt-get install golang-go
+    fi
+
+    info "pulling latest go source from https://go.googlesource.com/go"
+    if [[ -d $DOTFILES_ROOT/go ]]; then
+        cd $DOTFILES_ROOT/go
+        git checkout go1.7
+    else
+        git clone https://go.googlesource.com/go $DOTFILES_ROOT/go
+        cd $DOTFILES_ROOT/go
+        git checkout go1.7
+    fi
+
+    info "compiling go"
+    cd $DOTFILES_ROOT/go/src
+    GOROOT_BOOTSTRAP=/usr/local/go ./all.bash
+
+    info "removing go from debian package"
+    sudo apt-get remove golang-go
 }
 
 main $@
