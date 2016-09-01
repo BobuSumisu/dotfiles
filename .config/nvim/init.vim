@@ -1,3 +1,5 @@
+" ~/.config/nvim/init.vim
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-fugitive'
@@ -23,14 +25,10 @@ call plug#end()
 
 """ File options
 set fileformat=unix
-set fileencoding=utf-8
-set encoding=utf-8
 set nobackup
 set noswapfile
 set nowritebackup
 set autoread
-set swapsync=
-set nofsync
 set modeline
 set modelines=5
 set conceallevel=0

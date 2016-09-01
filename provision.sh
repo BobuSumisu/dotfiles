@@ -8,6 +8,7 @@ DOTFILES=(
     .bin
     .config/dunst
     .config/user-dirs.dirs
+    .config/nvim
     .gdbinit
     .i3
     .i3status.conf
@@ -148,6 +149,12 @@ setup_vim() {
         ./install.py --clang-completer
         cd $DOTFILES_ROOT
     }
+}
+
+setup_neovim() {
+    info "--- $FUNCNAME ---"
+    git clone https://github.com/neovim/neovim.git
+    # install python packages
 }
 
 setup_term() {

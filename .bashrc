@@ -31,4 +31,3 @@ export PATH=$PATH:~/.bin:~/.local/bin:$GOPATH/bin:$GOROOT/bin
 
 export PS1='\u@$(tput setaf 4)\h$(tput sgr0) \w$(__git_ps1 " (%s)")\n\$ '
 
-
