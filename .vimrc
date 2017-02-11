@@ -1,19 +1,29 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'tpope/vim-fugitive'
+Plug 'SirVer/ultisnips'
 Plug 'altercation/vim-colors-solarized'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'godlygeek/tabular'
+Plug 'majutsushi/tagbar'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'raimondi/delimitmate'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'SirVer/ultisnips'
-Plug 'godlygeek/tabular'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'yaunj/vim-yara'
+
+Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 function! BuildYCM(info)
     if a:info.status == "installed" || a:info.force
-        !./install.py --clang-completer --gocode-completer
+        !./install.py --clang-completer \
+                      --gocode-completer \
+                      --racer-completer
     endif
 endfunction
 
@@ -74,7 +84,6 @@ nnoremap <leader>tb     :TagbarToggle<CR>
 nnoremap <leader>vi     :vsplit $MYVIMRC<CR>
 nnoremap <leader>t\|    :Tabularize /\|<CR>
 nnoremap <leader>bp     :echo eval(line2byte(line("."))+col("."))<CR>
-
 vnoremap <leader>t\|    :Tabularize /\|<CR>
 
 """ Hooks

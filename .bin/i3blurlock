@@ -1,6 +1,6 @@
 #!/bin/bash
-IMG=~/tmp/scrot.png
-scrot $IMG 
+IMG=~/pictures/temp-scrot.png
+scrot $IMG
 convert $IMG -blur 3x3 $IMG
 i3lock -e -u -i $IMG
 sleep 1
