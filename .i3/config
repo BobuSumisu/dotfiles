@@ -141,8 +141,6 @@ client.background           $S_base03
 bar {
     status_command i3status
 
-    font pango:$font 7
-
     colors {
         background              $S_base02
         statusline              $S_base1

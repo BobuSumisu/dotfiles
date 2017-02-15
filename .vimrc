@@ -13,6 +13,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yaunj/vim-yara'
+Plug 'suan/vim-instant-markdown'
 
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -21,9 +22,7 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 function! BuildYCM(info)
     if a:info.status == "installed" || a:info.force
-        !./install.py --clang-completer \
-                      --gocode-completer \
-                      --racer-completer
+        !./install.py --clang-completer --gocode-completer --racer-completer
     endif
 endfunction
 
@@ -138,6 +137,13 @@ au FileType go nmap <leader>gt :GoTest<CR>
 au FileType go nmap <leader>gn :GoTestFunc<CR>
 au FileType go nmap <leader>gv :GoVet<CR>
 au FileType go nmap <leader>gw :GoDocBrowser<CR>
+
+""" Rust
+let g:ycm_rust_src_path = "/home/oyvind/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 """ Funcs
 

@@ -33,6 +33,8 @@ export WINEARCH=win32
 export GOROOT=~/projects/3rd/go
 export GOPATH=~/projects/go
 
+export RUST_SRC_PTH=~/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
+
 export PATH=$PATH:~/.bin:~/.local/bin:$GOPATH/bin:$GOROOT/bin:~/.cargo/bin
 
 export PS1='\u@$(tput setaf 4)\h$(tput sgr0) \w$(__git_ps1 " (%s)")\n\$ '
