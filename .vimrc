@@ -73,16 +73,17 @@ nnoremap <c-k>          <c-w><c-k>
 nnoremap <c-h>          <c-w><c-h>
 nnoremap <c-l>          <c-w><c-l>
 
-nnoremap <leader>mk     :make<CR>
+""" Some general keybindings.
+nnoremap <leader>bp     :echo eval(line2byte(line("."))+col("."))<CR>
 nnoremap <leader>li     :set invlist<CR>
+nnoremap <leader>mk     :make<CR>
 nnoremap <leader>nt     :NERDTreeToggle<CR>
 nnoremap <leader>pa     :set invpaste<CR>
-nnoremap <leader>so     :so %<CR>
 nnoremap <leader>sn     :UltiSnipsEdit<CR>
+nnoremap <leader>so     :so %<CR>
+nnoremap <leader>t\|    :Tabularize /\|<CR>
 nnoremap <leader>tb     :TagbarToggle<CR>
 nnoremap <leader>vi     :vsplit $MYVIMRC<CR>
-nnoremap <leader>t\|    :Tabularize /\|<CR>
-nnoremap <leader>bp     :echo eval(line2byte(line("."))+col("."))<CR>
 vnoremap <leader>t\|    :Tabularize /\|<CR>
 
 """ Hooks
@@ -108,6 +109,13 @@ let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_key_list_select_completion = ['<c-n>', '<down>']
 let g:ycm_key_list_previous_completion = ['<c-p>', '<up>']
 let g:ycm_autoclose_preview_window_after_completion=1
+nnoremap <leader>yd     :YcmCompleter GetDoc<CR>
+nnoremap <leader>yf     :YcmCompleter FixIt<CR>
+nnoremap <leader>yg     :YcmCompleter GoTo<CR>
+nnoremap <leader>yi     :YcmCompleter GoToInclude<CR>
+nnoremap <leader>yr     :YcmCompleter RestartServer<CR>
+nnoremap <leader>yt     :YcmCompleter GetType<CR>
+nnoremap <leader>yx     :YcmCompleter GoToReferences<CR>
 
 """ Fugitive
 nnoremap <leader>Ga     :Git add %<CR>
@@ -125,25 +133,34 @@ nnoremap <leader>Gw     :Gbrowse<CR>
 
 """ Go
 let g:go_fmt_command = "goimports"
-au FileType go nmap <leader>gb :GoBuild<CR>
-au FileType go nmap <leader>gc :GoCoverageToggle<CR>
-au FileType go nmap <leader>gd :GoDoc<CR>
-au FileType go nmap <leader>ge :GoRename<CR>
-au FileType go nmap <leader>gi :GoInfo<CR>
-au FileType go nmap <leader>gl :GoLint<CR>
-au FileType go nmap <leader>gr :GoRun<CR>
-au FileType go nmap <leader>gs :GoImplements<CR>
-au FileType go nmap <leader>gt :GoTest<CR>
-au FileType go nmap <leader>gn :GoTestFunc<CR>
-au FileType go nmap <leader>gv :GoVet<CR>
-au FileType go nmap <leader>gw :GoDocBrowser<CR>
+au FileType go nmap <leader>gb      :GoBuild<CR>
+au FileType go nmap <leader>gc      :GoCoverageToggle<CR>
+au FileType go nmap <leader>gd      :GoDoc<CR>
+au FileType go nmap <leader>ge      :GoRename<CR>
+au FileType go nmap <leader>gi      :GoInfo<CR>
+au FileType go nmap <leader>gl      :GoLint<CR>
+au FileType go nmap <leader>gn      :GoTestFunc<CR>
+au FileType go nmap <leader>gr      :GoRun<CR>
+au FileType go nmap <leader>gs      :GoImplements<CR>
+au FileType go nmap <leader>gt      :GoTest<CR>
+au FileType go nmap <leader>gv      :GoVet<CR>
+au FileType go nmap <leader>gw      :GoDocBrowser<CR>
 
 """ Rust
 let g:ycm_rust_src_path = "/home/oyvind/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
+let g:rustfmt_autosave = 1
+let g:rust_fold = 1
+au FileType rust nmap <leader>cb    :!cargo build<CR>
+au FileType rust nmap <leader>cc    :!cargo clean<CR>
+au FileType rust nmap <leader>cd    :!cargo doc<CR>
+au FileType rust nmap <leader>ch    :!cargo bench<CR>
+au FileType rust nmap <leader>cr    :!cargo run<CR>
+au FileType rust nmap <leader>ct    :!cargo test<CR>
+au FileType rust nmap <leader>cu    :!cargo update<CR>
+au FileType rust nmap <leader>ra    :RustEmitAsm<CR>
+au FileType rust nmap <leader>re    :RustExpand<CR>
+au FileType rust nmap <leader>ri    :RustEmitIr<CR>
+au FileType rust nmap <leader>rr    :RustRun<CR>
 
 """ Funcs
 
