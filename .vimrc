@@ -13,7 +13,6 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yaunj/vim-yara'
-Plug 'suan/vim-instant-markdown'
 
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -137,6 +136,7 @@ au FileType go nmap <leader>gb      :GoBuild<CR>
 au FileType go nmap <leader>gc      :GoCoverageToggle<CR>
 au FileType go nmap <leader>gd      :GoDoc<CR>
 au FileType go nmap <leader>ge      :GoRename<CR>
+au FileType go nmap <leader>gf      :GoDef<CR>
 au FileType go nmap <leader>gi      :GoInfo<CR>
 au FileType go nmap <leader>gl      :GoLint<CR>
 au FileType go nmap <leader>gn      :GoTestFunc<CR>
