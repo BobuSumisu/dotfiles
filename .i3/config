@@ -16,10 +16,10 @@ set $hibernate_command          systemctl hibernate
 set $reboot_command             systemctl reboot
 set $shutdown_command           systemctl poweroff -i
 
-set $volume_up                  amixer -q set Master 5%+ unmute
-set $volume_down                amixer -q set Master 5%- unmute
-set $volume_mute                amixer -q set Master toggle
-set $volume_mic_mute            amixer -q set Capture toggle
+set $volume_up                  pactl set-sink-volume @DEFAULT_SINK@ +5%
+set $volume_down                pactl set-sink-volume @DEFAULT_SINK@ -5%
+set $volume_mute                pactl set-sink-mute @DEFAULT_SINK@ toggle
+set $volume_mic_mute            pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 set $backlight_up               xbacklight -time 0 -steps 1 -inc 10
 set $backlight_down             xbacklight -time 0 -steps 1 -dec 10
@@ -38,7 +38,6 @@ set $S_violet                   #6c71c4
 set $S_blue                     #268bd2
 set $S_cyan                     #2aa198
 set $S_green                    #859900
-# Dark
 set $S_base0                    #839496
 set $S_base1                    #93a1a1
 set $S_base2                    #eee8d5
@@ -47,15 +46,6 @@ set $S_base03                   #002b36
 set $S_base02                   #073642
 set $S_base01                   #586e75
 set $S_base00                   #657b83
-# Light
-# set $S_base0                    #657b83
-# set $S_base1                    #586e75
-# set $S_base2                    #073642
-# set $S_base3                    #002b36
-# set $S_base03                   #fdf6e3
-# set $S_base02                   #eee8d5
-# set $S_base01                   #93a1a1
-# set $S_base00                   #839496
 
 font                            pango:$font $font_size
 default_orientation             horizontal
@@ -126,8 +116,9 @@ bindsym XF86AudioMicMute        exec $volume_mic_mute   && $reload_statusbar
 
 bindsym XF86MonBrightnessDown   exec $backlight_down
 bindsym XF86MonBrightnessUp     exec $backlight_up
-bindsym Shift+Ctrl+l            mode "$metamode"
-bindsym $mod+q                  mode "$quicklaunch"
+bindsym Shift+Ctrl+l            mode "$meta_mode"
+bindsym $mod+q                  mode "$quicklaunch_mode"
+bindsym Shift+space             mode "$keyboard_mode"
 
 bindsym $mod+c                  exec --no-startup-id $HOME/.bin/mousecol
 
@@ -154,20 +145,21 @@ bar {
     }
 }
 
-set $metamode Meta: e(X)it i3, (l)ock screen, (H)ibernate, (S)uspend, (R)eboot, shut(D)own
-mode "$metamode" {
+set $meta_mode Meta: e(X)it i3, (l)ock screen, (H)ibernate, (S)uspend, (R)eboot, shut(D)own
+mode "$meta_mode" {
     bindsym Shift+x exec i3-msg exit, mode "default"
     bindsym l exec --no-startup-id $lock_command, mode "default"
     bindsym Shift+s exec --no-startup-id $lock_command && sleep 1 && $suspend_command, mode "default"
     bindsym Shift+h exec --no-startup-id $lock_command && sleep 1 && $hibernate_command, mode "default"
     bindsym Shift+r exec --no-startup-id $reboot_command, mode "default"
     bindsym Shift+d exec --no-startup-id $shutdown_command, mode "default"
+
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
-set $quicklaunch Quicklaunch: (w)eb, (m)ail, (v)m, mu(s)ic, (d)oc, (f)iles
-mode "$quicklaunch" {
+set $quicklaunch_mode Quicklaunch: (w)eb, (m)ail, (v)m, mu(s)ic, (d)oc, (f)iles
+mode "$quicklaunch_mode" {
   bindsym w exec --no-startup-id $web_browser, mode "default"
   bindsym m exec --no-startup-id $mail_client, mode "default"
   bindsym v exec --no-startup-id $vm_manager, mode "default"
@@ -177,6 +169,16 @@ mode "$quicklaunch" {
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
+}
+
+set $keyboard_mode Keyboard: (1) norwegian, (2) hebrew
+mode "$keyboard_mode" {
+
+    bindsym 1 exec --no-startup-id setxkbmap no, mode "default"
+    bindsym 2 exec --no-startup-id setxkbmap il, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 exec --no-startup-id xsetroot -solid "$S_base03"
