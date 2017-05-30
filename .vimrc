@@ -1,22 +1,12 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'SirVer/ultisnips'
 Plug 'altercation/vim-colors-solarized'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'godlygeek/tabular'
-Plug 'majutsushi/tagbar'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'raimondi/delimitmate'
 Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'yaunj/vim-yara'
 
-Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 function! BuildYCM(info)
@@ -78,12 +68,8 @@ nnoremap <leader>li     :set invlist<CR>
 nnoremap <leader>mk     :make<CR>
 nnoremap <leader>nt     :NERDTreeToggle<CR>
 nnoremap <leader>pa     :set invpaste<CR>
-nnoremap <leader>sn     :UltiSnipsEdit<CR>
 nnoremap <leader>so     :so %<CR>
-nnoremap <leader>t\|    :Tabularize /\|<CR>
-nnoremap <leader>tb     :TagbarToggle<CR>
 nnoremap <leader>vi     :vsplit $MYVIMRC<CR>
-vnoremap <leader>t\|    :Tabularize /\|<CR>
 
 """ Hooks
 autocmd VimEnter * :call OpenNERDTree()
@@ -92,15 +78,6 @@ autocmd BufWrite * :call RemoveTrailingWhiteSpace()
 autocmd FileType help,man wincmd L
 autocmd FileType qf wincmd J
 autocmd BufReadPost qf nnoremap <buffer> <CR> <CR>
-
-""" UltiSnips
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 
 """ YouCompleteMe
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
@@ -115,20 +92,6 @@ nnoremap <leader>yi     :YcmCompleter GoToInclude<CR>
 nnoremap <leader>yr     :YcmCompleter RestartServer<CR>
 nnoremap <leader>yt     :YcmCompleter GetType<CR>
 nnoremap <leader>yx     :YcmCompleter GoToReferences<CR>
-
-""" Fugitive
-nnoremap <leader>Ga     :Git add %<CR>
-nnoremap <leader>Gb     :Gblame<CR>
-nnoremap <leader>Gd     :Gsdiff<CR>
-nnoremap <leader>Ge     :Gmerge<CR>
-nnoremap <leader>Gf     :Gfetch<CR>
-nnoremap <leader>Gg     :Ggrep<CR>
-nnoremap <leader>Gl     :Glog<CR>
-nnoremap <leader>Gm     :Gcommit<CR>
-nnoremap <leader>Gp     :Gpush<CR>
-nnoremap <leader>Gs     :Gstatus<CR>
-nnoremap <leader>Gu     :Gpull<CR>
-nnoremap <leader>Gw     :Gbrowse<CR>
 
 """ Go
 let g:go_fmt_command = "goimports"
@@ -148,8 +111,8 @@ au FileType go nmap <leader>gw      :GoDocBrowser<CR>
 
 """ Rust
 let g:ycm_rust_src_path = "/home/oyvind/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-let g:rustfmt_autosave = 1
-let g:rust_fold = 1
+let g:rustfmt_autosave = 0
+let g:rust_fold = 0
 au FileType rust nmap <leader>cb    :!cargo build<CR>
 au FileType rust nmap <leader>cc    :!cargo clean<CR>
 au FileType rust nmap <leader>cd    :!cargo doc<CR>
@@ -163,7 +126,6 @@ au FileType rust nmap <leader>ri    :RustEmitIr<CR>
 au FileType rust nmap <leader>rr    :RustRun<CR>
 
 """ Funcs
-
 function! OpenNERDTree()
     NERDTree
     if argc() != 0
@@ -181,13 +143,4 @@ function! RemoveTrailingWhiteSpace()
     execute "normal mz"
         %s/\s\+$//ge
     execute "normal `z"
-endfunction
-
-function! <SID>ExpandSnippetOrReturn()
-    let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-        return snippet
-    else
-        return "\<CR>"
-    endif
 endfunction

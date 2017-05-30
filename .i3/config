@@ -5,7 +5,7 @@ set $font_size                  10
 set $terminal                   urxvt
 set $web_browser                google-chrome
 set $mail_client                icedove
-set $vm_manager                 virtualbox
+set $vm_manager                 primusrun vmware
 set $music_player               spotify
 set $doc_viewer                 evince
 set $file_manager               thunar
@@ -70,6 +70,9 @@ bindsym $mod+Shift+k            move down
 bindsym $mod+Shift+l            move up
 bindsym $mod+Shift+oslash       move right
 
+bindsym $mod+Shift+Left         move workspace to output left
+bindsym $mod+Shift+Right        move workspace to output right
+
 bindsym $mod+h                  split h
 bindsym $mod+v                  split v
 bindsym $mod+f                  fullscreen
@@ -118,9 +121,10 @@ bindsym XF86MonBrightnessDown   exec $backlight_down
 bindsym XF86MonBrightnessUp     exec $backlight_up
 bindsym Shift+Ctrl+l            mode "$meta_mode"
 bindsym $mod+q                  mode "$quicklaunch_mode"
-bindsym Shift+space             mode "$keyboard_mode"
+#bindsym Shift+space             mode "$keyboard_mode"
 
-bindsym $mod+c                  exec --no-startup-id $HOME/.bin/mousecol
+#for_window [class="Unity"] floating enable
+for_window [class="MonoDevelop"] floating enable
 
 # class                     # border        # background    # foreground    # indicator
 client.focused              $footer         $S_base02       $S_base0        $S_red
@@ -183,3 +187,4 @@ mode "$keyboard_mode" {
 
 exec --no-startup-id xsetroot -solid "$S_base03"
 exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
