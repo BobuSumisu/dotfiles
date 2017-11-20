@@ -5,9 +5,17 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'ctrlpvim/ctrlp.vim'
+
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/seoul256.vim'
 
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'PProvost/vim-ps1'
+
+""" YouCompleteMe has to be rebuilt on update.
 
 function! BuildYCM(info)
     if a:info.status == "installed" || a:info.force
@@ -46,11 +54,21 @@ set t_Co=256
 set number
 set colorcolumn=120
 set laststatus=2
-let g:airline_theme='solarized'
 let g:indentLine_color_term = 239
 set background=dark
 let g:solarized_termcolors=16
 silent! colorscheme solarized
+
+""" Airline
+let g:airline_powerline_fonts = 0
+let g:airline_symbols_ascii = 1
+let g:airline_theme='solarized'
+
+""" Limelight
+let g:limelight_conceal_ctermfg = "10/7"    " base01
+let g:limelight_conceal_guifg = "#586e75"
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 """ Keys
 set backspace=2
@@ -70,9 +88,11 @@ nnoremap <leader>nt     :NERDTreeToggle<CR>
 nnoremap <leader>pa     :set invpaste<CR>
 nnoremap <leader>so     :so %<CR>
 nnoremap <leader>vi     :vsplit $MYVIMRC<CR>
+nnoremap <leader>gy     :Goyo<CR>
+nnoremap <leader>ll     :Limelight!!<CR>
 
 """ Hooks
-autocmd VimEnter * :call OpenNERDTree()
+" autocmd VimEnter * :call OpenNERDTree()
 autocmd BufEnter * :call QuitIfOnlyNERDTree()
 autocmd BufWrite * :call RemoveTrailingWhiteSpace()
 autocmd FileType help,man wincmd L
@@ -110,7 +130,7 @@ au FileType go nmap <leader>gv      :GoVet<CR>
 au FileType go nmap <leader>gw      :GoDocBrowser<CR>
 
 """ Rust
-let g:ycm_rust_src_path = "/home/oyvind/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
+let g:ycm_rust_src_path = "/home/master/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 let g:rustfmt_autosave = 0
 let g:rust_fold = 0
 au FileType rust nmap <leader>cb    :!cargo build<CR>

@@ -1,3 +1,20 @@
+!---[ Font Settings ]---!
+URxvt.font:                             xft:Inconsolata:pixelsize=15:Medium, xft:Symbola
+URxvt.boldFont:                         xft:Inconsolata:pixelsize=15:Bold, xft:Symbola
+URxvt.italicFont:                       xft:Inconsolata:pixelsize=15:Italic, xft:Symbola
+URxvt.boldItalicFont:                   xft:Inconsolata:pixelsize=15:Bold:Italic, xft:Symbola
+URxvt.letterSpace:                      -1
+URxvt.lineSpace:                        0
+
+Xft.antialias:                          true
+Xft.autohint:                           false
+Xft.dpi:                                96
+Xft.hinting:                            true
+Xft.hintstyle:                          hintslight
+Xft.lcdfilter:                          lcddefault
+Xft.rgba:                               rgb
+
+!---[ Solarized Colors ]---!
 #define S_yellow                        #b58900
 #define S_orange                        #cb4b16
 #define S_red                           #dc322f
@@ -7,7 +24,7 @@
 #define S_cyan                          #2aa198
 #define S_green                         #859900
 
-! Dark
+!---[ Solarized Dark ]---!
 #define S_base03                        #002b36
 #define S_base02                        #073642
 #define S_base01                        #586e75
@@ -17,16 +34,17 @@
 #define S_base2                         #eee8d5
 #define S_base3                         #fdf6e3
 
-! Light
-!#define S_base03        #fdf6e3
-!#define S_base02        #eee8d5
-!#define S_base01        #93a1a1
-!#define S_base00        #839496
-!#define S_base0         #657b83
-!#define S_base1         #586e75
-!#define S_base2         #073642
-!#define S_base3         #002b36
+!---[ Solarized Light ]---!
+!#define S_base03                       #fdf6e3
+!#define S_base02                       #eee8d5
+!#define S_base01                       #93a1a1
+!#define S_base00                       #839496
+!#define S_base0                        #657b83
+!#define S_base1                        #586e75
+!#define S_base2                        #073642
+!#define S_base3                        #002b36
 
+!---[ Set Colors ]---!
 *background:                            S_base03
 *foreground:                            S_base0
 *fading:                                40
@@ -51,23 +69,15 @@
 *color14:                               S_base1
 *color15:                               S_base3
 
-URxvt*internalBorder:                   3
-URxvt*externalBorder:                   0
-URxvt*thickness:                        0
-URxvt*borderColor:                      S_base03
-URxvt*colorIT:                          S_red
-URxvt*colorBD:                          S_blue
-URxvt*colorUL:                          S_base0
-URxvt*letterSpace:                      0
-URxvt*lineSpace:                        0
-URxvt*iso14755:                         false
-URxvt*iso14755_52:                      false
-!URxvt*title:                          	黑客在進步
-URxvt*scrollBar:                      	false
-URxvt*font:                             xft:Inconsolata:medium:pixelsize=15
-
-Xft.dpi:                                96
-Xft.rgba:                               none
-Xft.antialias:                          true
-Xft.hinting:                            true
-Xft.hintstyle:                          hintfull
+!---[ URxvt Settings ]---!
+URxvt.internalBorder:                   0
+URxvt.externalBorder:                   0
+URxvt.thickness:                        0
+URxvt.borderColor:                      S_base03
+URxvt.colorIT:                          S_red
+URxvt.colorBD:                          S_blue
+URxvt.colorUL:                          S_base0
+URxvt.iso14755:                         false
+URxvt.iso14755_52:                      false
+URxvt.title:                          	黑客在進步
+URxvt.scrollBar:                      	false

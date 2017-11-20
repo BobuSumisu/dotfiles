@@ -19,7 +19,10 @@ import os
 import ycm_core
 
 flags = [
-    "-std=gnu11",
+    "-std=c99",
+    "-D_DEFAULT_SOURCE",
+    "-D_BSD_SOURCE",
+    "-D_GNU_SOURCE",
     "-xc",
     "-Wall",
     "-Wextra",
@@ -39,6 +42,8 @@ flags = [
     "-Wconversion",
     "-Wunreachable-code",
     "-Wformat=2",
+    "-I.",
+    "-I./src",
     "-I/usr/include",
     "-I/usr/local/include",
 ]
