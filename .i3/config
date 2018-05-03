@@ -34,24 +34,24 @@ set $scrot_select               scrot -s $HOME/pictures/scrot-$(date "+%Y-%m-%d-
 
 set $reload_statusbar           pkill -SIGUSR1 i3status
 
-### Base16 Colors ############################################################
+### Base16 (Eighties) Colors ##################################################
 
-set $base00 #181818
-set $base01 #282828
-set $base02 #383838
-set $base03 #585858
-set $base04 #b8b8b8
-set $base05 #d8d8d8
-set $base06 #e8e8e8
-set $base07 #f8f8f8
-set $base08 #ab4642
-set $base09 #dc9656
-set $base0A #f7ca88
-set $base0B #a1b56c
-set $base0C #86c1b9
-set $base0D #7cafc2
-set $base0E #ba8baf
-set $base0F #a16946
+set $base00 #2d2d2d
+set $base01 #393939
+set $base02 #515151
+set $base03 #747369
+set $base04 #a09f93
+set $base05 #d3d0c8
+set $base06 #e8e6df
+set $base07 #f2f0ec
+set $base08 #f2777a
+set $base09 #f99157
+set $base0A #ffcc66
+set $base0B #99cc99
+set $base0C #66cccc
+set $base0D #6699cc
+set $base0E #cc99cc
+set $base0F #d27b53
 
 ### Generic Settings ##########################################################
 
@@ -151,7 +151,7 @@ bar {
 
     colors {
         background $base00
-        separator  $base01
+        separator  $base03
         statusline $base04
 
         # State             Border  BG      Text
