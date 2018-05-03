@@ -35,6 +35,18 @@ export GOPATH=~/projects/go
 
 export RUST_SRC_PTH=~/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 
-export PATH=$PATH:~/.bin:~/.local/bin:$GOPATH/bin:$GOROOT/bin:~/.cargo/bin:/opt/Unity/Editor
+export PATH=$PATH:~/.bin:~/.local/bin:$GOPATH/bin:$GOROOT/bin:~/.cargo/bin:/opt/Unity/Editor:~/.cabal/bin
+export PATH=$PATH:/home/master/projects/3rd/bazel/output
+export PATH=$PATH:/opt/wine-staging/bin
+export PATH=$PATH:~/projects/3rd/elixir/bin
+export PATH=$PATH:/usr/local/i386elfgcc/bin
 
 export PS1='\u@$(tput setaf 4)\h$(tput sgr0) \w$(__git_ps1 " (%s)")\n\$ '
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[[ -s "/home/master/.gvm/scripts/gvm" ]] && source "/home/master/.gvm/scripts/gvm"
+
+export SSLKEYLOGFILE=/home/master/.ssl.log

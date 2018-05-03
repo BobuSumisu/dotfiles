@@ -5,6 +5,7 @@ URxvt.italicFont:                       xft:Inconsolata:pixelsize=15:Italic, xft
 URxvt.boldItalicFont:                   xft:Inconsolata:pixelsize=15:Bold:Italic, xft:Symbola
 URxvt.letterSpace:                      -1
 URxvt.lineSpace:                        0
+URxvt.urgentOnBell:                     true
 
 Xft.antialias:                          true
 Xft.autohint:                           false

@@ -11,9 +11,18 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/seoul256.vim'
 
+Plug 'tpope/vim-fugitive'
+
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'PProvost/vim-ps1'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'leafgarland/typescript-vim'
+Plug 'elixir-editors/vim-elixir'
+Plug 'mhinz/vim-mix-format'
 
 """ YouCompleteMe has to be rebuilt on update.
 
@@ -40,6 +49,7 @@ set nofsync
 set modeline
 set modelines=5
 set conceallevel=0
+" set foldmethod=syntax
 
 """ Identation
 set smartindent
@@ -74,13 +84,13 @@ autocmd! User GoyoLeave Limelight!
 set backspace=2
 let mapleader=" "
 
-""" Faster movement between splits.
 nnoremap <c-j>          <c-w><c-j>
 nnoremap <c-k>          <c-w><c-k>
 nnoremap <c-h>          <c-w><c-h>
 nnoremap <c-l>          <c-w><c-l>
 
-""" Some general keybindings.
+nnoremap <s-t>          :CtrlPTag<CR>
+
 nnoremap <leader>bp     :echo eval(line2byte(line("."))+col("."))<CR>
 nnoremap <leader>li     :set invlist<CR>
 nnoremap <leader>mk     :make<CR>
@@ -90,6 +100,12 @@ nnoremap <leader>so     :so %<CR>
 nnoremap <leader>vi     :vsplit $MYVIMRC<CR>
 nnoremap <leader>gy     :Goyo<CR>
 nnoremap <leader>ll     :Limelight!!<CR>
+nnoremap <leader>tt     :CtrlPTag<CR>
+nnoremap <leader>tb     :TagbarToggle<CR>
+nnoremap <leader>en     :lnext<CR>
+nnoremap <leader>ep     :lprev<CR>
+nnoremap <leader>be     :%!xxd<CR>
+nnoremap <leader>bs     :%!xxd -r<CR>
 
 """ Hooks
 " autocmd VimEnter * :call OpenNERDTree()
@@ -98,6 +114,11 @@ autocmd BufWrite * :call RemoveTrailingWhiteSpace()
 autocmd FileType help,man wincmd L
 autocmd FileType qf wincmd J
 autocmd BufReadPost qf nnoremap <buffer> <CR> <CR>
+autocmd BufRead,BufNewFile *.asm set filetype=nasm
+
+""" Syntastic
+let g:syntastic_asm_compiler = "nasm"
+let g:syntastic_always_populate_loc_list = 1
 
 """ YouCompleteMe
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
@@ -105,13 +126,17 @@ let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_key_list_select_completion = ['<c-n>', '<down>']
 let g:ycm_key_list_previous_completion = ['<c-p>', '<up>']
 let g:ycm_autoclose_preview_window_after_completion=1
-nnoremap <leader>yd     :YcmCompleter GetDoc<CR>
-nnoremap <leader>yf     :YcmCompleter FixIt<CR>
-nnoremap <leader>yg     :YcmCompleter GoTo<CR>
-nnoremap <leader>yi     :YcmCompleter GoToInclude<CR>
-nnoremap <leader>yr     :YcmCompleter RestartServer<CR>
-nnoremap <leader>yt     :YcmCompleter GetType<CR>
-nnoremap <leader>yx     :YcmCompleter GoToReferences<CR>
+let g:ycm_always_populate_location_list=1
+nnoremap <leader>cd     :YcmCompleter GetDoc<CR>
+nnoremap <leader>cf     :YcmCompleter FixIt<CR>
+nnoremap <leader>cg     :YcmCompleter GoTo<CR>
+nnoremap <leader>ci     :YcmCompleter GoToInclude<CR>
+nnoremap <leader>cr     :YcmCompleter RestartServer<CR>
+nnoremap <leader>ct     :YcmCompleter GetType<CR>
+nnoremap <leader>cx     :YcmCompleter GoToReferences<CR>
+
+""" CtrlP
+let g:ctrlp_custom_ignore = '\v\.(o|so|bin|elf)$'
 
 """ Go
 let g:go_fmt_command = "goimports"
@@ -144,6 +169,10 @@ au FileType rust nmap <leader>ra    :RustEmitAsm<CR>
 au FileType rust nmap <leader>re    :RustExpand<CR>
 au FileType rust nmap <leader>ri    :RustEmitIr<CR>
 au FileType rust nmap <leader>rr    :RustRun<CR>
+
+""" Elixir
+let g:mix_format_on_save = 1
+let g:mix_format_silent_errors = 0
 
 """ Funcs
 function! OpenNERDTree()

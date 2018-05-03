@@ -4,7 +4,7 @@
 # The standards.
 alias ls='ls --color=always'
 alias ll='ls -al'
-alias grep='grep --color=always'
+alias grep='grep --color=auto'
 
 # Jesus.
 alias \:w='echo "you are not in vim now..."'

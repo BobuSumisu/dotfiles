@@ -1,10 +1,14 @@
+# i3 config file (v4)
+
+### Variables #################################################################
+
 set $mod                        Mod4
 set $font                       Inconsolata
 set $font_size                  10
 
 set $terminal                   urxvt
-set $web_browser                google-chrome
-set $mail_client                icedove
+set $web_browser                firefox
+set $mail_client                thunderbird
 set $vm_manager                 primusrun vmware
 set $music_player               spotify
 set $doc_viewer                 evince
@@ -47,33 +51,34 @@ set $S_base02                   #073642
 set $S_base01                   #586e75
 set $S_base00                   #657b83
 
+### Generic Settings ##########################################################
+
 font                            pango:$font $font_size
 default_orientation             horizontal
 hide_edge_borders               both
 new_window                      pixel 2
+workspace_auto_back_and_forth   yes
+
+### Key Bindings ##############################################################
 
 bindsym $mod+Return             exec $terminal
 bindsym $mod+Shift+q            kill
 bindsym $mod+d                  exec dmenu_run
 
-bindsym $mod+p                  exec --no-startup-id $scrot
-bindsym $mod+Shift+p            exec --no-startup-id $scrot_focused
-bindsym $mod+Ctrl+p             exec --no-startup-id sleep 1 && $scrot_select
+bindsym $mod+h                  focus left
+bindsym $mod+j                  focus down
+bindsym $mod+k                  focus up
+bindsym $mod+l                  focus right
 
-bindsym $mod+j                  focus left
-bindsym $mod+k                  focus down
-bindsym $mod+l                  focus up
-bindsym $mod+oslash             focus right
-
-bindsym $mod+Shift+j            move left
-bindsym $mod+Shift+k            move down
-bindsym $mod+Shift+l            move up
-bindsym $mod+Shift+oslash       move right
+bindsym $mod+Shift+h            move left
+bindsym $mod+Shift+j            move down
+bindsym $mod+Shift+k            move up
+bindsym $mod+Shift+l            move right
 
 bindsym $mod+Shift+Left         move workspace to output left
 bindsym $mod+Shift+Right        move workspace to output right
 
-bindsym $mod+h                  split h
+bindsym $mod+o                  split h
 bindsym $mod+v                  split v
 bindsym $mod+f                  fullscreen
 
@@ -119,22 +124,27 @@ bindsym XF86AudioMicMute        exec $volume_mic_mute   && $reload_statusbar
 
 bindsym XF86MonBrightnessDown   exec $backlight_down
 bindsym XF86MonBrightnessUp     exec $backlight_up
+
+bindsym Print --release exec --no-startup-id import /tmp/latest-screenshot.png
+
 bindsym Shift+Ctrl+l            mode "$meta_mode"
 bindsym $mod+q                  mode "$quicklaunch_mode"
-#bindsym Shift+space             mode "$keyboard_mode"
 
-#for_window [class="Unity"] floating enable
-for_window [class="MonoDevelop"] floating enable
+### Colors ####################################################################
 
-# class                     # border        # background    # foreground    # indicator
-client.focused              $footer         $S_base02       $S_base0        $S_red
-client.focused_inactive     $S_base03       $S_base02       $S_base0        $S_red
-client.unfocused            $S_base03       $S_base03       $S_base01       $S_red
-client.urgent               $S_base03       $S_base03       $S_base01       $S_red
+# class                     # border        # backgr.       # text          # indicator     # child_border
+client.focused              $footer         $S_base02       $S_base0        $S_red          $footer
+client.focused_inactive     $S_base03       $S_base02       $S_base0        $S_red          $S_base03
+client.unfocused            $S_base03       $S_base03       $S_base01       $S_red          $S_base03
+client.urgent               $S_red          $S_base03       $S_base01       $S_red          $S_red
 client.background           $S_base03
 
+### Status Bar ################################################################
+
 bar {
+    mode dock
     status_command i3status
+    separator_symbol "/"
 
     colors {
         background              $S_base02
@@ -145,9 +155,11 @@ bar {
         focused_workspace       $S_base02   $S_base03       $S_base0
         active_workspace        $S_base02   $S_base02       $S_base0
         inactive_workspace      $S_base02   $S_base02       $S_base0
-        urgent_workspace        $S_base02   $S_base02       $S_base0
+        urgent_workspace        $S_red      $S_base02       $S_base0
     }
 }
+
+### Custom Modes ##############################################################
 
 set $meta_mode Meta: e(X)it i3, (l)ock screen, (H)ibernate, (S)uspend, (R)eboot, shut(D)own
 mode "$meta_mode" {
@@ -175,16 +187,8 @@ mode "$quicklaunch_mode" {
   bindsym Escape mode "default"
 }
 
-set $keyboard_mode Keyboard: (1) norwegian, (2) hebrew
-mode "$keyboard_mode" {
-
-    bindsym 1 exec --no-startup-id setxkbmap no, mode "default"
-    bindsym 2 exec --no-startup-id setxkbmap il, mode "default"
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+### Run on Startup ############################################################
 
 exec --no-startup-id xsetroot -solid "$S_base03"
 exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
+exec --no-startup-id redshift -l 59.9139:10.7522 -m randr

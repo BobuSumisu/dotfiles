@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PRIMARY="DP-1-1"
+PRIMARY="DP-2-1"
 SECONDARY="eDP-1"
 
 function main() {
