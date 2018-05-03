@@ -34,22 +34,24 @@ set $scrot_select               scrot -s $HOME/pictures/scrot-$(date "+%Y-%m-%d-
 
 set $reload_statusbar           pkill -SIGUSR1 i3status
 
-set $S_yellow                   #b58900
-set $S_orange                   #cb4b16
-set $S_red                      #dc322f
-set $S_magenta                  #d33682
-set $S_violet                   #6c71c4
-set $S_blue                     #268bd2
-set $S_cyan                     #2aa198
-set $S_green                    #859900
-set $S_base0                    #839496
-set $S_base1                    #93a1a1
-set $S_base2                    #eee8d5
-set $S_base3                    #fdf6e3
-set $S_base03                   #002b36
-set $S_base02                   #073642
-set $S_base01                   #586e75
-set $S_base00                   #657b83
+### Base16 Colors ############################################################
+
+set $base00 #181818
+set $base01 #282828
+set $base02 #383838
+set $base03 #585858
+set $base04 #b8b8b8
+set $base05 #d8d8d8
+set $base06 #e8e8e8
+set $base07 #f8f8f8
+set $base08 #ab4642
+set $base09 #dc9656
+set $base0A #f7ca88
+set $base0B #a1b56c
+set $base0C #86c1b9
+set $base0D #7cafc2
+set $base0E #ba8baf
+set $base0F #a16946
 
 ### Generic Settings ##########################################################
 
@@ -132,12 +134,13 @@ bindsym $mod+q                  mode "$quicklaunch_mode"
 
 ### Colors ####################################################################
 
-# class                     # border        # backgr.       # text          # indicator     # child_border
-client.focused              $footer         $S_base02       $S_base0        $S_red          $footer
-client.focused_inactive     $S_base03       $S_base02       $S_base0        $S_red          $S_base03
-client.unfocused            $S_base03       $S_base03       $S_base01       $S_red          $S_base03
-client.urgent               $S_red          $S_base03       $S_base01       $S_red          $S_red
-client.background           $S_base03
+# class                     # border    # backgr    # text      # indicator # child_border
+client.focused              $base05     $base0D     $base00     $base0D     $base0D
+client.focused_inactive     $base01     $base01     $base05     $base03     $base01
+client.unfocused            $base01     $base00     $base05     $base01     $base01
+client.urgent               $base08     $base08     $base00     $base08     $base08
+client.placeholder          $base00     $base00     $base05     $base00     $base00
+client.background           $base07
 
 ### Status Bar ################################################################
 
@@ -147,15 +150,16 @@ bar {
     separator_symbol "/"
 
     colors {
-        background              $S_base02
-        statusline              $S_base1
-        separator               $S_base01
+        background $base00
+        separator  $base01
+        statusline $base04
 
-        # class                 # border    # background    # foreground
-        focused_workspace       $S_base02   $S_base03       $S_base0
-        active_workspace        $S_base02   $S_base02       $S_base0
-        inactive_workspace      $S_base02   $S_base02       $S_base0
-        urgent_workspace        $S_red      $S_base02       $S_base0
+        # State             Border  BG      Text
+        focused_workspace   $base05 $base0D $base00
+        active_workspace    $base05 $base03 $base00
+        inactive_workspace  $base03 $base01 $base05
+        urgent_workspace    $base08 $base08 $base00
+        binding_mode        $base00 $base0A $base00
     }
 }
 
@@ -189,6 +193,6 @@ mode "$quicklaunch_mode" {
 
 ### Run on Startup ############################################################
 
-exec --no-startup-id xsetroot -solid "$S_base03"
+exec --no-startup-id xsetroot -solid "$base00"
 exec --no-startup-id nm-applet
 exec --no-startup-id redshift -l 59.9139:10.7522 -m randr
