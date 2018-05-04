@@ -17,13 +17,19 @@ HISTFILESIZE=2000
 export EDITOR=vim
 export VISUAL=vim
 export WINEARCH=win32
-export PS1='\u@\h \w\n\$ '
+export PS1='\e[0;31m\u\e[0m@\h \w\n\$ '
 
 [[ -x /usr/bin/dircolors ]] && eval "$(dircolors -b)"
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
 [[ -f /etc/bash_completion ]] && . /etc/bash_completion
-[[ -f /etc/bash_completion.d/git-prompt ]] && . /etc/bash_completion.d/git-prompt
 [[ -f $HOME/.bash_aliases ]] && . $HOME/.bash_aliases
+
+if [[ -f /etc/bash_completion.d/git-prompt ]]; then
+    GIT_PS1_SHOWDIRTYSTATE=1
+    GIT_PS1_SHOWUPSTREAM="auto"
+    . /etc/bash_completion.d/git-prompt
+    PS1='\e[0;31m\u\e[0m@\h \w$(__git_ps1 " [%s]")\n\$ '
+fi
 
 if [[ -d "$HOME/.config/base16-shell" ]]; then
     BASE16_SHELL=$HOME/.config/base16-shell/

@@ -147,18 +147,18 @@ client.background           $base07
 bar {
     mode dock
     status_command i3status
-    separator_symbol "/"
+    separator_symbol "|"
 
     colors {
         background $base00
-        separator  $base03
+        separator  $base0D
         statusline $base04
 
         # State             Border  BG      Text
-        focused_workspace   $base05 $base0D $base00
-        active_workspace    $base05 $base03 $base00
+        focused_workspace   $base0D $base01 $base0D
+        active_workspace    $base05 $base03 $base05
         inactive_workspace  $base03 $base01 $base05
-        urgent_workspace    $base08 $base08 $base00
+        urgent_workspace    $base08 $base01 $base08
         binding_mode        $base00 $base0A $base00
     }
 }
