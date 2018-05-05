@@ -1,5 +1,5 @@
 # dotfiles
 
 ```bash
-stow --verbose --restow --target=$HOME --ignore=README.md .
+stow [--simulate] --verbose --restow --target=$HOME --ignore=README.md .
 ```
