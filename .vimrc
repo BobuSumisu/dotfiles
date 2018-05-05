@@ -4,8 +4,11 @@ scriptencoding utf-8
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
 
+Plug 'SirVer/ultisnips'
 Plug 'chriskempson/base16-vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ervandew/supertab'
+Plug 'honza/vim-snippets'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
@@ -55,13 +58,18 @@ let g:ale_python_pylint_executable = 'pylint3'
 let g:asmsyntax = 'nasm'
 let g:ctrlp_custom_ignore='\v\.(o|so|bin|elf)$'
 let g:mapleader=' '
+let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:UltiSnipsEditSplit='vertical'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:ycm_always_populate_location_list=1
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 let g:ycm_key_list_previous_completion=['<c-p>', '<up>']
 let g:ycm_key_list_select_completion=['<c-n>', '<down>']
-let g:ycm_min_num_of_chars_for_completion=1
-let g:ycm_rust_src_path='~/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+let g:ycm_min_num_of_chars_for_completion=2
+let g:UltiSnipsSnippetsDir='~/.vim/UltiSnips'
 " }}}
 
 if filereadable(expand('~/.vimrc_background'))
@@ -94,6 +102,7 @@ nnoremap <leader>pa     :set invpaste<CR>
 nnoremap <leader>so     :so %<CR>
 nnoremap <leader>tb     :TagbarToggle<CR>
 nnoremap <leader>vi     :vsplit $MYVIMRC<CR>
+nnoremap <leader>us     :UltiSnipsEdit<CR>
 " }}}
 
 " Autocommands {{{
