@@ -1,3 +1,4 @@
 # dotfiles
 
-My simple [GNU stow](https://www.gnu.org/software/stow/) based dotfiles.
+install:
+    stow --verbose --restow --target=$HOME --ignore=README.md .
