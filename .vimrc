@@ -48,7 +48,7 @@ set tabstop=4
 """ }}}
 
 " Global Variables {{{
-let g:airline_powerline_fonts=0
+let g:airline_powerline_fonts=1
 let g:airline_symbols_ascii=1
 let g:airline_theme='base16'
 let g:ale_python_pylint_executable = 'pylint3'
