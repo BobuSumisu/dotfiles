@@ -37,11 +37,3 @@ if [[ -d "$HOME/.config/base16-shell" ]]; then
 fi
 
 [[ -d $HOME/bin ]] && PATH=$HOME/bin:$PATH
-[[ -d $HOME/node_modules/.bin ]] && PATH=$HOME/node_modules/.bin:$PATH
-[[ -s $HOME/.gvm/scripts/gvm ]] && . $HOME/.gvm/scripts/gvm
-
-if [[ -d $HOME/.nvm ]]; then
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-fi
-
