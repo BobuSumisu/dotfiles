@@ -1,3 +1,7 @@
+set encoding=utf-8
+scriptencoding utf-8
+
+" Plugins {{{
 call plug#begin('~/.vim/plugged')
 
 Plug 'chriskempson/base16-vim'
@@ -12,14 +16,15 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
 
 call plug#end()
+""" }}}
 
+" General settings {{{
+set foldmethod=marker
 set autoread
 set background=dark
 set backspace=2
 set colorcolumn=120
 set conceallevel=0
-set cursorline
-set encoding=utf-8
 set expandtab
 set fileencoding=utf-8
 set fileformat=unix
@@ -40,29 +45,31 @@ set smartindent
 set softtabstop=4
 set swapsync=
 set tabstop=4
+""" }}}
 
-let asmsyntax = "nasm"
-
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-endif
-
+" Global Variables {{{
 let g:airline_powerline_fonts=0
 let g:airline_symbols_ascii=1
 let g:airline_theme='base16'
 let g:ale_python_pylint_executable = 'pylint3'
+let g:asmsyntax = 'nasm'
 let g:ctrlp_custom_ignore='\v\.(o|so|bin|elf)$'
+let g:mapleader=' '
 let g:ycm_always_populate_location_list=1
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 let g:ycm_key_list_previous_completion=['<c-p>', '<up>']
 let g:ycm_key_list_select_completion=['<c-n>', '<down>']
 let g:ycm_min_num_of_chars_for_completion=1
-let g:ycm_rust_src_path="/home/master/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
+let g:ycm_rust_src_path='~/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+" }}}
 
-let mapleader=" "
+if filereadable(expand('~/.vimrc_background'))
+    let g:base16colorspace=256
+    source ~/.vimrc_background
+endif
 
+" Keys {{{
 nnoremap <c-j>          <c-w><c-j>
 nnoremap <c-k>          <c-w><c-k>
 nnoremap <c-h>          <c-w><c-h>
@@ -87,13 +94,19 @@ nnoremap <leader>pa     :set invpaste<CR>
 nnoremap <leader>so     :so %<CR>
 nnoremap <leader>tb     :TagbarToggle<CR>
 nnoremap <leader>vi     :vsplit $MYVIMRC<CR>
+" }}}
 
-autocmd BufEnter * :call QuitIfOnlyNERDTree()
-autocmd BufWrite * :call RemoveTrailingWhiteSpace()
-autocmd FileType help,man wincmd L
-autocmd FileType qf wincmd J
-autocmd BufReadPost qf nnoremap <buffer> <CR> <CR>
+" Autocommands {{{
+augroup vimrc
+    autocmd!
+    autocmd BufEnter * :call QuitIfOnlyNERDTree()
+    autocmd BufWrite * :call RemoveTrailingWhiteSpace()
+    autocmd FileType qf wincmd J
+    autocmd BufReadPost qf nnoremap <buffer> <CR> <CR>
+augroup END
+" }}}
 
+" Functions {{{
 function! OpenNERDTree()
     NERDTree
     if argc() != 0
@@ -102,13 +115,17 @@ function! OpenNERDTree()
 endfunction
 
 function! QuitIfOnlyNERDTree()
-    if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree())
+    if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree())
         quit
     endif
 endfunction
 
 function! RemoveTrailingWhiteSpace()
-    execute "normal mz"
+    execute 'normal mz'
         %s/\s\+$//ge
-    execute "normal `z"
+    execute 'normal `z'
 endfunction
+" }}}
+
+packloadall
+silent! helptags ALL

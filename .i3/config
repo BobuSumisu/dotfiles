@@ -6,7 +6,7 @@ set $mod                        Mod4
 set $font                       Inconsolata
 set $font_size                  10
 
-set $terminal                   urxvt
+set $terminal                   kitty
 set $web_browser                firefox
 set $mail_client                thunderbird
 set $vm_manager                 primusrun vmware

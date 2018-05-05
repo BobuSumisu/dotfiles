@@ -1,13 +1,8 @@
 !---[ Font Settings ]---!
-URxvt.font:                             xft:Inconsolata-g:pixelsize=15:Medium, xft:Symbola
-URxvt.boldFont:                         xft:Inconsolata-g:pixelsize=15:Bold, xft:Symbola
-URxvt.italicFont:                       xft:Inconsolata-g:pixelsize=15:Italic, xft:Symbola
-URxvt.boldItalicFont:                   xft:Inconsolata-g:pixelsize=15:Bold:Italic, xft:Symbola
-
-!URxvt.font:                             xft:FiraCode:pixelsize=13:Medium, xft:Symbola
-!URxvt.boldFont:                         xft:FiraCode:pixelsize=13:Bold, xft:Symbola
-!URxvt.italicFont:                       xft:FiraCode:pixelsize=13:Italic, xft:Symbola
-!URxvt.boldItalicFont:                   xft:FiraCode:pixelsize=13:Bold:Italic, xft:Symbola
+URxvt.font:                             xft:FuraCode Nerd Font:style=Regular:pixelsize=15:Medium, xft:Symbola
+URxvt.boldFont:                         xft:FuraCode Nerd Font:style=Bold:pixelsize=15:Bold, xft:Symbola
+URxvt.italicFont:                       xft:FuraCode Nerd Font:style=Regular:pixelsize=15:Italic, xft:Symbola
+URxvt.boldItalicFont:                   xft:FuraCode Nerd Font:style=Bold:pixelsize=15:Bold:Italic, xft:Symbola
 
 URxvt.letterSpace:                      -1
 URxvt.lineSpace:                        0
@@ -17,7 +12,7 @@ Xft.antialias:                          true
 Xft.autohint:                           false
 Xft.dpi:                                96
 Xft.hinting:                            true
-Xft.hintstyle:                          hintslight
+Xft.hintstyle:                          hintfull
 Xft.lcdfilter:                          lcddefault
 Xft.rgba:                               rgb
 
@@ -25,14 +20,11 @@ Xft.rgba:                               rgb
 URxvt.internalBorder:                   0
 URxvt.externalBorder:                   0
 URxvt.thickness:                        0
-!URxvt.borderColor:                     base01
-!URxvt.colorIT:                          S_red
-!URxvt.colorBD:                          S_blue
-!URxvt.colorUL:                          S_base0
 URxvt.iso14755:                         false
 URxvt.iso14755_52:                      false
-URxvt.scrollBar:                      	false
+URxvt.scrollBar:                        false
 URxvt.fading:                           40
+URxvt.depth:                            32
 
 
 ! Base16 Eighties
@@ -54,6 +46,11 @@ URxvt.fading:                           40
 #define base0D #6699cc
 #define base0E #cc99cc
 #define base0F #d27b53
+
+URxvt.borderColor:  base01
+URxvt.colorIT:      base0E
+URxvt.colorBD:      base0D
+URxvt.colorUL:      base0E
 
 *foreground:   base05
 #ifdef background_opacity
