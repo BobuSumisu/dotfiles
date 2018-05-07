@@ -4,11 +4,8 @@ scriptencoding utf-8
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
 
-Plug 'SirVer/ultisnips'
 Plug 'chriskempson/base16-vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'ervandew/supertab'
-Plug 'honza/vim-snippets'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
@@ -60,12 +57,6 @@ let g:ale_sign_warning = '->'
 let g:asmsyntax = 'nasm'
 let g:ctrlp_custom_ignore='\v\.(o|so|bin|elf)$'
 let g:mapleader=' '
-let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:UltiSnipsEditSplit='vertical'
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsSnippetsDir='~/.vim/UltiSnips'
 let g:ycm_always_populate_location_list=1
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
@@ -114,6 +105,7 @@ augroup vimrc
     autocmd BufWrite * :call RemoveTrailingWhiteSpace()
     autocmd FileType qf wincmd J
     autocmd BufReadPost qf nnoremap <buffer> <CR> <CR>
+    autocmd BufRead,BufNewFile *.h set filetype=c
 augroup END
 " }}}
 
