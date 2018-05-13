@@ -7,7 +7,7 @@ set $font                       Inconsolata
 set $font_size                  10
 
 set $terminal                   kitty
-set $web_browser                firefox
+set $web_browser                google-chrome
 set $mail_client                thunderbird
 set $vm_manager                 primusrun vmware
 set $music_player               spotify
@@ -59,7 +59,7 @@ font                            pango:$font $font_size
 default_orientation             horizontal
 hide_edge_borders               both
 new_window                      pixel 2
-workspace_auto_back_and_forth   yes
+#workspace_auto_back_and_forth   yes
 
 ### Key Bindings ##############################################################
 

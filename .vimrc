@@ -3,7 +3,7 @@ scriptencoding utf-8
 
 " Plugins {{{
 
-function BuildYCM(info)
+function! BuildYCM(info)
     if a:info.status ==# 'installed' || a:info.force
         !./install.py --clang-completer
     endif
@@ -21,6 +21,7 @@ Plug 'valloric/youcompleteme', { 'do': function('BuildYCM') }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
+Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 
@@ -76,7 +77,7 @@ let g:ale_sign_warning = '->'
 
 let g:asmsyntax = 'nasm'
 
-let g:ctrlp_custom_ignore='\v\.(o|so|bin|elf)$'
+let g:ctrlp_custom_ignore='node_modules\|\v\.(o|so|bin|elf)$'
 
 let g:mapleader=' '
 
