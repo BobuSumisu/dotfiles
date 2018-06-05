@@ -13,15 +13,17 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'chriskempson/base16-vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'leafgarland/typescript-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
+Plug 'pangloss/vim-javascript'
+Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-fugitive'
 Plug 'valloric/youcompleteme', { 'do': function('BuildYCM') }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
-Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 
@@ -74,6 +76,9 @@ let g:airline_theme='base16'
 let g:ale_python_pylint_executable = 'pylint3'
 let g:ale_sign_error = '->'
 let g:ale_sign_warning = '->'
+let g:ale_linters = {
+\   'c': ['clang-tidy'],
+\}
 
 let g:asmsyntax = 'nasm'
 

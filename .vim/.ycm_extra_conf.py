@@ -19,7 +19,7 @@ import os
 import ycm_core
 
 flags = [
-    "-std=c11",
+    "-std=gnu11",
     "-D_DEFAULT_SOURCE",
     "-D_BSD_SOURCE",
     "-D_GNU_SOURCE",
