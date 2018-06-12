@@ -162,6 +162,5 @@ endfunction
 
 " }}}
 
-" Not really using vim 8.0 packages yet...
 packloadall
 silent! helptags ALL
