@@ -28,9 +28,7 @@ set $volume_mic_mute            pactl set-source-mute @DEFAULT_SOURCE@ toggle
 set $backlight_up               xbacklight -time 0 -steps 1 -inc 10
 set $backlight_down             xbacklight -time 0 -steps 1 -dec 10
 
-set $scrot                      scrot $HOME/pictures/scrot-$(date "+%Y-%m-%d-%H%M%S").png
-set $scrot_focused              scrot -u $HOME/pictures/scrot-$(date "+%Y-%m-%d-%H%M%S").png
-set $scrot_select               scrot -s $HOME/pictures/scrot-$(date "+%Y-%m-%d-%H%M%S").png
+set $screenshot                 /home/master/bin/i3shot.sh
 
 set $reload_statusbar           pkill -SIGUSR1 i3status
 
@@ -127,7 +125,8 @@ bindsym XF86AudioMicMute        exec $volume_mic_mute   && $reload_statusbar
 bindsym XF86MonBrightnessDown   exec $backlight_down
 bindsym XF86MonBrightnessUp     exec $backlight_up
 
-bindsym Print --release exec --no-startup-id import /tmp/latest-screenshot.png
+bindsym $mod+p --release        exec --no-startup-id $screenshot
+bindsym $mod+Shift+p --release  exec --no-startup-id $screenshot_region
 
 bindsym Shift+Ctrl+l            mode "$meta_mode"
 bindsym $mod+q                  mode "$quicklaunch_mode"
@@ -146,7 +145,7 @@ client.background           $base07
 
 bar {
     mode dock
-    status_command i3status
+    status_command i3status | ~/bin/i3status_wrapper.py
     separator_symbol "|"
 
     colors {
@@ -197,3 +196,4 @@ exec --no-startup-id xsetroot -solid "$base00"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id redshift -l 59.9139:10.7522 -m randr
+exec --no-startup-id dropbox start

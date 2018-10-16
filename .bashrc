@@ -41,4 +41,8 @@ if [[ -d "$HOME/.nvm" ]]; then
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 fi
 
-[[ -s "/home/master/.gvm/scripts/gvm" ]] && source "/home/master/.gvm/scripts/gvm"
+if [[ -s "/home/master/.gvm/scripts/gvm" ]]; then
+    source "/home/master/.gvm/scripts/gvm"
+    export GOPATH="$GOPATH:/home/master/projects/go"
+fi
+[[ -d "$HOME/.cargo/bin" ]] && PATH="$HOME/.cargo/bin:$PATH"
