@@ -2,7 +2,7 @@ set encoding=utf-8
 scriptencoding utf-8
 
 " Plugins {{{
-
+"
 call plug#begin('~/.vim/plugged')
 
 Plug 'chriskempson/base16-vim'
@@ -21,6 +21,7 @@ Plug 'valloric/youcompleteme'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
+Plug 'tikhomirov/vim-glsl'
 
 call plug#end()
 
@@ -37,8 +38,8 @@ set fileencoding=utf-8
 set fileformat=unix
 set foldmethod=marker
 set laststatus=2
-"set list
-"set listchars=tab:▶–,trail:·,extends:>,precedes:<,nbsp:!
+set list
+set listchars=tab:▶–,trail:·,extends:>,precedes:<,nbsp:!
 set modeline
 set modelines=5
 set nobackup
@@ -71,25 +72,33 @@ let g:airline_symbols_ascii             = 1
 let g:airline_theme                     = 'base16'
 let g:airline#extensions#ale#enabled    = 1
 
+let g:ale_c_parse_makefile              = 1
+let g:ale_c_clang_options               = '-std=gnu11 -Wall -Wextra -Wpedantic -Werror'
+let g:ale_cpp_clang_options             = '-std=c++1z -Wall -Wextra -Wpedantic -Werror'
 let g:ale_set_loclist                   = 0
 let g:ale_set_quickfix                  = 1
+let g:ale_fix_on_save                   = 1
 let g:ale_keep_list_window_open         = 0
 let g:ale_set_highlights                = 0
 let g:ale_lint_on_text_changed          = 'never'
-let g:ale_sign_error                    = '->'
-let g:ale_sign_warning                  = '->'
+let g:ale_sign_error                    = '>>'
+let g:ale_sign_warning                  = '>>'
 let g:ale_python_pylint_options         = '--rcfile ~/.pylintrc'
 let g:ale_python_pylint_use_global      = 0
+let g:ale_completion_enabled            = 0
+let g:ale_c_clangformat_options         = "-style='{BasedOnStyle: LLVM, IndentWidth: 4}'"
+
 let g:ale_linters = {
-\   'c': ['clang'],
-\   'cpp': ['clang'],
+\   'c': ['clang', 'clangtidy', 'cppcheck', 'clang-format', 'flawfinder', 'gcc'],
+\   'cpp': ['clang', 'clangtidy', 'cppcheck', 'clang-format', 'flawfinder', 'gcc'],
 \   'go': ['gometalinter', 'go build', 'go vet', 'gofmt', 'golint'],
 \   'python': [],
 \}
+let g:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'] }
 
 let g:asmsyntax                         = 'nasm'
 
-let g:ctrlp_custom_ignore = 'tags\|target\|venv\|node_modules\|\v\.(o|so|bin|elf|lock)$'
+let g:ctrlp_custom_ignore = 'build\|tags\|target\|venv\|node_modules\|\v\.(o|so|bin|elf|lock)$'
 
 let g:mapleader                         = ' '
 
@@ -101,7 +110,7 @@ let g:ycm_key_list_select_completion                    = ['<c-n>', '<down>']
 let g:ycm_min_num_of_chars_for_completion               = 2
 let g:ycm_confirm_extra_conf                            = 0
 
-let g:go_fmt_command                    = "goimports"
+let g:go_fmt_command                    = 'goimports'
 
 " }}}
 
@@ -123,6 +132,8 @@ nnoremap <leader>ci     :YcmCompleter GoToInclude<CR>
 nnoremap <leader>cr     :YcmCompleter RestartServer<CR>
 nnoremap <leader>ct     :YcmCompleter GetType<CR>
 nnoremap <leader>cx     :YcmCompleter GoToReferences<CR>
+nnoremap <leader>cn     :!cd build; cmake ..<CR>
+nnoremap <leader>cm     :!cd build; make -j$(nproc)<CR>
 nnoremap <leader>en     :lnext<CR>
 nnoremap <leader>ep     :lprev<CR>
 nnoremap <leader>li     :set invlist<CR>
@@ -143,10 +154,11 @@ cmap w!! w !sudo tee > /dev/null %
 augroup vimrc
     autocmd!
     autocmd BufEnter * :call QuitIfOnlyNERDTree()
-    autocmd BufWrite * :call RemoveTrailingWhiteSpace()
     autocmd FileType qf wincmd J
     autocmd BufReadPost qf nnoremap <buffer> <CR> <CR>
     autocmd BufRead,BufNewFile *.h set filetype=c
+    autocmd FileType crystal setlocal sw=2 sts=2 ts=2
+    autocmd BufRead,BufNewFile *.vs,*.fs set ft=glsl
 augroup END
 
 " }}}
@@ -165,13 +177,6 @@ function! QuitIfOnlyNERDTree()
         quit
     endif
 endfunction
-
-function! RemoveTrailingWhiteSpace()
-    execute 'normal mz'
-        %s/\s\+$//ge
-    execute 'normal `z'
-endfunction
-
 " }}}
 
 packloadall
