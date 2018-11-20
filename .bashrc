@@ -45,4 +45,11 @@ if [[ -s "/home/master/.gvm/scripts/gvm" ]]; then
     source "/home/master/.gvm/scripts/gvm"
     export GOPATH="$GOPATH:/home/master/projects/go"
 fi
+
 [[ -d "$HOME/.cargo/bin" ]] && PATH="$HOME/.cargo/bin:$PATH"
+
+[[ -d "$HOME/bin" ]] && PATH="$HOME/bin:$PATH"
+
+if [[ -f /usr/share/bash-completion/completions/tmuxinator ]]; then
+    source /usr/share/bash-completion/completions/tmuxinator
+fi
