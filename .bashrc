@@ -49,6 +49,7 @@ fi
 [[ -d "$HOME/.cargo/bin" ]] && PATH="$HOME/.cargo/bin:$PATH"
 
 [[ -d "$HOME/bin" ]] && PATH="$HOME/bin:$PATH"
+[[ -d "$HOME/.bin" ]] && PATH="$HOME/.bin:$PATH"
 
 if [[ -f /usr/share/bash-completion/completions/tmuxinator ]]; then
     source /usr/share/bash-completion/completions/tmuxinator

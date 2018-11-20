@@ -1,0 +1,23 @@
+# ~/.tmuxinator/django.yml
+
+name: django-<%= @args[0] %>
+root: ~/projects/django/<%= @args[0] %>
+
+# pre: sudo /etc/rc.d/mysqld start
+pre_window: source venv/bin/activate
+# tmux_options: -f ~/.tmux.mac.conf
+# tmux_command: byobu
+startup_window: editor
+startup_pane: 1
+# attach: false
+# post: tmux -CC attach -t navn-info
+
+windows:
+  - editor: vim
+  - bash: ls -l
+  - server: while :; do ./manage.py runserver; sleep 2; done
+  - shells:
+      layout: tiled
+      panes:
+        - shell: ./manage.py shell
+        - dbshell: ./manage.py dbshell
