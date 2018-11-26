@@ -10,6 +10,9 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'benmills/vimux'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 " Coding utilities
 Plug 'ludovicchabant/vim-gutentags'
@@ -165,6 +168,8 @@ nnoremap <leader>cc     :cc!<CR>
 nnoremap <leader>cn     :cnext!<CR>
 nnoremap <leader>cp     :cprev!<cr>
 
+nnoremap <leader>go     :Goyo<CR>
+
 nnoremap <leader>li     :set invlist<CR>
 nnoremap <leader>ll     :ll!<CR>
 nnoremap <leader>ln     :lnext!<CR>
@@ -182,7 +187,11 @@ nnoremap <leader>so     :so %<CR>
 
 nnoremap <leader>tb     :TagbarToggle<CR>
 
-nnoremap <leader>vi     :vsplit $MYVIMRC<CR>
+nnoremap <leader>ve     :vsplit $MYVIMRC<CR>
+nnoremap <leader>vp     :VimuxPromptCommand<CR>
+nnoremap <leader>vl     :VimuxRunLastCommand<CR>
+nnoremap <leader>vi     :VimuxInspectRunner<CR>
+nnoremap <leader>vz     :VimuxZoomRunner<CR>
 
 nnoremap <leader>t2     :setl sw=2 ts=2 sts=2<CR>
 nnoremap <leader>t4     :setl sw=4 ts=4 sts=4<CR>
@@ -201,11 +210,13 @@ augroup vimrc
     autocmd BufRead,BufNewFile *.h set filetype=c
     autocmd FileType crystal setlocal sw=2 sts=2 ts=2
     autocmd BufRead,BufNewFile *.vs,*.fs set ft=glsl
+    autocmd User GoyoEnter Limelight
+    autocmd User GoyoLeave Limelight!
 augroup END
 " }}}
 
 " Functions {{{
-"
+
 function! OpenNERDTree()
     NERDTree
     if argc() != 0

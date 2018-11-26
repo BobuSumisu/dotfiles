@@ -54,3 +54,5 @@ fi
 if [[ -f /usr/share/bash-completion/completions/tmuxinator ]]; then
     source /usr/share/bash-completion/completions/tmuxinator
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

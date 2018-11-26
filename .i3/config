@@ -14,7 +14,7 @@ set $music_player               spotify
 set $doc_viewer                 evince
 set $file_manager               thunar
 
-set $lock_command               $HOME/projects/bash/dotfiles/bin/i3blurlock
+set $lock_command               $HOME/.bin/i3blurlock
 set $suspend_command            systemctl suspend
 set $hibernate_command          systemctl hibernate
 set $reboot_command             systemctl reboot
