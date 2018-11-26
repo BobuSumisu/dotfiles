@@ -21,8 +21,14 @@ export PS1='\e[0;31m\u\e[0m@\h \w\n\$ '
 
 [[ -x /usr/bin/dircolors ]] && eval "$(dircolors -b)"
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
-[[ -f /etc/bash_completion ]] && . /etc/bash_completion
-[[ -f $HOME/.bash_aliases ]] && . $HOME/.bash_aliases
+
+[[ -f /etc/bash_completion ]] && source /etc/bash_completion
+[[ -f $HOME/.bash_aliases ]] && source $HOME/.bash_aliases
+[[ -f $HOME/.fzf.bash ]] && source ~/.fzf.bash
+
+[[ -d $HOME/.cargo/bin ]] && PATH="$HOME/.cargo/bin:$PATH"
+[[ -d $HOME/bin ]] && PATH="$HOME/bin:$PATH"
+[[ -d $HOME/.bin ]] && PATH="$HOME/.bin:$PATH"
 
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
@@ -46,13 +52,6 @@ if [[ -s "/home/master/.gvm/scripts/gvm" ]]; then
     export GOPATH="$GOPATH:/home/master/projects/go"
 fi
 
-[[ -d "$HOME/.cargo/bin" ]] && PATH="$HOME/.cargo/bin:$PATH"
-
-[[ -d "$HOME/bin" ]] && PATH="$HOME/bin:$PATH"
-[[ -d "$HOME/.bin" ]] && PATH="$HOME/.bin:$PATH"
-
 if [[ -f /usr/share/bash-completion/completions/tmuxinator ]]; then
     source /usr/share/bash-completion/completions/tmuxinator
 fi
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash

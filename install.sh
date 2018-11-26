@@ -3,44 +3,44 @@ cd "$(dirname ${BASH_SOURCE[0]})"
 BASE_DIR=$(pwd)
 
 DOTFILES=(
-	bash_aliases
-	bashrc
-	bin
-	config/alacritty
+    bash_aliases
+    bashrc
+    bin
+    config/alacritty
     config/kitty
-	gdbinit
-	gitconfig
-	i3
-	i3status.conf
-	profile
-	tmux.conf
-	tmuxinator
+    gdbinit
+    gitconfig
+    i3
+    i3status.conf
+    profile
+    tmux.conf
+    tmuxinator
     urxvt
-	vimrc
-	Xresources
+    vimrc
+    Xresources
 )
 
 function install_file() {
-	if [[ -L ~/.$1 ]] && [[ $(realpath ~/.$1) -ef $BASE_DIR/$1 ]]; then
-		echo "[IGNORE] already installed: ~/.$1"
-		return
-	fi
+    if [[ -L ~/.$1 ]] && [[ $(realpath ~/.$1) -ef $BASE_DIR/$1 ]]; then
+        echo "[IGNORE] already installed: ~/.$1"
+        return
+    fi
 
-	if [[ -e ~/.$1 ]] || [[ -L ~/.$1 ]]; then
-		echo "[BACKUP] file already exists: ~/.$1"
-		mv -v ~/.$1 backup/
-	fi
+    if [[ -e ~/.$1 ]] || [[ -L ~/.$1 ]]; then
+        echo "[BACKUP] file already exists: ~/.$1"
+        mv -v ~/.$1 backup/
+    fi
 
-	echo "[LINK] ~/.$1 --> $BASE_DIR/$1"
-	ln -s $BASE_DIR/$1 ~/.$1
+    echo "[LINK] ~/.$1 --> $BASE_DIR/$1"
+    ln -s $BASE_DIR/$1 ~/.$1
 }
 
 function install() {
-	mkdir -vp backup
+    mkdir -vp backup
 
-	for filename in ${DOTFILES[@]}; do
-		install_file $filename
-	done
+    for filename in ${DOTFILES[@]}; do
+        install_file $filename
+    done
 }
 
 install
