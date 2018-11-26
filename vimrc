@@ -36,7 +36,7 @@ call plug#end()
 " General Settings {{{
 
 " Looks
-let g:base16colorspace=256
+
 set background=dark
 set colorcolumn=120
 set conceallevel=0
@@ -45,11 +45,14 @@ set laststatus=2
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:?
 set number
-silent! colorscheme base16-eighties
 set visualbell
 hi clear SpellBad
 hi SpellBad term=underline cterm=underline gui=underline
 
+if filereadable(expand('~/.vimrc_background'))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
 
 " Editing
 set backspace=indent,eol,start

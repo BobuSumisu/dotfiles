@@ -1,0 +1,29 @@
+URxvt.font:                             xft:Fira Mono for Powerline:style=Regular:pixelsize=15:Medium, xft:Symbola
+URxvt.boldFont:                         xft:Fira Mono for Powerline:style=Bold:pixelsize=15:Bold, xft:Symbola
+URxvt.italicFont:                       xft:Fira Mono for Powerline:style=Regular:pixelsize=15:Italic, xft:Symbola
+URxvt.boldItalicFont:                   xft:Fira Mono for Powerline:style=Bold:pixelsize=15:Bold:Italic, xft:Symbola
+
+URxvt.letterSpace:                      -1
+URxvt.lineSpace:                        0
+URxvt.urgentOnBell:                     true
+
+Xft.antialias:                          true
+Xft.autohint:                           false
+Xft.dpi:                                96
+Xft.hinting:                            true
+Xft.hintstyle:                          hintfull
+Xft.lcdfilter:                          lcddefault
+Xft.rgba:                               rgb
+
+URxvt.internalBorder:                   0
+URxvt.externalBorder:                   0
+URxvt.thickness:                        0
+URxvt.iso14755:                         false
+URxvt.iso14755_52:                      false
+URxvt.scrollBar:                        false
+URxvt.fading:                           40
+URxvt.depth:                            32
+
+URxvt.perl-ext-common:                  solarized
+URxvt.keysym.Mod4-c:                    perl:solarized:toggle
+URxvt.solarized.default:                dark

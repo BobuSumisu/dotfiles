@@ -24,16 +24,16 @@ export PS1='\e[0;31m\u\e[0m@\h \w\n\$ '
 [[ -f /etc/bash_completion ]] && . /etc/bash_completion
 [[ -f $HOME/.bash_aliases ]] && . $HOME/.bash_aliases
 
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
+
 if [[ -f /etc/bash_completion.d/git-prompt ]]; then
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWUPSTREAM="auto"
     . /etc/bash_completion.d/git-prompt
     PS1='\e[0;31m\u\e[0m@\h \w$(__git_ps1 " [%s]")\n\$ '
-fi
-
-if [[ -d "$HOME/.config/base16-shell" ]]; then
-    BASE16_SHELL=$HOME/.config/base16-shell/
-    [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 fi
 
 if [[ -d "$HOME/.nvm" ]]; then
