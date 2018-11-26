@@ -1,9 +1,15 @@
 # ~/.bashrc
 
+# Interactive Test {{{
+
 case $- in
     *i*) ;;
       *) return ;;
 esac
+
+# }}}
+
+# Options {{{
 
 stty -ixon
 
@@ -14,26 +20,64 @@ HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
 
+# }}}
+
+# Environment {{{
+
 export EDITOR=vim
 export VISUAL=vim
 export WINEARCH=win32
 export PS1='\e[0;31m\u\e[0m@\h \w\n\$ '
+export GOPATH="$GOPATH:~/go"
 
-[[ -x /usr/bin/dircolors ]] && eval "$(dircolors -b)"
-[[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
+# }}}
 
-[[ -f /etc/bash_completion ]] && source /etc/bash_completion
-[[ -f $HOME/.bash_aliases ]] && source $HOME/.bash_aliases
-[[ -f $HOME/.fzf.bash ]] && source ~/.fzf.bash
+# Helpers {{{
 
-[[ -d $HOME/.cargo/bin ]] && PATH="$HOME/.cargo/bin:$PATH"
-[[ -d $HOME/bin ]] && PATH="$HOME/bin:$PATH"
-[[ -d $HOME/.bin ]] && PATH="$HOME/.bin:$PATH"
+for f in \
+    /usr/bin/dircolors \
+    /usr/bin/lesspipe \
+    ~/.config/base16-shell/profile_helper.sh
+do
+    if [[ -x $f ]]; then
+        eval "$($f)"
+    fi
+done
 
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
+# }}}
+
+# Scripts {{{
+
+for f in \
+    /etc/bash_completion \
+    /usr/share/bash-completion/completions/tmuxinator \
+    ~/.bash_aliases \
+    ~/.fzf.bash \
+    ~/.nvm/nvm.sh \
+    ~/.gvm/scripts/gvm
+do
+    if [[ -f $f ]]; then
+        source $f
+    fi
+done
+
+# }}}
+
+# $PATH {{{
+
+for f in \
+    ~/.cargo/bin \
+    ~/bin \
+    ~/.bin
+do
+    if [[ -d $f ]]; then
+        PATH="$f:$PATH"
+    fi
+done
+
+# }}}
+
+# Git Prompt {{{
 
 if [[ -f /etc/bash_completion.d/git-prompt ]]; then
     GIT_PS1_SHOWDIRTYSTATE=1
@@ -42,16 +86,11 @@ if [[ -f /etc/bash_completion.d/git-prompt ]]; then
     PS1='\e[0;31m\u\e[0m@\h \w$(__git_ps1 " [%s]")\n\$ '
 fi
 
-if [[ -d "$HOME/.nvm" ]]; then
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-fi
+# }}}
 
-if [[ -s "/home/master/.gvm/scripts/gvm" ]]; then
-    source "/home/master/.gvm/scripts/gvm"
-    export GOPATH="$GOPATH:/home/master/projects/go"
-fi
+# Aliases {{{
 
-if [[ -f /usr/share/bash-completion/completions/tmuxinator ]]; then
-    source /usr/share/bash-completion/completions/tmuxinator
-fi
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+# }}}

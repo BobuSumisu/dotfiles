@@ -3,19 +3,17 @@ cd "$(dirname ${BASH_SOURCE[0]})"
 BASE_DIR=$(pwd)
 
 DOTFILES=(
-    bash_aliases
     bashrc
     bin
     config/alacritty
+    config/i3
     config/kitty
     gdbinit
     gitconfig
-    i3
     i3status.conf
     profile
     tmux.conf
     tmuxinator
-    urxvt
     vimrc
     Xresources
 )
