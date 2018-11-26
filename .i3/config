@@ -1,6 +1,5 @@
-# i3 config file (v4)
 
-### Variables #################################################################
+# Variables {{{
 
 set $mod                        Mod4
 set $font                       Fira Mono for Powerline
@@ -34,8 +33,6 @@ set $screenshot                 /home/master/bin/i3shot.sh
 
 set $reload_statusbar           pkill -SIGUSR1 i3status
 
-### Base16 (Eighties) Colors ##################################################
-
 set $base00 #2d2d2d
 set $base01 #393939
 set $base02 #515151
@@ -53,7 +50,9 @@ set $base0D #6699cc
 set $base0E #cc99cc
 set $base0F #d27b53
 
-### Generic Settings ##########################################################
+# }}}
+
+# Generic Settings {{{
 
 font                            pango:$font $font_size
 default_orientation             horizontal
@@ -61,7 +60,9 @@ hide_edge_borders               smart
 new_window                      pixel 2
 #workspace_auto_back_and_forth   yes
 
-### Key Bindings ##############################################################
+# }}}
+
+# Key Bindings {{{
 
 bindsym $mod+Return             exec $terminal
 bindsym $mod+Shift+q            kill
@@ -92,7 +93,7 @@ bindsym $mod+Shift+space        floating toggle
 bindsym $mod+space              focus mode_toggle
 bindsym $mod+a                  focus parent
 
-#bindsym $mod+r                  exec i3-input -F 'rename workspace to "%s"' -P 'New name '
+#bindsym $mod+r                 exec i3-input -F 'rename workspace to "%s"' -P 'New name '
 
 bindsym $mod+1                  workspace 1
 bindsym $mod+2                  workspace 2
@@ -134,7 +135,9 @@ bindsym Shift+Ctrl+l            mode "$meta_mode"
 bindsym $mod+q                  mode "$quicklaunch_mode"
 bindsym $mod+r                  mode "$resize_mode"
 
-### Colors ####################################################################
+# }}}
+
+# Colors {{{
 
 # class                     # border    # backgr    # text      # indicator # child_border
 client.focused              $base05     $base0D     $base00     $base0D     $base0D
@@ -144,7 +147,9 @@ client.urgent               $base08     $base08     $base00     $base08     $bas
 client.placeholder          $base00     $base00     $base05     $base00     $base00
 client.background           $base07
 
-### Status Bar ################################################################
+# }}}
+
+# Status Bar {{{
 
 bar {
     mode dock
@@ -165,7 +170,9 @@ bar {
     }
 }
 
-### Custom Modes ##############################################################
+# }}}
+
+# Modes {{{
 
 set $meta_mode Meta: e(X)it i3, (l)ock screen, (H)ibernate, (S)uspend, (R)eboot, shut(D)own
 mode "$meta_mode" {
@@ -209,10 +216,14 @@ mode "$resize_mode" {
     bindsym Escape mode "default
 }
 
-### Run on Startup ############################################################
+# }}}
+
+# Autoruns {{{
 
 exec --no-startup-id xsetroot -solid "$base00"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id dropbox start
 exec --no-startup-id redshift -o -l 59.9139:10.7522 -m randr -b 0.8
+
+# }}}
