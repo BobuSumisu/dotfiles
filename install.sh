@@ -8,6 +8,7 @@ DOTFILES=(
     config/alacritty
     config/i3
     config/kitty
+    config/user-dirs.dirs
     gdbinit
     gitconfig
     i3status.conf
