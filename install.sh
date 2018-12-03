@@ -8,6 +8,7 @@ DOTFILES=(
     config/alacritty
     config/i3
     config/kitty
+    config/pep8
     config/pylintrc
     config/user-dirs.dirs
     gdbinit
