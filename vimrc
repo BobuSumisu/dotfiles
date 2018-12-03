@@ -46,13 +46,14 @@ set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:?
 set number
 set visualbell
-hi clear SpellBad
-hi SpellBad term=underline cterm=underline gui=underline
 
 if filereadable(expand('~/.vimrc_background'))
     let base16colorspace=256
     source ~/.vimrc_background
 endif
+
+hi clear SpellBad
+hi SpellBad term=underline cterm=underline gui=underline
 
 " Editing
 set backspace=indent,eol,start
@@ -147,8 +148,8 @@ nnoremap <C-l>          <C-w><C-l>
 nnoremap <S-t>          :CtrlPTag<CR>
 
 nnoremap <C-c>          :cc!<CR>
-nnoremap <C-n>          :cnext!<CR>
-nnoremap <C-p>          :cprev!<CR>
+"nnoremap <C-n>          :cnext!<CR>
+"nnoremap <C-p>          :cprev!<CR>
 
 nnoremap / /\v
 vnoremap / /\v
