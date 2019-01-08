@@ -66,6 +66,7 @@ done
 # $PATH {{{
 
 for f in \
+    /snap/bin \
     ~/.cargo/bin \
     ~/bin \
     ~/.bin
@@ -91,6 +92,7 @@ fi
 # Aliases {{{
 
 alias ls='ls --color=auto'
+alias ll='ls -al'
 alias grep='grep --color=auto'
 
 # }}}

@@ -7,7 +7,9 @@ DOTFILES=(
     bin
     config/alacritty
     config/i3
+    config/flake8
     config/kitty
+    config/nvim
     config/pep8
     config/pylintrc
     config/user-dirs.dirs
