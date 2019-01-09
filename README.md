@@ -4,12 +4,12 @@
     and they're like, it's better than yours.
 
 ```bash
-$ ./install.sh
+stow --verbose --restow --target=$HOME --ignore README.md .
 ```
 
 ## Todo
 
-* Make it work offline!
+* Make it work offline.
 * Use vim package management (git submodules).
 * Requirements (add as git submodules?).
     * [vim 8.1+](https://github.com/vim/vim)

@@ -5,8 +5,6 @@ Plug 'chriskempson/base16-vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 
-Plug 'christoomey/vim-tmux-navigator'
-
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
