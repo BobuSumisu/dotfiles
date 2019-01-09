@@ -1,7 +1,12 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'chriskempson/base16-vim'
+
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdcommenter'
+
+Plug 'christoomey/vim-tmux-navigator'
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -54,6 +59,10 @@ set modeline
 set encoding=utf-8 fileencoding=utf-8 fileformat=unix
 set noswapfile
 
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
+
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'base16'
@@ -75,6 +84,7 @@ let g:ycm_confirm_extra_conf = 0
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:NERDSpaceDelims = 1
 
 if has('terminal')
     packadd termdebug
@@ -98,8 +108,8 @@ nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-h> <C-w><C-h>
 nnoremap <C-l> <C-w><C-l>
+
 nnoremap <C-p> :Files<CR>
-nnoremap <C-b> :Buffers<CR>
 nnoremap <S-t> :Tags<CR>
 
 nnoremap <leader><Space> :nohlsearch<CR>
