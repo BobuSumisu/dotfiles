@@ -38,6 +38,7 @@ install_dotfiles() {
 
 update() {
     git subtree pull --prefix 3rd/vim https://github.com/vim/vim.git master --squash
+    git subtree pull --prefix 3rd/alacritty https://github.com/jwilm/alacritty.git master --squash
 }
 
 main() {
