@@ -4,5 +4,5 @@
     and they're like, it's better than yours.
 
 ```bash
-$ ./install.sh [-v] [-s, --simulate] [-u, --uninstall]
+$ ./install.sh
 ```
