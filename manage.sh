@@ -1,5 +1,6 @@
 #!/bin/bash
 cd "$(dirname ${BASH_SOURCE[0]})"
+BASE_DIR=$(pwd)
 
 usage() {
     echo "Usage: manage.sh [OPTION...] ACTION..."
@@ -18,6 +19,21 @@ install_dotfiles() {
         sudo apt install stow
     fi
     stow --verbose --restow --target=$HOME --ignore README.md --ignore tags --ignore install.sh .
+
+    # build and install vim
+    cd $BASE_DIR/3rd/vim
+    ./configure \
+        --prefix=$HOME/.local \
+        --enable-luainterp \
+        --enable-perlinterp \
+        --enable-python3interp \
+        --enable-tclinterp \
+        --enable-rubyinterp \
+        --enable-terminal
+    cd $BASE_DIR/3rd/vim/src
+    make -j$(nproc)
+    sudo make install
+    cd $BASE_DIR
 }
 
 update() {
