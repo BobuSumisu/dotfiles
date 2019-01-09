@@ -7,13 +7,14 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
-
-Plug 'tpope/vim-fugitive'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'majutsushi/tagbar'
-
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
 
 Plug 'jiangmiao/auto-pairs'
 
@@ -41,6 +42,7 @@ if filereadable(expand('~/.vimrc_background'))
     source ~/.vimrc_background
 endif
 
+set background=dark
 set colorcolumn=120
 set number
 set list listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:?
@@ -50,6 +52,7 @@ set tabstop=4 softtabstop=4 shiftwidth=4 shiftround expandtab smartindent
 set showmatch incsearch hlsearch ignorecase smartcase gdefault
 set modeline
 set encoding=utf-8 fileencoding=utf-8 fileformat=unix
+set noswapfile
 
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
@@ -71,6 +74,25 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+
+if has('terminal')
+    packadd termdebug
+    let g:termdebug_wide = 120
+    nnoremap ,a :call TermDebugSendCommand('backtrace')<CR>
+    nnoremap ,b :Break<CR>
+    nnoremap ,c :Clear<CR>
+    nnoremap ,d :Termdebug<CR>
+    nnoremap ,g :Gdb<CR>
+    nnoremap ,h :call TermDebugSendCommand('watch')<CR>
+    nnoremap ,n :Continue<CR>
+    nnoremap ,o :Source<CR>
+    nnoremap ,p :Program<CR>
+    nnoremap ,r :Run<CR>
+    nnoremap ,s :Step<CR>
+    nnoremap ,t :Stop<CR>
+    nnoremap ,w :call TermDebugSendCommand('where')<CR>
+endif
 
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>

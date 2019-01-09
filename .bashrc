@@ -69,7 +69,8 @@ for f in \
     /snap/bin \
     ~/.cargo/bin \
     ~/bin \
-    ~/.bin
+    ~/.bin \
+    ~/.local/bin
 do
     if [[ -d $f ]]; then
         PATH="$f:$PATH"
