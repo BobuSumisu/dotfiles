@@ -1,3 +1,6 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'chriskempson/base16-vim'
@@ -8,13 +11,17 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+Plug 'junegunn/vader.vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-repeat'
 
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
@@ -48,13 +55,12 @@ endif
 set background=dark
 set colorcolumn=120
 set number
-set list listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:?
-set laststatus=2
+set list
 set backspace=indent,eol,start
 set tabstop=4 softtabstop=4 shiftwidth=4 shiftround expandtab smartindent
-set showmatch incsearch hlsearch ignorecase smartcase gdefault
+set showmatch hlsearch ignorecase smartcase gdefault
 set modeline
-set encoding=utf-8 fileencoding=utf-8 fileformat=unix
+set fileencoding=utf-8 fileformat=unix
 set noswapfile
 
 let &t_SI = "\<Esc>[6 q"
@@ -64,6 +70,7 @@ let &t_EI = "\<Esc>[2 q"
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'base16'
+let g:ale_lint_on_text_changed = 0
 let g:ale_fix_on_save = 1
 let g:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'] }
 let g:asmsyntax = 'nasm'
@@ -83,6 +90,8 @@ let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:NERDSpaceDelims = 1
+
+let g:AutoPairsShortcutFastWrap = ''
 
 if has('terminal')
     packadd termdebug
