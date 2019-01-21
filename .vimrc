@@ -5,6 +5,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'chriskempson/base16-vim'
+Plug 'arcticicestudio/nord-vim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -13,11 +14,11 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 
 Plug 'w0rp/ale'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'SirVer/ultisnips'
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --clang-completer --rust-completer --go-completer' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
@@ -27,8 +28,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
-
-Plug 'jiangmiao/auto-pairs'
 
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
@@ -46,9 +45,10 @@ call plug#end()
 
 " Options {{{
 
-let g:colors_name = 'base16-eighties'
-let g:base16colorspace = 256
-silent! colorscheme base16-eighties
+" let g:colors_name = 'base16-eighties'
+" let g:base16colorspace = 256
+" silent! colorscheme base16-eighties
+silent! colorscheme nord
 
 set autoindent
 set autoread
@@ -82,6 +82,10 @@ set visualbell
 set wildmenu
 
 let g:asmsyntax = 'nasm'
+
+highlight clear SpellBad
+highlight SpellBad cterm=underline
+highlight clear SpellCap
 
 " }}}
 
@@ -124,6 +128,9 @@ let g:ycm_confirm_extra_conf = 0
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_rust_src_path =
+    \ '~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 
 if !has('nvim')
 
@@ -174,6 +181,7 @@ augroup init
     autocmd! User GoyoEnter Limelight
     autocmd! User GoyoLeave Limelight!
     autocmd! FileType qf wincmd J
+    autocmd! BufNewFile,BufRead *.vs,*.fs set filetype=glsl
 augroup END
 
 " }}}

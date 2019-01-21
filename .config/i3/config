@@ -124,45 +124,45 @@ bindsym $mod+r                  mode "$resize_mode"
 
 # Colors {{{
 
-set $base00 #2d2d2d
-set $base01 #393939
-set $base02 #515151
-set $base03 #747369
-set $base04 #a09f93
-set $base05 #d3d0c8
-set $base06 #e8e6df
-set $base07 #f2f0ec
-set $base08 #f2777a
-set $base09 #f99157
-set $base0A #ffcc66
-set $base0B #99cc99
-set $base0C #66cccc
-set $base0D #6699cc
-set $base0E #cc99cc
-set $base0F #d27b53
+set $nord0   #2E3440
+set $nord1   #3B4252
+set $nord2   #434C5E
+set $nord3   #4C566A
+set $nord4   #D8DEE9
+set $nord5   #E5E9F0
+set $nord6   #ECEFF4
+set $nord7   #8FBCBB
+set $nord8   #88C0D0
+set $nord9   #81A1C1
+set $nord10  #5E81AC
+set $nord11  #BF616A
+set $nord12  #D08770
+set $nord13  #EBCB8B
+set $nord14  #A3BE8C
+set $nord15  #B48EAD
 
 # Property Name         Border  BG      Text    Indicator Child Border
-client.focused          $base05 $base0D $base00 $base0D $base0D
-client.focused_inactive $base01 $base01 $base05 $base03 $base01
-client.unfocused        $base01 $base00 $base05 $base01 $base01
-client.urgent           $base08 $base08 $base00 $base08 $base08
-client.placeholder      $base00 $base00 $base05 $base00 $base00
-client.background       $base07
+client.focused          $nord2  $nord1 $nord4 $nord2 $nord9
+client.focused_inactive $nord2  $nord0 $nord4 $nord2 $nord1
+client.unfocused        $nord2  $nord0 $nord4 $nord2 $nord1
+client.urgent           $nord11 $nord0 $nord4 $nord2 $nord11
+client.placeholder      $nord2  $nord0 $nord4 $nord2 $nord1
+client.background       $nord0
 
 bar {
     status_command i3status
 
     colors {
-        background $base01
-        separator  $base02
-        statusline $base04
+        background $nord1
+        separator  $nord2
+        statusline $nord2
 
         # State             Border  BG      Text
-        focused_workspace   $base04 $base02 $base05
-        active_workspace    $base04 $base03 $base00
-        inactive_workspace  $base03 $base01 $base05
-        urgent_workspace    $base08 $base08 $base00
-        binding_mode        $base00 $base0A $base00
+        focused_workspace   $nord7  $nord1  $nord4
+        active_workspace    $nord1  $nord1  $nord4
+        inactive_workspace  $nord1  $nord1  $nord4
+        urgent_workspace    $nord11 $nord1  $nord4
+        binding_mode        $nord1  $nord1  $nord4
     }
 }
 
@@ -217,10 +217,12 @@ mode "$resize_mode" {
 
 # Autoruns {{{
 
-exec --no-startup-id xsetroot -solid "$base00"
+exec --no-startup-id xsetroot -solid "$nord0"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id dropbox start
 exec --no-startup-id redshift -o -l 59.9139:10.7522 -m randr -b 0.8
 
 # }}}
+
+# vim: foldmethod=marker

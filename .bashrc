@@ -36,8 +36,7 @@ export GOPATH="$GOPATH:~/go"
 
 for f in \
     /usr/bin/dircolors \
-    /usr/bin/lesspipe \
-    ~/.config/base16-shell/profile_helper.sh
+    /usr/bin/lesspipe
 do
     if [[ -x $f ]]; then
         eval "$($f)"
