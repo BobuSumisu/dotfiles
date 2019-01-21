@@ -27,7 +27,7 @@ HISTFILESIZE=2000
 export EDITOR=vim
 export VISUAL=vim
 export WINEARCH=win32
-export PS1='\e[0;31m\u\e[0m@\h \w\n\$ '
+export PS1='\e[0;34m\u\e[0m@\h \w\n\$ '
 export GOPATH="$GOPATH:~/go"
 
 # }}}
@@ -84,7 +84,7 @@ if [[ -f /etc/bash_completion.d/git-prompt ]]; then
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWUPSTREAM="auto"
     . /etc/bash_completion.d/git-prompt
-    PS1='\e[0;31m\u\e[0m@\h \w$(__git_ps1 " [%s]")\n\$ '
+    PS1='\e[0;34m\u\e[0m@\h \w$(__git_ps1 " [%s]")\n\$ '
 fi
 
 # }}}

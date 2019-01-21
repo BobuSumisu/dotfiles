@@ -155,7 +155,7 @@ bar {
     colors {
         background $nord1
         separator  $nord2
-        statusline $nord2
+        statusline $nord4
 
         # State             Border  BG      Text
         focused_workspace   $nord7  $nord1  $nord4
