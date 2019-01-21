@@ -83,9 +83,9 @@ set wildmenu
 
 let g:asmsyntax = 'nasm'
 
-highlight clear SpellBad
-highlight SpellBad cterm=underline
-highlight clear SpellCap
+" highlight clear SpellBad
+" highlight SpellBad cterm=underline
+" highlight clear SpellCap
 
 " }}}
 

@@ -3,17 +3,18 @@
     My dotfiles brings all the boys to the yard,
     and they're like, it's better than yours.
 
+## Install
+
 ```bash
-stow --verbose --restow --target=$HOME --ignore README.md .
+$ stow -v -R -t $HOME --ignore README.md .
+$ fc-cache -v
 ```
 
 ## Todo
 
-* Make it work offline.
-* Use vim package management (git submodules).
-* Requirements (add as git submodules?).
-    * [vim 8.1+](https://github.com/vim/vim)
-    * [alacritty](https://github.com/jwilm/alacritty)
-    * [base16-shell](https://github.com/chriskempson/base16-shell)
-    * [fzf](https://github.com/junegunn/fzf)
-    * [nerd-fonts](https://github.com/ryanoasis/nerd-fonts)
+* Make it work offline
+    * Use git subtrees for vim plugins?
+    * Include repos as subtrees?
+        * [vim 8.1+](https://github.com/vim/vim)
+        * [alacritty](https://github.com/jwilm/alacritty) (need internet to pull cargo packages...)
+        * [fzf](https://github.com/junegunn/fzf)
