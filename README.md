@@ -10,14 +10,6 @@ $ stow -v -R -t $HOME --ignore README.md .
 $ fc-cache -v
 ```
 
-## Updating
-
-Fetch subtrees.
-```bash
-$ git subtree pull --prefix source/vim https://github.com/vim/vim.git master --squash
-$ git subtree pull --prefix source/fzf https://github.com/junegunn/fzf.git master --squash
-```
-
 ## Todo
 
 * Make it work offline
