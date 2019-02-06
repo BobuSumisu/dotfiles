@@ -1,7 +1,0 @@
-#!/bin/bash
-IMG=~/.temp-scrot.png
-scrot $IMG
-convert $IMG -blur 3x3 $IMG
-i3lock -e -u -i $IMG
-sleep 1
-rm $IMG
