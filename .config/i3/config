@@ -1,228 +1,191 @@
-# ~/.config/i3/config
 # i3 config file (v4)
 
-# Variables {{{
+set $mod                    Mod4
 
-set $mod                        Mod4
-set $font                       Fira Mono for Powerline
-set $font_size                  9
+set $font                   Fira Code
+set $font_size              9
 
-set $terminal                   alacritty
-set $web_browser                google-chrome
-set $mail_client                thunderbird
-set $vm_manager                 primusrun vmware
-set $music_player               spotify
-set $doc_viewer                 evince
-set $file_manager               thunar
+set $terminal               urxvt
+set $web_browser            google-chrome
+set $mail_client            thunderbird
+set $vm_manager             virtualbox
+set $music_player           spotify
+set $doc_viewer             evince
+set $file_manager           nautilus
 
-set $lock_command               $HOME/.bin/i3blurlock
-set $suspend_command            systemctl suspend
-set $hibernate_command          systemctl hibernate
-set $reboot_command             systemctl reboot
-set $shutdown_command           systemctl poweroff -i
+set $play_sound             paplay /usr/share/sounds/gnome/default/alerts/drip.ogg
+set $volume_mute            pactl set-sink-mute @DEFAULT_SINK@ toggle
+set $volume_up              pactl set-sink-volume @DEFAULT_SINK@ +2%
+set $volume_down            pactl set-sink-volume @DEFAULT_SINK@ -2%
 
-set $volume_up                  pactl set-sink-volume @DEFAULT_SINK@ +5%
-set $volume_down                pactl set-sink-volume @DEFAULT_SINK@ -5%
-set $volume_mute                pactl set-sink-mute @DEFAULT_SINK@ toggle
-set $volume_mic_mute            pactl set-source-mute @DEFAULT_SOURCE@ toggle
+set $lock_command           i3lock
+set $suspend_command        systemctl suspend
+set $hibernate_command      systemctl hibernate
+set $reboot_command         systemctl reboot
+set $shutdown_command       systemctl shutdown
 
-#set $backlight_up               xbacklight -time 0 -steps 1 -inc 10
-#set $backlight_down             xbacklight -time 0 -steps 1 -dec 10
-set $backlight_up               redshift -o -l 59.9139:10.7522 -m randr -b 0.8
-set $backlight_down             redshift -o -l 59.9139:10.7522 -m randr -b 0.4
+set $ws1                    "1"
+set $ws2                    "2"
+set $ws3                    "3"
+set $ws4                    "4"
+set $ws5                    "5"
+set $ws6                    "6"
+set $ws7                    "7"
+set $ws8                    "8"
+set $ws9                    "9"
+set $ws10                   "10"
 
-set $screenshot                 /home/master/bin/i3shot.sh
+set $nord0                  #2E3440
+set $nord1                  #3B4252
+set $nord2                  #434C5E
+set $nord3                  #4C566A
+set $nord4                  #D8DEE9
+set $nord5                  #E5E9F0
+set $nord6                  #ECEFF4
+set $nord7                  #8FBCBB
+set $nord8                  #88C0D0
+set $nord9                  #81A1C1
+set $nord10                 #5E81AC
+set $nord11                 #BF616A
+set $nord12                 #D08770
+set $nord13                 #EBCB8B
+set $nord14                 #A3BE8C
+set $nord15                 #B48EAD
 
-set $reload_statusbar           pkill -SIGUSR1 i3status
+font                        pango:$font $font_size
+floating_modifier           $mod
+hide_edge_borders           smart
+new_window                  pixel 2
 
-# }}}
+bindsym $mod+Return         exec $terminal
+bindsym $mod+Shift+q        kill
+bindsym $mod+d              exec dmenu_run
 
-# Generic Settings {{{
+bindsym $mod+h              focus left
+bindsym $mod+j              focus down
+bindsym $mod+k              focus up
+bindsym $mod+l              focus right
 
-font                            pango:$font $font_size
-default_orientation             horizontal
-hide_edge_borders               smart
-new_window                      pixel 2
-#workspace_auto_back_and_forth   yes
+bindsym $mod+Shift+h        move left
+bindsym $mod+Shift+j        move down
+bindsym $mod+Shift+k        move up
+bindsym $mod+Shift+l        move right
 
-# }}}
+bindsym $mod+Shift+Left     move workspace to output left
+bindsym $mod+Shift+Right    move workspace to output right
 
-# Key Bindings {{{
+bindsym $mod+o              split h
+bindsym $mod+v              split v
+bindsym $mod+f              fullscreen toggle
+bindsym $mod+s              layout stacking
+bindsym $mod+w              layout tabbed
+bindsym $mod+e              layout toggle split
 
-bindsym $mod+Return             exec $terminal
-bindsym $mod+Shift+q            kill
-bindsym $mod+d                  exec dmenu_run
+bindsym $mod+Shift+space    floating toggle
+bindsym $mod+space          focus mode_toggle
+bindsym $mod+a              focus parent
 
-bindsym $mod+h                  focus left
-bindsym $mod+j                  focus down
-bindsym $mod+k                  focus up
-bindsym $mod+l                  focus right
+bindsym $mod+1              workspace $ws1
+bindsym $mod+2              workspace $ws2
+bindsym $mod+3              workspace $ws3
+bindsym $mod+4              workspace $ws4
+bindsym $mod+5              workspace $ws5
+bindsym $mod+6              workspace $ws6
+bindsym $mod+7              workspace $ws7
+bindsym $mod+8              workspace $ws8
+bindsym $mod+9              workspace $ws9
+bindsym $mod+0              workspace $ws10
 
-bindsym $mod+Shift+h            move left
-bindsym $mod+Shift+j            move down
-bindsym $mod+Shift+k            move up
-bindsym $mod+Shift+l            move right
+bindsym $mod+Shift+1        move container to workspace $ws1
+bindsym $mod+Shift+2        move container to workspace $ws2
+bindsym $mod+Shift+3        move container to workspace $ws3
+bindsym $mod+Shift+4        move container to workspace $ws4
+bindsym $mod+Shift+5        move container to workspace $ws5
+bindsym $mod+Shift+6        move container to workspace $ws6
+bindsym $mod+Shift+7        move container to workspace $ws7
+bindsym $mod+Shift+8        move container to workspace $ws8
+bindsym $mod+Shift+9        move container to workspace $ws9
+bindsym $mod+Shift+0        move container to workspace $ws10
 
-bindsym $mod+Shift+Left         move workspace to output left
-bindsym $mod+Shift+Right        move workspace to output right
+bindsym $mod+Shift+c        reload
+bindsym $mod+Shift+r        restart
 
-bindsym $mod+o                  split h
-bindsym $mod+v                  split v
-bindsym $mod+f                  fullscreen
-
-bindsym $mod+s                  layout stacking
-bindsym $mod+w                  layout tabbed
-bindsym $mod+e                  layout toggle split
-
-bindsym $mod+Shift+space        floating toggle
-bindsym $mod+space              focus mode_toggle
-bindsym $mod+a                  focus parent
-
-#bindsym $mod+r                 exec i3-input -F 'rename workspace to "%s"' -P 'New name '
-
-bindsym $mod+1                  workspace 1
-bindsym $mod+2                  workspace 2
-bindsym $mod+3                  workspace 3
-bindsym $mod+4                  workspace 4
-bindsym $mod+5                  workspace 5
-bindsym $mod+6                  workspace 6
-bindsym $mod+7                  workspace 7
-bindsym $mod+8                  workspace 8
-bindsym $mod+9                  workspace 9
-bindsym $mod+0                  workspace 10
-
-bindsym $mod+Shift+1            move container to workspace 1
-bindsym $mod+Shift+2            move container to workspace 2
-bindsym $mod+Shift+3            move container to workspace 3
-bindsym $mod+Shift+4            move container to workspace 4
-bindsym $mod+Shift+5            move container to workspace 5
-bindsym $mod+Shift+6            move container to workspace 6
-bindsym $mod+Shift+7            move container to workspace 7
-bindsym $mod+Shift+8            move container to workspace 8
-bindsym $mod+Shift+9            move container to workspace 9
-bindsym $mod+Shift+0            move container to workspace 10
-
-bindsym $mod+Shift+c            reload
-bindsym $mod+Shift+r            restart
-
-bindsym XF86AudioLowerVolume    exec $volume_down       && $reload_statusbar
-bindsym XF86AudioRaiseVolume    exec $volume_up         && $reload_statusbar
-bindsym XF86AudioMute           exec $volume_mute       && $reload_statusbar
-bindsym XF86AudioMicMute        exec $volume_mic_mute   && $reload_statusbar
-
-bindsym XF86MonBrightnessDown   exec $backlight_down
-bindsym XF86MonBrightnessUp     exec $backlight_up
-
-bindsym $mod+p --release        exec --no-startup-id $screenshot
-bindsym $mod+Shift+p --release  exec --no-startup-id $screenshot_region
+bindsym XF86AudioMute           exec $volume_mute
+bindsym XF86AudioLowerVolume    exec $volume_down && $play_sound
+bindsym XF86AudioRaiseVolume    exec $volume_up && $play_sound
 
 bindsym Shift+Ctrl+l            mode "$meta_mode"
 bindsym $mod+q                  mode "$quicklaunch_mode"
 bindsym $mod+r                  mode "$resize_mode"
 
-# }}}
-
-# Colors {{{
-
-set $nord0   #2E3440
-set $nord1   #3B4252
-set $nord2   #434C5E
-set $nord3   #4C566A
-set $nord4   #D8DEE9
-set $nord5   #E5E9F0
-set $nord6   #ECEFF4
-set $nord7   #8FBCBB
-set $nord8   #88C0D0
-set $nord9   #81A1C1
-set $nord10  #5E81AC
-set $nord11  #BF616A
-set $nord12  #D08770
-set $nord13  #EBCB8B
-set $nord14  #A3BE8C
-set $nord15  #B48EAD
-
-# Property Name         Border  BG      Text    Indicator Child Border
-client.focused          $nord2  $nord1 $nord4 $nord2 $nord9
-client.focused_inactive $nord2  $nord0 $nord4 $nord2 $nord1
-client.unfocused        $nord2  $nord0 $nord4 $nord2 $nord1
-client.urgent           $nord11 $nord0 $nord4 $nord2 $nord11
-client.placeholder      $nord2  $nord0 $nord4 $nord2 $nord1
-client.background       $nord0
+# Property Name             Border      BG          Text        Indicator   Child Border
+client.focused              $nord2      $nord1      $nord4      $nord2      $nord9
+client.focused_inactive     $nord2      $nord0      $nord4      $nord2      $nord1
+client.unfocused            $nord2      $nord0      $nord4      $nord2      $nord1
+client.urgent               $nord11     $nord0      $nord4      $nord2      $nord11
+client.placeholder          $nord2      $nord0      $nord4      $nord2      $nord1
+client.background           $nord0
 
 bar {
     status_command i3status
 
     colors {
-        background $nord1
-        separator  $nord2
-        statusline $nord4
+        background      $nord1
+        separator       $nord3
+        statusline      $nord4
 
-        # State             Border  BG      Text
-        focused_workspace   $nord7  $nord1  $nord4
-        active_workspace    $nord1  $nord1  $nord4
-        inactive_workspace  $nord1  $nord1  $nord4
-        urgent_workspace    $nord11 $nord1  $nord4
-        binding_mode        $nord1  $nord1  $nord4
+        # State                 Border      BG          Text
+        focused_workspace       $nord7      $nord1      $nord4
+        active_workspace        $nord1      $nord1      $nord4
+        inactive_workspace      $nord1      $nord1      $nord4
+        urgent_workspace        $nord11     $nord1      $nord4
+        binding_mode            $nord1      $nord1      $nord4
     }
 }
 
-
-# }}}
-
-# Modes {{{
-
 set $meta_mode Meta: e(X)it i3, (l)ock screen, (H)ibernate, (S)uspend, (R)eboot, shut(D)own
 mode "$meta_mode" {
-    bindsym Shift+x exec i3-msg exit, mode "default"
-    bindsym l exec --no-startup-id $lock_command, mode "default"
-    bindsym Shift+s exec --no-startup-id $lock_command && sleep 1 && $suspend_command, mode "default"
-    bindsym Shift+h exec --no-startup-id $lock_command && sleep 1 && $hibernate_command, mode "default"
-    bindsym Shift+r exec --no-startup-id $reboot_command, mode "default"
-    bindsym Shift+d exec --no-startup-id $shutdown_command, mode "default"
+    bindsym Shift+x     exec i3-msg exit, mode "default"
+    bindsym l           exec --no-startup-id $lock_command, mode "default"
+    bindsym Shift+s     exec --no-startup-id $lock_command && sleep 1 && $suspend_command, mode "default"
+    bindsym Shift+h     exec --no-startup-id $lock_command && sleep 1 && $hibernate_command, mode "default"
+    bindsym Shift+r     exec --no-startup-id $reboot_command, mode "default"
+    bindsym Shift+d     exec --no-startup-id $shutdown_command, mode "default"
 
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+    bindsym Return      mode "default"
+    bindsym Escape      mode "default"
 }
 
 set $quicklaunch_mode Quicklaunch: (w)eb, (m)ail, (v)m, mu(s)ic, (d)oc, (f)iles
 mode "$quicklaunch_mode" {
-  bindsym w exec --no-startup-id $web_browser, mode "default"
-  bindsym m exec --no-startup-id $mail_client, mode "default"
-  bindsym v exec --no-startup-id $vm_manager, mode "default"
-  bindsym s exec --no-startup-id $music_player, mode "default"
-  bindsym d exec --no-startup-id $doc_viewer, mode "default"
-  bindsym f exec --no-startup-id $file_manager, mode "default"
+  bindsym w             exec --no-startup-id $web_browser, mode "default"
+  bindsym m             exec --no-startup-id $mail_client, mode "default"
+  bindsym v             exec --no-startup-id $vm_manager, mode "default"
+  bindsym s             exec --no-startup-id $music_player, mode "default"
+  bindsym d             exec --no-startup-id $doc_viewer, mode "default"
+  bindsym f             exec --no-startup-id $file_manager, mode "default"
 
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
+  bindsym Return        mode "default"
+  bindsym Escape        mode "default"
 }
 
 set $resize_mode Resize: h-j-k-l to grow, H-J-K-L to shrink
 mode "$resize_mode" {
-    bindsym h resize grow left
-    bindsym j resize grow down
-    bindsym k resize grow up
-    bindsym l resize grow right
+    bindsym h           resize grow left
+    bindsym j           resize grow down
+    bindsym k           resize grow up
+    bindsym l           resize grow right
 
-    bindsym shift+h resize shrink left
-    bindsym shift+j resize shrink down
-    bindsym shift+k resize shrink up
-    bindsym shift+l resize shrink right
+    bindsym shift+h     resize shrink left
+    bindsym shift+j     resize shrink down
+    bindsym shift+k     resize shrink up
+    bindsym shift+l     resize shrink right
 
-    bindsym Return mode "default"
-    bindsym Escape mode "default
+    bindsym Return      mode "default"
+    bindsym Escape      mode "default"
 }
-
-# }}}
-
-# Autoruns {{{
 
 exec --no-startup-id xsetroot -solid "$nord0"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id dropbox start
-exec --no-startup-id redshift -o -l 59.9139:10.7522 -m randr -b 0.8
-
-# }}}
-
-# vim: foldmethod=marker

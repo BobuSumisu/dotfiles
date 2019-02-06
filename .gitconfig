@@ -1,0 +1,7 @@
+[user]
+	email = oyvind.ingvaldsen@gmail.com
+	name = Øyvind Ingvaldsen
+[core]
+	editor = vim
+[commit]
+	gpgsign = true
