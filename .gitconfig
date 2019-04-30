@@ -3,5 +3,3 @@
 	name = Øyvind Ingvaldsen
 [core]
 	editor = vim
-[commit]
-	gpgsign = true

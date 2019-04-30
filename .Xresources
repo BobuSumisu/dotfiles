@@ -23,8 +23,8 @@ URxvt.iso14755_52:                      false
 URxvt.scrollBar:                        false
 URxvt.fading:                           40
 URxvt.depth:                            32
-URxvt.transparent:                      true
-URxvt.inheritPixmap:                    true
+URxvt.transparent:                      false
+URxvt.inheritPixmap:                    false
 
 #define nord0 #2E3440
 #define nord1 #3B4252
