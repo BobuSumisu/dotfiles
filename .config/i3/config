@@ -135,7 +135,7 @@ bar {
         statusline      $nord4
 
         # State                 Border      BG          Text
-        focused_workspace       $nord7      $nord1      $nord4
+        focused_workspace       $nord1      $nord0      $nord4
         active_workspace        $nord1      $nord1      $nord4
         inactive_workspace      $nord1      $nord1      $nord4
         urgent_workspace        $nord11     $nord1      $nord4
@@ -164,6 +164,8 @@ mode "$quicklaunch_mode" {
   bindsym s             exec --no-startup-id $music_player, mode "default"
   bindsym d             exec --no-startup-id $doc_viewer, mode "default"
   bindsym f             exec --no-startup-id $file_manager, mode "default"
+
+  bindsym c             exec --no-startup-id VBoxManage startvm "work", mode "default"
 
   bindsym Return        mode "default"
   bindsym Escape        mode "default"
