@@ -165,8 +165,6 @@ mode "$quicklaunch_mode" {
   bindsym d             exec --no-startup-id $doc_viewer, mode "default"
   bindsym f             exec --no-startup-id $file_manager, mode "default"
 
-  bindsym c             exec --no-startup-id VBoxManage startvm "work", mode "default"
-
   bindsym Return        mode "default"
   bindsym Escape        mode "default"
 }
