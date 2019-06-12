@@ -6,9 +6,9 @@ set $font                   Fira Code
 set $font_size              9
 
 set $terminal               urxvt
-set $web_browser            google-chrome
+set $web_browser            google-chrome --proxy-pac-url="http://wpad/proxy.pac"
 set $mail_client            thunderbird
-set $vm_manager             virtualbox
+set $vm_manager             vmware
 set $music_player           spotify
 set $doc_viewer             evince
 set $file_manager           nautilus
@@ -114,6 +114,9 @@ bindsym XF86AudioMute           exec $volume_mute
 bindsym XF86AudioLowerVolume    exec $volume_down && $play_sound
 bindsym XF86AudioRaiseVolume    exec $volume_up && $play_sound
 
+bindsym --release $mod+p        exec scrot -q 100 -s /tmp/%F-%T.png -e 'xclip -selection c -t image/png < $f'
+bindsym --release $mod+Shift+p  exec scrot -q 100 /tmp/%F-%T.png -e 'xclip -selection c -t image/png < $f'
+
 bindsym Shift+Ctrl+l            mode "$meta_mode"
 bindsym $mod+q                  mode "$quicklaunch_mode"
 bindsym $mod+r                  mode "$resize_mode"
@@ -164,6 +167,8 @@ mode "$quicklaunch_mode" {
   bindsym s             exec --no-startup-id $music_player, mode "default"
   bindsym d             exec --no-startup-id $doc_viewer, mode "default"
   bindsym f             exec --no-startup-id $file_manager, mode "default"
+
+  bindsym c             exec --no-startup-id vmrun start ~/vmware/RE\ \[OFFLINE\]/RE\ \[OFFLINE\].vmx, mode "default"
 
   bindsym Return        mode "default"
   bindsym Escape        mode "default"

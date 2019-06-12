@@ -69,8 +69,8 @@ set wildmenu
 
 let g:asmsyntax = 'nasm'
 
-let g:ale_c_clang_options = '-std=c11 -Wall -Wextra -Wpedantic'
-let g:ale_c_gcc_options = '-std=c11 -Wall -Wextra -Wpedantic'
+let g:ale_c_clang_options = '-std=gnu11 -Wall -Wextra -Wpedantic'
+let g:ale_c_gcc_options = '-std=gnu11 -Wall -Wextra -Wpedantic'
 let g:ale_cpp_clang_options = '-std=c++1z -Wall -Wextra -Wpedantic'
 let g:ale_c_parse_makefile = 1
 let g:ale_fix_on_save = 1
@@ -138,6 +138,7 @@ augroup init
     autocmd! User GoyoLeave Limelight!
     autocmd! FileType qf wincmd J
     autocmd! BufNewFile,BufRead *.vs,*.fs set filetype=glsl
+    autocmd! BufNewFile,BufRead *.go set nolist
 augroup END
 
 command W w
