@@ -3,14 +3,24 @@ call plug#begin('~/.vim/plugged')
 Plug 'arcticicestudio/nord-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'Yggdroot/indentLine'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 
 Plug 'w0rp/ale'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer --go-completer' }
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'SirVer/ultisnips'
+
+if !has('nvim')
+Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+Plug 'roxma/nvim-yarp'
+
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-racer'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -23,7 +33,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'jsfaint/gen_tags.vim'
+" Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
@@ -35,39 +46,50 @@ Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
 call plug#end()
 
-silent! colorscheme nord
+colorscheme nord
 
-set autoindent
-set autoread
-set background=dark
-set backspace=indent,eol,start
-set colorcolumn=120
-set expandtab
-set hlsearch
-set ignorecase
-set incsearch
-set laststatus=2
-set list
-set listchars=tab:>-,trail:-,nbsp:?
-set modeline
-set modelines=5
-set noswapfile
-set wrap
-set nrformats=alpha,bin,hex
-set number
-set numberwidth=4
-set ruler
-set shiftround
-set shiftwidth=4
-set showmatch
-set smartcase
-set smartindent
-set smarttab
-set softtabstop=4
-set tabstop=4
-set wildmenu
+" Cooler cursor in vim.
+if !has('nvim')
+    let &t_SI = "\<Esc>[6 q"
+    let &t_SR = "\<Esc>[4 q"
+    let &t_EI = "\<Esc>[2 q"
+endif
 
-let g:asmsyntax = 'nasm'
+set autoindent                          " Copy indent from current line when starting a new line (vim off, nvim on).
+set autoread                            " Automatically read when file changed outside vim (vim off, nvim on).
+set background=dark                     " Adjust colors to a dark background (vim guesses, nvim dark).
+set backspace=indent,eol,start          " Change how <BS> etc. work in insert mode (vim "", nvim "indent,eol,start").
+set colorcolumn=+1                      " Color column at textwidth+1 (vim/nvim 0).
+set expandtab                           " Use spaces in indents (vim/nvim off).
+set hlsearch                            " Highlight search matches (vim off, nvim on).
+set ignorecase                          " Ignore case in search patterns (vim/nvim off).
+set incsearch                           " Show matches while typing (vim off, nvim on).
+set laststatus=2                        " Alway show a status line (vim 1, nvim 2).
+set list                                " List mode, show tabs, trailing spaces and nbsps (vim/nvim off).
+set listchars=tab:>-,trail:-,nbsp:?     " Characters in list mode (vim "eol:$", nvim "tab:> ,trail:-,nbsp:+").
+set modeline                            " Use modeline (vim off (Debian), nvim on).
+set noswapfile                          " Disable swap file (vim/nvim on).
+set nrformats=alpha,bin,hex             " Number bases for CTRL-A and CTRL-X (vim "bin,octal,hex", nvim "bin,hex").
+set number                              " Show line numbers (vim/nvim off).
+set ruler                               " Show line and column number (vim off, nvim on).
+set shiftround                          " Round indent to multiple of 'shiftwidth' (vim/nvim off).
+set shiftwidth=4                        " Numbers of spaces to use for each step of (auto)indent (vim/nvim 8).
+set showmatch                           " Show matching brackets by briefly jumping to it (vim/nvim off).
+set smartcase                           " Override 'ignorecase' in searches if the patters contains upper case characters (vim/nvim off).
+set smartindent                         " Smart autoindenting (vim/nvim off).
+set smarttab                            " Smart tab in front of a line (vim off, nvim on).
+set softtabstop=4                       " Number of spaces that <Tab> counts for in editing operations (vim/nvim 0).
+set tabstop=4                           " Number of spaces that <Tab> counts for (vim/nvim 8).
+set textwidth=119                       " Maximum width of text that is being inserted (vim/nvim 0).
+set wildmenu                            " Command-line completion in enhanced mode (vim off, nvim on).
+
+let g:python3_host_prog='/usr/bin/python3'
+let $NVIM_PYTHON_LOG_FILE="/tmp/nvim_log"
+let $NVIM_PYTHON_LOG_LEVEL="DEBUG"
+
+let g:asmsyntax = 'nasm'                " Use nasm for assembly syntax (TODO: move to autocommand?).
+
+let g:airline#extensions#tabline#enabled = 1
 
 let g:ale_c_clang_options = '-std=gnu11 -Wall -Wextra -Wpedantic'
 let g:ale_c_gcc_options = '-std=gnu11 -Wall -Wextra -Wpedantic'
@@ -91,24 +113,11 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips']
 
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_min_num_of_chars_for_completion = 2
-let g:ycm_rust_src_path =
-    \ '~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
-
-let &t_SI = "\<Esc>[6 q"
-let &t_SR = "\<Esc>[4 q"
-let &t_EI = "\<Esc>[2 q"
-
-let g:AutoPairsShortcutFastWrap = ''
-
 if has('terminal')
     let g:termdebug_wide = 120
 endif
+
+command! W w
 
 let g:mapleader = ' '
 
@@ -123,7 +132,6 @@ nnoremap <S-t> :FzfTags<CR>
 nnoremap <leader><Space> :noh<CR>
 
 nnoremap <leader>go :Goyo<CR>
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
 nnoremap <leader>li :set invlist<CR>
 nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>pa :set invpaste<CR>
@@ -141,7 +149,11 @@ augroup init
     autocmd! BufNewFile,BufRead *.go set nolist
 augroup END
 
-command W w
+augroup NCM2
+    autocmd!
+    autocmd BufEnter * call ncm2#enable_for_buffer()
+    set completeopt=noinsert,menuone,noselect
+augroup END
 
 if has('packloadall')
     packloadall
