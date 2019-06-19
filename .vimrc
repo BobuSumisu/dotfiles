@@ -1,3 +1,7 @@
+" ~/.vimrc - hybrid vim/nvim config
+
+" Plugins {{{
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'arcticicestudio/nord-vim'
@@ -16,12 +20,13 @@ if !has('nvim')
 endif
 
 Plug 'roxma/nvim-yarp'
-
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-racer'
+Plug 'ncm2/ncm2-gtags'
 Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-pyclang'
+Plug 'ncm2/ncm2-racer'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -46,53 +51,80 @@ Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
 call plug#end()
 
-colorscheme nord
+" }}}
 
-" Cooler cursor in vim.
+" Editor Configuration {{{
+
+silent! colorscheme nord
+
 if !has('nvim')
-    let &t_SI = "\<Esc>[6 q"
-    let &t_SR = "\<Esc>[4 q"
-    let &t_EI = "\<Esc>[2 q"
+
+    " Set cursor style using terminal options.
+    let &t_SI = "\<Esc>[6 q"                " Start insert mode: steady line.
+    let &t_SR = "\<Esc>[4 q"                " Start replace mode: steady underline.
+    let &t_EI = "\<Esc>[2 q"                " End insert mode: steady block.
+
+    set autoindent                          " Copy indent from current line when starting a new line.
+    set autoread                            " Automatically read when file changed outside vim.
+    set background=dark                     " Adjust colors to a dark background.
+    set backspace=indent,eol,start          " Change how <BS> etc. work in insert mode.
+    set hlsearch                            " Highlight search matches.
+    set incsearch                           " Show matches while typing.
+    set listchars=tab:>-,trail:-,nbsp:?     " Characters in list mode.
+    set modeline                            " Use modeline (default off in Debian?).
+    set ruler                               " Show line and column number.
+    set smarttab                            " Smart tab in front of a line.
+    set wildmenu                            " Command-line completion in enhanced mode.
 endif
 
-set autoindent                          " Copy indent from current line when starting a new line (vim off, nvim on).
-set autoread                            " Automatically read when file changed outside vim (vim off, nvim on).
-set background=dark                     " Adjust colors to a dark background (vim guesses, nvim dark).
-set backspace=indent,eol,start          " Change how <BS> etc. work in insert mode (vim "", nvim "indent,eol,start").
-set colorcolumn=+1                      " Color column at textwidth+1 (vim/nvim 0).
-set expandtab                           " Use spaces in indents (vim/nvim off).
-set hlsearch                            " Highlight search matches (vim off, nvim on).
-set ignorecase                          " Ignore case in search patterns (vim/nvim off).
-set incsearch                           " Show matches while typing (vim off, nvim on).
-set laststatus=2                        " Alway show a status line (vim 1, nvim 2).
-set list                                " List mode, show tabs, trailing spaces and nbsps (vim/nvim off).
-set listchars=tab:>-,trail:-,nbsp:?     " Characters in list mode (vim "eol:$", nvim "tab:> ,trail:-,nbsp:+").
-set modeline                            " Use modeline (vim off (Debian), nvim on).
-set noswapfile                          " Disable swap file (vim/nvim on).
-set nrformats=alpha,bin,hex             " Number bases for CTRL-A and CTRL-X (vim "bin,octal,hex", nvim "bin,hex").
-set number                              " Show line numbers (vim/nvim off).
-set ruler                               " Show line and column number (vim off, nvim on).
-set shiftround                          " Round indent to multiple of 'shiftwidth' (vim/nvim off).
-set shiftwidth=4                        " Numbers of spaces to use for each step of (auto)indent (vim/nvim 8).
-set showmatch                           " Show matching brackets by briefly jumping to it (vim/nvim off).
-set smartcase                           " Override 'ignorecase' in searches if the patters contains upper case characters (vim/nvim off).
-set smartindent                         " Smart autoindenting (vim/nvim off).
-set smarttab                            " Smart tab in front of a line (vim off, nvim on).
-set softtabstop=4                       " Number of spaces that <Tab> counts for in editing operations (vim/nvim 0).
-set tabstop=4                           " Number of spaces that <Tab> counts for (vim/nvim 8).
-set textwidth=119                       " Maximum width of text that is being inserted (vim/nvim 0).
-set wildmenu                            " Command-line completion in enhanced mode (vim off, nvim on).
-set showtabline=2                       " Always show tab line (vim/nvim 1).
-set completeopt=noinsert,menuone,noselect
-set shortmess+=c
-set ttimeoutlen=0
+set colorcolumn=+1                          " Color column at textwidth+1.
+set completeopt=noinsert,menuone,noselect   " Options for ins-completion.
+set expandtab                               " Use spaces in indents.
+set ignorecase                              " Ignore case in search patterns.
+set laststatus=2                            " Alway show a status line.
+set list                                    " Turn on list mode: show tabs, trailing spaces and nbsps.
+set noswapfile                              " Disable swap file.
+set nrformats=alpha,bin,hex                 " Number bases for CTRL-A and CTRL-X.
+set number                                  " Show line numbers.
+set shiftround                              " Round indent to multiple of 'shiftwidth'.
+set shiftwidth=4                            " Numbers of spaces to use for each step of (auto)indent.
+set shortmess+=c                            " Don't show ins-completion messages.
+set showmatch                               " Show matching brackets by briefly jumping to it.
+set showtabline=2                           " Always show tab line.
+set smartcase                               " Override 'ignorecase' in searches if it contains upper case characters.
+set smartindent                             " Smart autoindenting.
+set softtabstop=4                           " Number of spaces that <Tab> counts for in editing operations.
+set tabstop=4                               " Number of spaces that <Tab> counts for.
+set textwidth=119                           " Maximum width of text that is being inserted.
+set ttimeoutlen=0                           " Don't wait for key code sequences to complete.
 
-let g:python_host_prog='/usr/bin/python'
-let g:python3_host_prog='/usr/bin/python3'
-let $NVIM_PYTHON_LOG_FILE='/tmp/nvim_log'
-let $NVIM_PYTHON_LOG_LEVEL='DEBUG'
+if has('nvim')
+    " Setting these can speed up things and avoid some problems.
+    let g:python_host_prog='/usr/bin/python'
+    let g:python3_host_prog='/usr/bin/python3'
 
-let g:asmsyntax = 'nasm'                " Use nasm for assembly syntax (TODO: move to autocommand?).
+    " Enable some debugging.
+    let $NVIM_PYTHON_LOG_FILE='/tmp/nvim_log'
+    let $NVIM_PYTHON_LOG_LEVEL='DEBUG'
+endif
+
+" }}}
+
+" Plugin Configuration {{{
+
+let g:ale_c_clang_options = '-std=gnu11 -Wall -Wextra -Wpedantic'
+let g:ale_c_gcc_options = '-std=gnu11 -Wall -Wextra -Wpedantic'
+let g:ale_cpp_clang_options = '-std=c++1z -Wall -Wextra -Wpedantic'
+let g:ale_c_parse_makefile = 1
+let g:ale_fix_on_save = 1
+let g:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'] }
+let g:ale_lint_on_text_changed = 0
+
+let g:asmsyntax = 'nasm'
+
+let g:fzf_command_prefix = 'Fzf'
+
+let g:go_fmt_command = 'goimports'
 
 let g:lightline = {
             \ 'colorscheme': 'nord',
@@ -108,17 +140,7 @@ let g:lightline = {
             \ }
 let g:lightline#bufferline#shorten_path = 1
 
-let g:ale_c_clang_options = '-std=gnu11 -Wall -Wextra -Wpedantic'
-let g:ale_c_gcc_options = '-std=gnu11 -Wall -Wextra -Wpedantic'
-let g:ale_cpp_clang_options = '-std=c++1z -Wall -Wextra -Wpedantic'
-let g:ale_c_parse_makefile = 1
-let g:ale_fix_on_save = 1
-let g:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'] }
-let g:ale_lint_on_text_changed = 0
-
-let g:fzf_command_prefix = 'Fzf'
-
-let g:go_fmt_command = 'goimports'
+let g:ncm2_pyclang#library_path = '/usr/lib/llvm-7/lib/libclang.so.1'
 
 let g:NERDSpaceDelims = 1
 
@@ -134,7 +156,9 @@ if has('terminal')
     let g:termdebug_wide = 120
 endif
 
-command! W w
+" }}}
+
+" Key Bindings {{{
 
 let g:mapleader = ' '
 
@@ -157,23 +181,34 @@ nnoremap <leader>tb :TagbarToggle<CR>
 nnoremap <leader>us :UltiSnipsEdit<CR>
 nnoremap <leader>vi :vsplit ~/.vimrc<CR>
 
-inoremap <c-c> <ESC>
+inoremap <C-c> <ESC>
+
+" }}}
+
+" Commands {{{
+
+command! W w
+
+" }}}
+
+" Autocommands {{{
 
 augroup init
     autocmd!
-    autocmd! User GoyoEnter Limelight
-    autocmd! User GoyoLeave Limelight!
-    autocmd! FileType qf wincmd J
-    autocmd! BufNewFile,BufRead *.vs,*.fs set filetype=glsl
-    autocmd! BufNewFile,BufRead *.go set nolist
+    autocmd User GoyoEnter Limelight
+    autocmd User GoyoLeave Limelight!
+    autocmd FileType qf wincmd J
+    autocmd BufNewFile,BufRead *.vs,*.fs set filetype=glsl
+    autocmd BufNewFile,BufRead *.go set nolist
+    autocmd BufEnter * call ncm2#enable_for_buffer()
+    autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
 augroup END
 
-augroup NCM2
-    autocmd!
-    autocmd BufEnter * call ncm2#enable_for_buffer()
-augroup END
+" }}}
 
 if has('packloadall')
     packloadall
     silent! helptags ALL
 endif
+
+" vim:fdm=marker
