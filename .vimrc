@@ -1,8 +1,8 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'arcticicestudio/nord-vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 Plug 'Yggdroot/indentLine'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -12,7 +12,7 @@ Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips'
 
 if !has('nvim')
-Plug 'roxma/vim-hug-neovim-rpc'
+    Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
 Plug 'roxma/nvim-yarp'
@@ -21,6 +21,7 @@ Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-racer'
+Plug 'ncm2/ncm2-jedi'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -34,7 +35,6 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 
 Plug 'jsfaint/gen_tags.vim'
-" Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
@@ -82,14 +82,31 @@ set softtabstop=4                       " Number of spaces that <Tab> counts for
 set tabstop=4                           " Number of spaces that <Tab> counts for (vim/nvim 8).
 set textwidth=119                       " Maximum width of text that is being inserted (vim/nvim 0).
 set wildmenu                            " Command-line completion in enhanced mode (vim off, nvim on).
+set showtabline=2                       " Always show tab line (vim/nvim 1).
+set completeopt=noinsert,menuone,noselect
+set shortmess+=c
+set ttimeoutlen=0
 
+let g:python_host_prog='/usr/bin/python'
 let g:python3_host_prog='/usr/bin/python3'
-let $NVIM_PYTHON_LOG_FILE="/tmp/nvim_log"
-let $NVIM_PYTHON_LOG_LEVEL="DEBUG"
+let $NVIM_PYTHON_LOG_FILE='/tmp/nvim_log'
+let $NVIM_PYTHON_LOG_LEVEL='DEBUG'
 
 let g:asmsyntax = 'nasm'                " Use nasm for assembly syntax (TODO: move to autocommand?).
 
-let g:airline#extensions#tabline#enabled = 1
+let g:lightline = {
+            \ 'colorscheme': 'nord',
+            \ 'tabline': { 'left': [[ 'buffers' ]], 'right': [[ 'progname' ]] },
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+            \ },
+            \ 'component': { 'progname': v:progname },
+            \ 'component_function': { 'gitbranch': 'fugitive#head' },
+            \ 'component_expand': { 'buffers': 'lightline#bufferline#buffers' },
+            \ 'component_type': { 'buffers': 'tabsel' },
+            \ }
+let g:lightline#bufferline#shorten_path = 1
 
 let g:ale_c_clang_options = '-std=gnu11 -Wall -Wextra -Wpedantic'
 let g:ale_c_gcc_options = '-std=gnu11 -Wall -Wextra -Wpedantic'
@@ -140,6 +157,8 @@ nnoremap <leader>tb :TagbarToggle<CR>
 nnoremap <leader>us :UltiSnipsEdit<CR>
 nnoremap <leader>vi :vsplit ~/.vimrc<CR>
 
+inoremap <c-c> <ESC>
+
 augroup init
     autocmd!
     autocmd! User GoyoEnter Limelight
@@ -152,7 +171,6 @@ augroup END
 augroup NCM2
     autocmd!
     autocmd BufEnter * call ncm2#enable_for_buffer()
-    set completeopt=noinsert,menuone,noselect
 augroup END
 
 if has('packloadall')

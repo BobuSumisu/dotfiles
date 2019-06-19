@@ -1,7 +1,7 @@
-URxvt.font:                             xft:Fira Code:style=Regular:pixelsize=15:Medium, xft:Symbola
-URxvt.boldFont:                         xft:Fira Code:style=Bold:pixelsize=15:Bold, xft:Symbola
-URxvt.italicFont:                       xft:Fira Code:style=Regular:pixelsize=15:Italic, xft:Symbola
-URxvt.boldItalicFont:                   xft:Fira Code:style=Bold:pixelsize=15:Bold:Italic, xft:Symbola
+URxvt.font:                             xft:Fura Code NerdFont:style=Regular:pixelsize=15:Medium, xft:Symbola
+URxvt.boldFont:                         xft:Fura Code NerdFont:style=Bold:pixelsize=15:Bold, xft:Symbola
+URxvt.italicFont:                       xft:Fura Code NerdFont:style=Regular:pixelsize=15:Italic, xft:Symbola
+URxvt.boldItalicFont:                   xft:Fura Code NerdFont:style=Bold:pixelsize=15:Bold:Italic, xft:Symbola
 
 URxvt.letterSpace:                      -1
 URxvt.lineSpace:                        0
