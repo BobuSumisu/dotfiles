@@ -1,7 +1,10 @@
 " ~/.vimrc
+scriptencoding utf-8
 
 call plug#begin('~/.vim/plugged')
+Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
+
 Plug 'fatih/vim-go',                        { 'for': 'go', 'do': ':GoInstallBinaries' }
 Plug 'itchyny/lightline.vim'
 Plug 'jsfaint/gen_tags.vim'
@@ -12,7 +15,7 @@ Plug 'junegunn/limelight.vim',              { 'on': 'Limelight' }
 Plug 'junegunn/vader.vim',                  { 'on': 'Vader', 'for': 'vader' }
 Plug 'leafgarland/typescript-vim',          { 'for': 'typescript' }
 Plug 'majutsushi/tagbar',                   { 'on': 'TagbarToggle' }
-Plug 'mengelbrecht/lightline-bufferline'
+
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-gtags'
@@ -20,43 +23,62 @@ Plug 'ncm2/ncm2-jedi',                      { 'for': 'python' }
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-pyclang',                   { 'for': [ 'c', 'cpp' ] }
 Plug 'ncm2/ncm2-racer',                     { 'for': 'rust' }
+Plug 'ncm2/ncm2-go',                        { 'for': 'go' }
+
 Plug 'pangloss/vim-javascript',             { 'for': 'javascript' }
 Plug 'rhysd/vim-crystal',                   { 'for': 'crystal' }
 Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
+
+Plug 'OmniSharp/omnisharp-vim'
+
+Plug 'benmills/vimux'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+
+if !has('nvim')
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
 Plug 'rust-lang/rust.vim',                  { 'for': 'rust' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree',                 { 'on':  'NERDTreeToggle' }
 Plug 'SirVer/ultisnips'
 Plug 'tikhomirov/vim-glsl',                 { 'for': 'glsl' }
+
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+
 Plug 'w0rp/ale'
 call plug#end()
 
 """ Editor configuration
 
-
-" Setting the preferred cursor style is easy and fun...
-if exists('$TMUX')
-    let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[5 q\<Esc>\\"
-    let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
-    augroup cursorcleanup
-        autocmd!
-        autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[2 q\033\\"
-    augroup end
-else
-    let &t_SI .= "\<Esc>[5 q"
-    let &t_EI .= "\<Esc>[2 q"
-    augroup cursorcleanup
-        autocmd!
-        autocmd VimLeave * silent !echo -ne "\033[2 q"
-    augroup end
+if !has('nvim')
+    if exists('$TMUX')
+        let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[5 q\<Esc>\\"
+        let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
+        augroup cursorcleanup
+            autocmd!
+            autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[2 q\033\\"
+        augroup end
+    else
+        let &t_SI .= "\<Esc>[5 q"
+        let &t_EI .= "\<Esc>[2 q"
+        augroup cursorcleanup
+            autocmd!
+            autocmd VimLeave * silent !echo -ne "\033[2 q"
+        augroup end
+    endif
 endif
 
-silent! colorscheme nord                    " Using nord color theme from plugin.
+if has('nvim')
+    let $NVIM_PYTHON_LOG_FILE='/tmp/nvim_log'
+    let $NVIM_PYTHON_LOG_LEVEL='DEBUG'
+endif
+
+silent! colorscheme gruvbox
 set autoindent                              " Copy indent from current line when starting a new line.
 set autoread                                " Automatically read when file changed outside vim.
 set background=dark                         " Adjust colors to a dark background.
@@ -79,7 +101,7 @@ set shiftround                              " Round indent to multiple of 'shift
 set shiftwidth=4                            " Numbers of spaces to use for each step of (auto)indent.
 set shortmess+=c                            " Don't show ins-completion messages.
 set showmatch                               " Show matching brackets by briefly jumping to it.
-set showtabline=2                           " Always show tab line.
+set showtabline=0                           " Always show tab line.
 set smartcase                               " Override 'ignorecase' in searches if it contains upper case characters.
 set smartindent                             " Smart autoindenting.
 set smarttab                                " Smart tab in front of a line.
@@ -97,21 +119,28 @@ set wildmenu                                " Command-line completion in enhance
 let g:ale_c_clang_options           = '-std=gnu11 -Wall -Wextra -Werror -Wpedantic'
 let g:ale_c_gcc_options             = '-std=gnu11 -Wall -Wextra -Werror -Wpedantic'
 let g:ale_c_parse_makefile          = 1
-let g:ale_cpp_clang_options         = '-std=c++1z -Wall -Wextra -Wpedantic'
+let g:ale_cpp_clang_options         = '-std=gnu++1z -Wall -Wextra -Wpedantic'
 let g:ale_fix_on_save               = 1
 let g:ale_fixers                    = { '*': ['remove_trailing_lines', 'trim_whitespace'] }
 let g:ale_lint_on_text_changed      = 0
 let g:asmsyntax                     = 'nasm'
 let g:fzf_command_prefix            = 'Fzf'
+let g:gen_tags#ctags_auto_gen       = 1
+let g:gen_tags#gtags_auto_gen       = 1
 let g:go_fmt_command                = 'goimports'
+let g:go_fmt_fail_silently          = 1
+let g:go_highlight_types            = 1
+let g:go_highlight_fields           = 1
+let g:go_highlight_functions        = 1
+let g:go_highlight_function_calls   = 1
+let g:go_highlight_operators        = 1
+let g:go_highlight_extra_types      = 1
+let g:go_metalinter_enabled         = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_autosave        = 0
 let g:lightline                     = {}
 let g:lightline.active              = { 'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ] }
-let g:lightline.colorscheme         = 'nord'
-let g:lightline.component           = { 'progname': v:progname . ' ' . v:version }
-let g:lightline.component_expand    = { 'buffers': 'lightline#bufferline#buffers' }
+let g:lightline.colorscheme         = 'gruvbox'
 let g:lightline.component_function  = { 'gitbranch': 'fugitive#head' }
-let g:lightline.component_type      = { 'buffers': 'tabsel' }
-let g:lightline.tabline             = { 'left': [ [ 'buffers' ] ], 'right': [ [ 'progname' ] ] }
 let g:limelight_conceal_ctermfg     = 'black'
 let g:mapleader                     = ' '
 let g:ncm2_pyclang#library_path     = '/usr/lib/llvm-7/lib/libclang.so.1'
@@ -123,31 +152,46 @@ let g:UltiSnipsExpandTrigger        = '<C-j>'
 let g:UltiSnipsJumpBackwardTrigger  = '<s-tab>'
 let g:UltiSnipsJumpForwardTrigger   = '<tab>'
 let g:UltiSnipsSnippetDirectories   = [$HOME.'/.vim/UltiSnips']
+let g:OmniSharp_server_stdio        = 1
+let g:OmniSharp_highlight_types     = 2
 
 """ Key bindings
 
-inoremap jj                 <Esc>
+inoremap jk                 <Esc>
+nnoremap <C-n>              :FzfBuffers<CR>
 nnoremap <C-h>              <C-w><C-h>
 nnoremap <C-j>              <C-w><C-j>
 nnoremap <C-k>              <C-w><C-k>
 nnoremap <C-l>              <C-w><C-l>
-nnoremap ss                 :w<CR>
-nnoremap <C-b>              :FzfBuffers<CR>
 nnoremap <C-p>              :FzfFiles<CR>
 nnoremap <leader><Space>    :noh<CR>
 nnoremap <leader>go         :Goyo<CR>
 nnoremap <leader>li         :set invlist<CR>
 nnoremap <leader>nt         :NERDTreeToggle<CR>
 nnoremap <leader>pa         :set invpaste<CR>
+nnoremap <leader>rr         :!!<CR>
 nnoremap <leader>so         :so %<CR>
 nnoremap <leader>tb         :TagbarToggle<CR>
 nnoremap <leader>us         :UltiSnipsEdit<CR>
-nnoremap <leader>vi         :vsplit ~/.vimrc<CR>
-nnoremap <leader>vl         :VimuxRunLastCommand<CR>
+nnoremap <leader>ee         :vsplit ~/.vimrc<CR>
 nnoremap <leader>vp         :VimuxPromptCommand<CR>
-nnoremap <leader>vs         :VimuxInspectRunner<CR>
+nnoremap <leader>vl         :VimuxRunLastCommand<CR>
+nnoremap <leader>vi         :VimuxInspectRunner<CR>
+nnoremap <leader>vq         :VimuxCloseRunner<CR>
+nnoremap <leader>vs         :VimuxInterruptRunner<CR>
+nnoremap <leader>vc         :VimuxClearRunnerHistory<CR>
 nnoremap <leader>vz         :VimuxZoomRunner<CR>
 nnoremap <S-t>              :FzfTags<CR>
+
+vmap <leader>vs             "vy :call VimuxSlime()<CR>
+nmap <leader>vs             vip<Leader>vs<CR>
+
+nmap ø [
+nmap æ ]
+omap ø [
+omap æ ]
+xmap ø [
+xmap æ ]
 
 """ Autocommands
 
@@ -163,7 +207,25 @@ augroup init
     autocmd User GoyoLeave Limelight!
 augroup END
 
+augroup golang
+    autocmd!
+    autocmd FileType go nmap <leader>a <Plug>(go-alternate)
+    autocmd FileType go nmap <leader>b <Plug>(go-build)
+    autocmd FileType go nmap <leader>t <Plug>(go-test)
+    autocmd FileType go nmap <leader>r <Plug>(go-run)
+    autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+augroup END
+
+""" Commands
+
 command! W w
+
+""" Functions
+
+function! VimuxSlime()
+    call VimuxSendText(@v)
+    call VimuxSendKeys('Enter')
+endfunction
 
 if has('packloadall')
     packloadall

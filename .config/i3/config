@@ -2,7 +2,7 @@
 
 set $mod                    Mod4
 
-set $font                   Fira Code
+set $font                   FuraCode Nerd Font
 set $font_size              9
 
 set $terminal               urxvt
@@ -15,8 +15,8 @@ set $file_manager           nautilus
 
 set $play_sound             paplay /usr/share/sounds/gnome/default/alerts/drip.ogg
 set $volume_mute            pactl set-sink-mute @DEFAULT_SINK@ toggle
-set $volume_up              pactl set-sink-volume @DEFAULT_SINK@ +2%
-set $volume_down            pactl set-sink-volume @DEFAULT_SINK@ -2%
+set $volume_up              pactl set-sink-volume @DEFAULT_SINK@ +5%
+set $volume_down            pactl set-sink-volume @DEFAULT_SINK@ -5%
 
 set $lock_command           i3lock
 set $suspend_command        systemctl suspend
@@ -35,27 +35,9 @@ set $ws8                    "8"
 set $ws9                    "9"
 set $ws10                   "10"
 
-set $nord0                  #2E3440
-set $nord1                  #3B4252
-set $nord2                  #434C5E
-set $nord3                  #4C566A
-set $nord4                  #D8DEE9
-set $nord5                  #E5E9F0
-set $nord6                  #ECEFF4
-set $nord7                  #8FBCBB
-set $nord8                  #88C0D0
-set $nord9                  #81A1C1
-set $nord10                 #5E81AC
-set $nord11                 #BF616A
-set $nord12                 #D08770
-set $nord13                 #EBCB8B
-set $nord14                 #A3BE8C
-set $nord15                 #B48EAD
-
 font                        pango:$font $font_size
 floating_modifier           $mod
-hide_edge_borders           smart
-new_window                  pixel 2
+default_border              none
 
 bindsym $mod+Return         exec $terminal
 bindsym $mod+Shift+q        kill
@@ -121,28 +103,40 @@ bindsym Shift+Ctrl+l            mode "$meta_mode"
 bindsym $mod+q                  mode "$quicklaunch_mode"
 bindsym $mod+r                  mode "$resize_mode"
 
-# Property Name             Border      BG          Text        Indicator   Child Border
-client.focused              $nord2      $nord1      $nord4      $nord2      $nord9
-client.focused_inactive     $nord2      $nord0      $nord4      $nord2      $nord1
-client.unfocused            $nord2      $nord0      $nord4      $nord2      $nord1
-client.urgent               $nord11     $nord0      $nord4      $nord2      $nord11
-client.placeholder          $nord2      $nord0      $nord4      $nord2      $nord1
-client.background           $nord0
+set $bg     #282828
+set $fg     #ebdbb2
+set $red    #cc241d
+set $bg1    #3c3836
+set $bg2    #504945
+set $green  #98971a
+set $fg1    #ebdbb2
+set $fg2    #d5c4a1
+set $fg4    #a89984
+set $blue   #458588
+set $purple #d3869b
+
+# Property Name             Border  BG      Text    Indicator   Child Border
+client.focused              $gray   $bg     $fg     $gray       $bg
+client.focused_inactive     $gray   $bg     $fg     $gray       $bg
+client.unfocused            $gray   $bg     $fg     $gray       $bg
+client.urgent               $red    $bg     $fg     $gray       $red
+client.placeholder          $gray   $bg     $fg     $gray       $bg
+client.background           $bg
 
 bar {
     status_command i3status
 
     colors {
-        background      $nord1
-        separator       $nord3
-        statusline      $nord4
+        background      $bg1
+        separator       $fg4
+        statusline      $fg
 
-        # State                 Border      BG          Text
-        focused_workspace       $nord1      $nord0      $nord4
-        active_workspace        $nord1      $nord1      $nord4
-        inactive_workspace      $nord1      $nord1      $nord4
-        urgent_workspace        $nord11     $nord1      $nord4
-        binding_mode            $nord1      $nord1      $nord4
+        # State                 Border  BG      Text
+        focused_workspace       $bg1    $bg     $fg
+        active_workspace        $bg1    $bg1    $fg
+        inactive_workspace      $bg1    $bg1    $fg
+        urgent_workspace        $bg1    $bg1    $red
+        binding_mode            $bg1    $bg1    $fg
     }
 }
 
@@ -190,7 +184,7 @@ mode "$resize_mode" {
     bindsym Escape      mode "default"
 }
 
-exec --no-startup-id xsetroot -solid "$nord0"
+exec --no-startup-id xsetroot -solid "$bg"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id dropbox start
