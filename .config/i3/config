@@ -5,7 +5,7 @@ set $mod                    Mod4
 set $font                   FuraCode Nerd Font
 set $font_size              9
 
-set $terminal               urxvt
+set $terminal               alacritty
 set $web_browser            google-chrome --proxy-pac-url="http://wpad/proxy.pac"
 set $mail_client            thunderbird
 set $vm_manager             vmware
@@ -96,6 +96,9 @@ bindsym XF86AudioMute           exec $volume_mute
 bindsym XF86AudioLowerVolume    exec $volume_down && $play_sound
 bindsym XF86AudioRaiseVolume    exec $volume_up && $play_sound
 
+bindsym XF86MonBrightnessUp     exec backlight up
+bindsym XF86MonBrightnessDown   exec backlight down
+
 bindsym --release $mod+p        exec scrot -q 100 -s /tmp/%F-%T.png -e 'xclip -selection c -t image/png < $f'
 bindsym --release $mod+Shift+p  exec scrot -q 100 /tmp/%F-%T.png -e 'xclip -selection c -t image/png < $f'
 
@@ -153,7 +156,7 @@ mode "$meta_mode" {
     bindsym Escape      mode "default"
 }
 
-set $quicklaunch_mode Quicklaunch: (w)eb, (m)ail, (v)m, mu(s)ic, (d)oc, (f)iles
+set $quicklaunch_mode Quicklaunch: (w)eb, (m)ail, (v)m, mu(s)ic, (d)oc, (f)iles, (c)ode
 mode "$quicklaunch_mode" {
   bindsym w             exec --no-startup-id $web_browser, mode "default"
   bindsym m             exec --no-startup-id $mail_client, mode "default"
@@ -161,8 +164,7 @@ mode "$quicklaunch_mode" {
   bindsym s             exec --no-startup-id $music_player, mode "default"
   bindsym d             exec --no-startup-id $doc_viewer, mode "default"
   bindsym f             exec --no-startup-id $file_manager, mode "default"
-
-  bindsym c             exec --no-startup-id vmrun start ~/vmware/RE\ \[OFFLINE\]/RE\ \[OFFLINE\].vmx, mode "default"
+  bindsym c             exec --no-startup-id code, mode "default"
 
   bindsym Return        mode "default"
   bindsym Escape        mode "default"
@@ -184,7 +186,8 @@ mode "$resize_mode" {
     bindsym Escape      mode "default"
 }
 
-exec --no-startup-id xsetroot -solid "$bg"
+exec --no-startup-id hsetroot -solid "$bg"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id dropbox start
+exec --no-startup-id compton
