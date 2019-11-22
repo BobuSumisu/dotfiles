@@ -22,7 +22,7 @@ set $lock_command           i3lock
 set $suspend_command        systemctl suspend
 set $hibernate_command      systemctl hibernate
 set $reboot_command         systemctl reboot
-set $shutdown_command       systemctl shutdown
+set $shutdown_command       systemctl poweroff
 
 set $ws1                    "1"
 set $ws2                    "2"
@@ -191,3 +191,4 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id dropbox start
 exec --no-startup-id compton
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1

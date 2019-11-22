@@ -1,38 +1,40 @@
 " ~/.vimrc
 scriptencoding utf-8
 
+if !exists('$TMUX')
+    echo "Warning: you are not in tmux :)"
+endif
+
 """ Plugins {{{
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'morhetz/gruvbox'
-Plug 'itchyny/lightline.vim'
+Plug 'morhetz/gruvbox'                                              " Pretty colors.
+Plug 'itchyny/lightline.vim'                                        " Simple statusline.
 
-Plug 'junegunn/fzf',                        { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }   " Getting fuzzy.
 Plug 'junegunn/fzf.vim'
 
-Plug 'jsfaint/gen_tags.vim'
-Plug 'majutsushi/tagbar',                   { 'on': 'TagbarToggle' }
+Plug 'jsfaint/gen_tags.vim'                                         " Simple tags autogeneration.
 
-Plug 'neoclide/coc.nvim',                   {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}                     " Conqueror of Completion!
 
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'                 " Get me some snippets.
 
-Plug 'tikhomirov/vim-glsl',                 { 'for': 'glsl' }
-Plug 'fatih/vim-go',                        { 'for': 'go', 'do': ':GoInstallBinaries' }
-Plug 'pangloss/vim-javascript',             { 'for': 'javascript' }
-Plug 'rhysd/vim-crystal',                   { 'for': 'crystal' }
-Plug 'leafgarland/typescript-vim',          { 'for': 'typescript' }
-Plug 'rust-lang/rust.vim',                  { 'for': 'rust' }
+Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }                       " For OpenGL Shader Language.
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }    " For Go.
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }             " For Javascript.
+Plug 'rhysd/vim-crystal', { 'for': 'crystal' }                      " For Crystal.
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }          " For Typescript.
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }                        " For Rust.
+Plug 'mattn/emmet-vim'                                              " For fast HTML/CSS.
 
-Plug 'mattn/emmet-vim'
-
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-endwise'                                            " Automatic insertions of different 'end's.
+Plug 'tpope/vim-fugitive'                                           " The one and only Git wrapper for vim.
+Plug 'tpope/vim-repeat'                                             " For using . with plugin maps.
+Plug 'tpope/vim-surround'                                           " For better editing of surrounded stuff.
+Plug 'tpope/vim-unimpaired'                                         " Some smart paired mappings.
+Plug 'tpope/vim-commentary'                                         " Comment stuff out.
 
 call plug#end()
 
@@ -45,7 +47,7 @@ set autoindent                              " Copy indent from current line when
 set autoread                                " Automatically read when file changed outside vim.
 set background=dark                         " Adjust colors to a dark background.
 set backspace=indent,eol,start              " Change how <BS> etc. work in insert mode.
-set cmdheight=2
+set cmdheight=2                             " A little larger command window.
 set colorcolumn=+1                          " Color column at textwidth+1.
 set completeopt=noinsert,menuone,noselect   " Options for ins-completion.
 set expandtab                               " Use spaces in indents.
@@ -57,13 +59,13 @@ set laststatus=2                            " Alway show a status line.
 set list                                    " Turn on list mode: show tabs, trailing spaces and nbsps.
 set listchars=tab:>-,trail:-,nbsp:?         " Characters in list mode.
 set modeline                                " Use modeline (default off in Debian?).
-set nobackup
+set nobackup                                " No backup.
 set noswapfile                              " Disable swap file.
-set nowritebackup
+set nowritebackup                           " Don't backup on write.
 set nrformats=alpha,bin,hex                 " Number bases for CTRL-A and CTRL-X.
 set number                                  " Show line numbers.
 set ruler                                   " Show line and column number.
-set signcolumn=yes
+set signcolumn=yes                          " Always show the sign column.
 set shiftround                              " Round indent to multiple of 'shiftwidth'.
 set shiftwidth=4                            " Numbers of spaces to use for each step of (auto)indent.
 set shortmess+=c                            " Don't show ins-completion messages.
@@ -80,7 +82,7 @@ set timeout                                 " Turn on timeout on mappings and ke
 set timeoutlen=500                          " Timeout on mappings and key codes in ms.
 set ttimeout                                " Turn on timeout on key codes.
 set ttimeoutlen=100                         " Timeout on key codes in ms.
-set updatetime=300
+set updatetime=300                          " Think I need this for the CursorHold autocommand event and CoC.
 set wildmenu                                " Command-line completion in enhanced mode.
 
 " }}}
@@ -88,19 +90,20 @@ set wildmenu                                " Command-line completion in enhance
 """ Plugin configuration {{{
 
 let g:asmsyntax                     = 'nasm'
+let g:coc_snippet_next              = '<tab>'
 let g:fzf_command_prefix            = 'Fzf'
 let g:gen_tags#ctags_auto_gen       = 1
 let g:gen_tags#gtags_auto_gen       = 1
 let g:go_fmt_command                = 'goimports'
 let g:go_fmt_fail_silently          = 1
-let g:go_highlight_types            = 1
-let g:go_highlight_fields           = 1
-let g:go_highlight_functions        = 1
-let g:go_highlight_function_calls   = 1
-let g:go_highlight_operators        = 1
 let g:go_highlight_extra_types      = 1
-let g:go_metalinter_enabled         = ['vet', 'golint', 'errcheck']
+let g:go_highlight_fields           = 1
+let g:go_highlight_function_calls   = 1
+let g:go_highlight_functions        = 1
+let g:go_highlight_operators        = 1
+let g:go_highlight_types            = 1
 let g:go_metalinter_autosave        = 0
+let g:go_metalinter_enabled         = ['vet', 'golint', 'errcheck']
 let g:lightline                     = {}
 let g:lightline.active              = { 'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ] }
 let g:lightline.colorscheme         = 'gruvbox'
@@ -108,7 +111,6 @@ let g:lightline.component_function  = { 'gitbranch': 'fugitive#head' }
 let g:limelight_conceal_ctermfg     = 'black'
 let g:rustfmt_autosave              = 1
 let g:termdebug_wide                = 120
-
 let g:UltiSnipsEditSplit            = 'vertical'
 
 """ }}}
@@ -132,6 +134,7 @@ nnoremap <leader>so         :so %<CR>
 nnoremap <leader>tb         :TagbarToggle<CR>
 nnoremap <leader>ee         :vsplit ~/.vimrc<CR>
 nnoremap <leader>us         :UltiSnipsEdit<CR>
+nnoremap <leader>ws         :TrimWhitespace<CR>
 nnoremap <S-t>              :FzfTags<CR>
 
 nmap ø [
@@ -141,11 +144,7 @@ omap æ ]
 xmap ø [
 xmap æ ]
 
-"inoremap <silent><expr> <TAB>
-"      \ pumvisible() ? "\<C-n>" :
-"      \ <SID>check_back_space() ? "\<TAB>" :
-"      \ coc#refresh()
-
+" Remap tab in insert mode to support CoC completion and coc-snippets.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
@@ -154,39 +153,38 @@ inoremap <silent><expr> <TAB>
 
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-inoremap <silent><expr> <c-space> coc#refresh()
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+inoremap <silent><expr> <c-space>       coc#refresh()
+nmap <silent>           [g              <Plug>(coc-diagnostic-prev)
+nmap <silent>           ]g              <Plug>(coc-diagnostic-next)
+nmap <silent>           gd              <Plug>(coc-definition)
+nmap <silent>           gy              <Plug>(coc-type-definition)
+nmap <silent>           gi              <Plug>(coc-implementation)
+nmap <silent>           gr              <Plug>(coc-references)
+nnoremap <silent>       K               :call <SID>show_documentation()<CR>
 
-nmap <leader>rn <Plug>(coc-rename)
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>ac  <Plug>(coc-codeaction)
-nmap <leader>qf  <Plug>(coc-fix-current)
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-nmap <silent> <C-d> <Plug>(coc-range-select)
-xmap <silent> <C-d> <Plug>(coc-range-select)
+nmap                    <leader>rn      <Plug>(coc-rename)
+xmap                    <leader>f       <Plug>(coc-format-selected)
+nmap                    <leader>f       <Plug>(coc-format-selected)
+xmap                    <leader>a       <Plug>(coc-codeaction-selected)
+nmap                    <leader>a       <Plug>(coc-codeaction-selected)
+nmap                    <leader>ac      <Plug>(coc-codeaction)
+nmap                    <leader>qf      <Plug>(coc-fix-current)
+xmap                    if              <Plug>(coc-funcobj-i)
+xmap                    af              <Plug>(coc-funcobj-a)
+omap                    if              <Plug>(coc-funcobj-i)
+omap                    af              <Plug>(coc-funcobj-a)
+nmap <silent>           <C-d>           <Plug>(coc-range-select)
+xmap <silent>           <C-d>           <Plug>(coc-range-select)
 
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent>       <space>a        :<C-u>CocList diagnostics<cr>
+nnoremap <silent>       <space>e        :<C-u>CocList extensions<cr>
+nnoremap <silent>       <space>c        :<C-u>CocList commands<cr>
+nnoremap <silent>       <space>o        :<C-u>CocList outline<cr>
+nnoremap <silent>       <space>s        :<C-u>CocList -I symbols<cr>
+nnoremap <silent>       <space>j        :<C-u>CocNext<CR>
+nnoremap <silent>       <space>k        :<C-u>CocPrev<CR>
+nnoremap <silent>       <space>p        :<C-u>CocListResume<CR>
 
-let g:coc_snippet_next = '<tab>'
 
 """ }}}
 
@@ -204,27 +202,25 @@ augroup init
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup END
 
-augroup golang
-    autocmd!
-    autocmd FileType go nmap <leader>a <Plug>(go-alternate)
-    autocmd FileType go nmap <leader>b <Plug>(go-build)
-    autocmd FileType go nmap <leader>t <Plug>(go-test)
-    autocmd FileType go nmap <leader>r <Plug>(go-run)
-    autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
-augroup END
-
 """ }}}
 
 """ Commands {{{
 
 command! W w
-command! -nargs=0 Format    :call CocAction('format')
-command! -nargs=? Fold      :call CocAction('fold', <f-args>)
-command! -nargs=0 OR        :call CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 Format            :call CocAction('format')
+command! -nargs=? Fold              :call CocAction('fold', <f-args>)
+command! -nargs=0 OR                :call CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 TrimWhitespace    :call s:trim_whitespace()
 
 """ }}}
 
 """ Functions {{{
+
+function! s:trim_whitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfunction
 
 function! s:check_back_space() abort
     let col = col('.') - 1
