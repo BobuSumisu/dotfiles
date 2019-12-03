@@ -1,40 +1,52 @@
 " ~/.vimrc
 scriptencoding utf-8
 
-if !exists('$TMUX')
-    echo "Warning: you are not in tmux :)"
-endif
-
 """ Plugins {{{
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'morhetz/gruvbox'                                              " Pretty colors.
-Plug 'itchyny/lightline.vim'                                        " Simple statusline.
+Plug 'morhetz/gruvbox'
+Plug 'itchyny/lightline.vim'
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }   " Getting fuzzy.
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'jsfaint/gen_tags.vim'                                         " Simple tags autogeneration.
+Plug 'jsfaint/gen_tags.vim'
+Plug 'majutsushi/tagbar'
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}                     " Conqueror of Completion!
+Plug 'dense-analysis/ale'
+Plug 'maximbaz/lightline-ale'
 
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'                 " Get me some snippets.
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
 
-Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }                       " For OpenGL Shader Language.
-Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }    " For Go.
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }             " For Javascript.
-Plug 'rhysd/vim-crystal', { 'for': 'crystal' }                      " For Crystal.
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }          " For Typescript.
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }                        " For Rust.
-Plug 'mattn/emmet-vim'                                              " For fast HTML/CSS.
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-vim-lsp'
 
-Plug 'tpope/vim-endwise'                                            " Automatic insertions of different 'end's.
-Plug 'tpope/vim-fugitive'                                           " The one and only Git wrapper for vim.
-Plug 'tpope/vim-repeat'                                             " For using . with plugin maps.
-Plug 'tpope/vim-surround'                                           " For better editing of surrounded stuff.
-Plug 'tpope/vim-unimpaired'                                         " Some smart paired mappings.
-Plug 'tpope/vim-commentary'                                         " Comment stuff out.
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'mattn/emmet-vim'
+
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 
@@ -43,57 +55,56 @@ call plug#end()
 """ Editor configuration {{{
 
 silent! colorscheme gruvbox
-set autoindent                              " Copy indent from current line when starting a new line.
-set autoread                                " Automatically read when file changed outside vim.
-set background=dark                         " Adjust colors to a dark background.
-set backspace=indent,eol,start              " Change how <BS> etc. work in insert mode.
-set cmdheight=2                             " A little larger command window.
-set colorcolumn=+1                          " Color column at textwidth+1.
-set completeopt=noinsert,menuone,noselect   " Options for ins-completion.
-set expandtab                               " Use spaces in indents.
-set hidden                                  " Required by CoC.
-set hlsearch                                " Highlight search matches.
-set ignorecase                              " Ignore case in search patterns.
-set incsearch                               " Show matches while typing.
-set laststatus=2                            " Alway show a status line.
-set list                                    " Turn on list mode: show tabs, trailing spaces and nbsps.
-set listchars=tab:>-,trail:-,nbsp:?         " Characters in list mode.
-set modeline                                " Use modeline (default off in Debian?).
-set nobackup                                " No backup.
-set noswapfile                              " Disable swap file.
-set nowritebackup                           " Don't backup on write.
-set nrformats=alpha,bin,hex                 " Number bases for CTRL-A and CTRL-X.
-set number                                  " Show line numbers.
-set ruler                                   " Show line and column number.
-set signcolumn=yes                          " Always show the sign column.
-set shiftround                              " Round indent to multiple of 'shiftwidth'.
-set shiftwidth=4                            " Numbers of spaces to use for each step of (auto)indent.
-set shortmess+=c                            " Don't show ins-completion messages.
-set showmatch                               " Show matching brackets by briefly jumping to it.
-set showtabline=0                           " Always show tab line.
-set smartcase                               " Override 'ignorecase' in searches if it contains upper case characters.
-set smartindent                             " Smart autoindenting.
-set smarttab                                " Smart tab in front of a line.
-set softtabstop=4                           " Number of spaces that <Tab> counts for in editing operations.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-set tabstop=4                               " Number of spaces that <Tab> counts for.
-set textwidth=119                           " Maximum width of text that is being inserted.
-set timeout                                 " Turn on timeout on mappings and key codes.
-set timeoutlen=500                          " Timeout on mappings and key codes in ms.
-set ttimeout                                " Turn on timeout on key codes.
-set ttimeoutlen=100                         " Timeout on key codes in ms.
-set updatetime=300                          " Think I need this for the CursorHold autocommand event and CoC.
-set wildmenu                                " Command-line completion in enhanced mode.
+set autoindent
+set autoread
+set background=dark
+set backspace=indent,eol,start
+set cmdheight=2
+set colorcolumn=+1
+set completeopt=noinsert,menuone,noselect
+set expandtab
+set hlsearch
+set ignorecase
+set incsearch
+set laststatus=2
+set list
+set listchars=tab:>-,trail:-,nbsp:?
+set modeline
+set nobackup
+set noswapfile
+set nowritebackup
+set nrformats=alpha,bin,hex
+set number
+set ruler
+set signcolumn=yes
+set shiftround
+set shiftwidth=4
+set shortmess+=c
+set showmatch
+set showtabline=0
+set smartcase
+set smartindent
+set smarttab
+set softtabstop=4
+set tabstop=4
+set textwidth=119
+set timeout
+set timeoutlen=500
+set ttimeout
+set ttimeoutlen=100
+set wildmenu
 
 " }}}
 
 """ Plugin configuration {{{
 
 let g:asmsyntax                     = 'nasm'
-let g:coc_snippet_next              = '<tab>'
+
 let g:fzf_command_prefix            = 'Fzf'
+
 let g:gen_tags#ctags_auto_gen       = 1
 let g:gen_tags#gtags_auto_gen       = 1
+
 let g:go_fmt_command                = 'goimports'
 let g:go_fmt_fail_silently          = 1
 let g:go_highlight_extra_types      = 1
@@ -104,14 +115,73 @@ let g:go_highlight_operators        = 1
 let g:go_highlight_types            = 1
 let g:go_metalinter_autosave        = 0
 let g:go_metalinter_enabled         = ['vet', 'golint', 'errcheck']
-let g:lightline                     = {}
-let g:lightline.active              = { 'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ] }
-let g:lightline.colorscheme         = 'gruvbox'
-let g:lightline.component_function  = { 'gitbranch': 'fugitive#head' }
-let g:limelight_conceal_ctermfg     = 'black'
-let g:rustfmt_autosave              = 1
+
+let g:lightline = {
+            \ 'colorscheme': 'gruvbox',
+            \ 'active': {
+            \   'left': [
+            \       ['mode', 'paste'],
+            \       ['gitbranch', 'readonly', 'filename', 'modified']
+            \   ],
+            \   'right': [
+            \       ['lineinfo'],
+            \       ['percent'],
+            \       ['fileformat', 'fileencoding', 'filetype'],
+            \       ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok']
+            \   ],
+            \ },
+            \ 'component_function': {
+            \   'gitbranch': 'fugitive#head'
+            \ },
+            \ 'component_expand': {
+            \   'linter_checking': 'lightline#ale#checking',
+            \   'linter_warnings': 'lightline#ale#warnings',
+            \   'linter_errors': 'lightline#ale#errors',
+            \   'linter_ok': 'lightline#ale#ok',
+            \ },
+            \ 'component_type': {
+            \   'linter_checking': 'left',
+            \   'linter_warnings': 'warning',
+            \   'linter_errors': 'error',
+            \   'linter_ok': 'left',
+            \ },
+            \ }
+
+let g:limelight_conceal_ctermfg     = 'darkgray'
+
 let g:termdebug_wide                = 120
+
+let g:UltiSnipsExpandTrigger        = '<Plug>(ultisnips_expand)'
 let g:UltiSnipsEditSplit            = 'vertical'
+let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+let g:UltiSnipsRemoveSelectModeMappings = 0
+
+let g:rust_fold                     = 1
+let g:rustfmt_autosave              = 0
+
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \ 'rust': ['rustfmt'],
+            \}
+let g:ale_linters = {
+            \ 'rust': ['rls', 'cargo'],
+            \}
+
+let g:lsp_diagnostics_enabled = 0
+let g:lsp_virtual_text_enabled = 0
+let g:lsp_highlight_references_enabled = 1
+
+if executable('rls')
+    au User lsp_setup call lsp#register_server({
+                \ 'name': 'lsp',
+                \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+                \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+                \ 'whitelist': ['rust'],
+                \ })
+endif
+
 
 """ }}}
 
@@ -119,7 +189,6 @@ let g:UltiSnipsEditSplit            = 'vertical'
 
 let g:mapleader = ' '
 
-inoremap jk                 <Esc>
 nnoremap <C-n>              :FzfBuffers<CR>
 nnoremap <C-h>              <C-w><C-h>
 nnoremap <C-j>              <C-w><C-j>
@@ -134,8 +203,17 @@ nnoremap <leader>so         :so %<CR>
 nnoremap <leader>tb         :TagbarToggle<CR>
 nnoremap <leader>ee         :vsplit ~/.vimrc<CR>
 nnoremap <leader>us         :UltiSnipsEdit<CR>
-nnoremap <leader>ws         :TrimWhitespace<CR>
+nnoremap <leader>go         :Goyo<CR>
 nnoremap <S-t>              :FzfTags<CR>
+
+nnoremap <leader>an         :ALENextWrap<CR>
+nnoremap <leader>ap         :ALEPreviousWrap<CR>
+nnoremap <leader>ah         :ALEHover<CR>
+nnoremap <leader>ag         :ALEGoToDefinition<CR>
+nnoremap <leader>ar         :ALERename<CR>
+
+nnoremap ]c :ALENextWrap<CR>
+nnoremap [c :ALEPreviousWrap<CR>
 
 nmap ø [
 nmap æ ]
@@ -144,47 +222,13 @@ omap æ ]
 xmap ø [
 xmap æ ]
 
-" Remap tab in insert mode to support CoC completion and coc-snippets.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+""" }}}
 
-inoremap <silent><expr> <c-space>       coc#refresh()
-nmap <silent>           [g              <Plug>(coc-diagnostic-prev)
-nmap <silent>           ]g              <Plug>(coc-diagnostic-next)
-nmap <silent>           gd              <Plug>(coc-definition)
-nmap <silent>           gy              <Plug>(coc-type-definition)
-nmap <silent>           gi              <Plug>(coc-implementation)
-nmap <silent>           gr              <Plug>(coc-references)
-nnoremap <silent>       K               :call <SID>show_documentation()<CR>
+""" Commands {{{
 
-nmap                    <leader>rn      <Plug>(coc-rename)
-xmap                    <leader>f       <Plug>(coc-format-selected)
-nmap                    <leader>f       <Plug>(coc-format-selected)
-xmap                    <leader>a       <Plug>(coc-codeaction-selected)
-nmap                    <leader>a       <Plug>(coc-codeaction-selected)
-nmap                    <leader>ac      <Plug>(coc-codeaction)
-nmap                    <leader>qf      <Plug>(coc-fix-current)
-xmap                    if              <Plug>(coc-funcobj-i)
-xmap                    af              <Plug>(coc-funcobj-a)
-omap                    if              <Plug>(coc-funcobj-i)
-omap                    af              <Plug>(coc-funcobj-a)
-nmap <silent>           <C-d>           <Plug>(coc-range-select)
-xmap <silent>           <C-d>           <Plug>(coc-range-select)
-
-nnoremap <silent>       <space>a        :<C-u>CocList diagnostics<cr>
-nnoremap <silent>       <space>e        :<C-u>CocList extensions<cr>
-nnoremap <silent>       <space>c        :<C-u>CocList commands<cr>
-nnoremap <silent>       <space>o        :<C-u>CocList outline<cr>
-nnoremap <silent>       <space>s        :<C-u>CocList -I symbols<cr>
-nnoremap <silent>       <space>j        :<C-u>CocNext<CR>
-nnoremap <silent>       <space>k        :<C-u>CocPrev<CR>
-nnoremap <silent>       <space>p        :<C-u>CocListResume<CR>
-
+command! W w
 
 """ }}}
 
@@ -197,43 +241,10 @@ augroup init
     autocmd CompleteDone * pclose
     autocmd FileType qf wincmd J
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    autocmd User GoyoEnter Limelight
+    autocmd User GoyoLeave Limelight!
+    autocmd BufEnter * call ncm2#enable_for_buffer()
 augroup END
-
-""" }}}
-
-""" Commands {{{
-
-command! W w
-command! -nargs=0 Format            :call CocAction('format')
-command! -nargs=? Fold              :call CocAction('fold', <f-args>)
-command! -nargs=0 OR                :call CocAction('runCommand', 'editor.action.organizeImport')
-command! -nargs=0 TrimWhitespace    :call s:trim_whitespace()
-
-""" }}}
-
-""" Functions {{{
-
-function! s:trim_whitespace()
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
-endfunction
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfunction
 
 """ }}}
 

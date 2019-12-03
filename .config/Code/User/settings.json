@@ -29,6 +29,6 @@
         }
     ],
     "C_Cpp.updateChannel": "Insiders",
-    "window.menuBarVisibility": "toggle",
+    "window.menuBarVisibility": "default",
     "cmake.configureOnOpen": true
 }

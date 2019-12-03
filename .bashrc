@@ -21,6 +21,7 @@ alias vim=nvim
 export EDITOR=vim
 export GPG_TTY=$(tty)
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GOPATH=$HOME/projects/go
 
 PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
@@ -41,7 +42,9 @@ folders=(
     "/usr/local/go/bin"
     "$HOME/.cargo/bin"
     "$HOME/projects/go/bin"
-    "$HOME/bin"
+    "$HOME/.local/bin"
 )
 for folder in "${folders[@]}"; do [[ -d "$folder" ]] && export PATH="$folder:$PATH"; done
 unset folders
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

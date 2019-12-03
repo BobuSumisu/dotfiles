@@ -18,7 +18,7 @@ set $volume_mute            pactl set-sink-mute @DEFAULT_SINK@ toggle
 set $volume_up              pactl set-sink-volume @DEFAULT_SINK@ +5%
 set $volume_down            pactl set-sink-volume @DEFAULT_SINK@ -5%
 
-set $lock_command           i3lock
+set $lock_command           i3lock -u -c 282828
 set $suspend_command        systemctl suspend
 set $hibernate_command      systemctl hibernate
 set $reboot_command         systemctl reboot
