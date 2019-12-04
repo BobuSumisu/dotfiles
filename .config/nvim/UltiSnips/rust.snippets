@@ -1,0 +1,19 @@
+snippet "mod tests" "mod tests { ... }" b
+#[cfg(test)]
+mod tests {
+	user super::*;
+
+	${VISUAL}$0
+}
+endsnippet
+
+snippet test "fn test_() { ... }" b
+#[test]
+fn test_$1() {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet assert "assert!(...);" b
+assert!(${VISUAL}$0);
+endsnippet

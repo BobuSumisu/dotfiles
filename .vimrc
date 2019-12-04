@@ -32,7 +32,7 @@ Plug 'ncm2/ncm2-vim-lsp'
 
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
@@ -59,7 +59,7 @@ set autoindent
 set autoread
 set background=dark
 set backspace=indent,eol,start
-set cmdheight=2
+set cmdheight=1
 set colorcolumn=+1
 set completeopt=noinsert,menuone,noselect
 set expandtab
@@ -151,10 +151,10 @@ let g:limelight_conceal_ctermfg     = 'darkgray'
 
 let g:termdebug_wide                = 120
 
-let g:UltiSnipsExpandTrigger        = '<Plug>(ultisnips_expand)'
-let g:UltiSnipsEditSplit            = 'vertical'
-let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+let g:UltiSnipsExpandTrigger            = '<Plug>(ultisnips_expand)'
+let g:UltiSnipsEditSplit                = 'vertical'
+let g:UltiSnipsJumpForwardTrigger       = '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger      = '<c-k>'
 let g:UltiSnipsRemoveSelectModeMappings = 0
 
 let g:rust_fold                     = 1
@@ -168,6 +168,10 @@ let g:ale_fixers = {
 let g:ale_linters = {
             \ 'rust': ['rls', 'cargo'],
             \}
+let g:ale_rust_cargo_use_clippy = 1
+let g:ale_rust_cargo_clippy_options = '-- -W clippy::nursery -W clippy::pedantic'
+
+let g:ale_rust_rls_config = { 'rust': { 'clippy_preference': 'on' } }
 
 let g:lsp_diagnostics_enabled = 0
 let g:lsp_virtual_text_enabled = 0
@@ -223,6 +227,11 @@ xmap ø [
 xmap æ ]
 
 inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+
+
 
 """ }}}
 
