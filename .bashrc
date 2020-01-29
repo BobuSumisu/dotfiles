@@ -16,7 +16,7 @@ shopt -s checkwinsize
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias ll='ls -Alh'
-alias vim=nvim
+# alias vim=nvim
 
 export EDITOR=vim
 export GPG_TTY=$(tty)
@@ -47,4 +47,7 @@ folders=(
 for folder in "${folders[@]}"; do [[ -d "$folder" ]] && export PATH="$folder:$PATH"; done
 unset folders
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if hash fd 2>/dev/null; then
+    export FZF_DEFAULT_COMMAND='fd --type f'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi

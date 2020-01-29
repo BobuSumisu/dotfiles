@@ -14,25 +14,21 @@ Plug 'junegunn/limelight.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'jsfaint/gen_tags.vim'
+Plug 'vimwiki/vimwiki'
+
+" Plug 'jsfaint/gen_tags.vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'skywind3000/gutentags_plus'
+
 Plug 'majutsushi/tagbar'
 
 Plug 'dense-analysis/ale'
 Plug 'maximbaz/lightline-ale'
 
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-vim-lsp'
-
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
@@ -63,6 +59,7 @@ set cmdheight=1
 set colorcolumn=+1
 set completeopt=noinsert,menuone,noselect
 set expandtab
+set hidden
 set hlsearch
 set ignorecase
 set incsearch
@@ -73,30 +70,42 @@ set modeline
 set nobackup
 set noswapfile
 set nowritebackup
+set nowritebackup
 set nrformats=alpha,bin,hex
 set number
 set ruler
-set signcolumn=yes
 set shiftround
 set shiftwidth=4
 set shortmess+=c
 set showmatch
 set showtabline=0
+set signcolumn=yes
 set smartcase
 set smartindent
 set smarttab
 set softtabstop=4
+set shortmess+=c
 set tabstop=4
 set textwidth=119
 set timeout
 set timeoutlen=500
 set ttimeout
 set ttimeoutlen=100
+set updatetime=300
 set wildmenu
 
 " }}}
 
 """ Plugin configuration {{{
+
+let g:vimwiki_list = [{
+            \ 'path': '~/.vimwiki',
+            \ 'path_html': '~/.vimwiki_html',
+            \ 'auto_export': 1,
+            \ 'auto_toc': 1,
+            \ 'auto_tags': 1,
+            \ 'auto_diary_index': 1,
+            \ }]
 
 let g:asmsyntax                     = 'nasm'
 
@@ -151,11 +160,11 @@ let g:limelight_conceal_ctermfg     = 'darkgray'
 
 let g:termdebug_wide                = 120
 
-let g:UltiSnipsExpandTrigger            = '<Plug>(ultisnips_expand)'
-let g:UltiSnipsEditSplit                = 'vertical'
-let g:UltiSnipsJumpForwardTrigger       = '<c-j>'
-let g:UltiSnipsJumpBackwardTrigger      = '<c-k>'
-let g:UltiSnipsRemoveSelectModeMappings = 0
+" let g:UltiSnipsExpandTrigger            = '<Plug>(ultisnips_expand)'
+" let g:UltiSnipsEditSplit                = 'vertical'
+" let g:UltiSnipsJumpForwardTrigger       = '<c-j>'
+" let g:UltiSnipsJumpBackwardTrigger      = '<c-k>'
+" let g:UltiSnipsRemoveSelectModeMappings = 0
 
 let g:rust_fold                     = 1
 let g:rustfmt_autosave              = 0
@@ -170,22 +179,43 @@ let g:ale_linters = {
             \}
 let g:ale_rust_cargo_use_clippy = 1
 let g:ale_rust_cargo_clippy_options = '-- -W clippy::nursery -W clippy::pedantic'
-
 let g:ale_rust_rls_config = { 'rust': { 'clippy_preference': 'on' } }
 
-let g:lsp_diagnostics_enabled = 0
-let g:lsp_virtual_text_enabled = 0
-let g:lsp_highlight_references_enabled = 1
+let g:ale_c_parse_makefile = 1
+let g:ale_c_clang_options = '-std=c11 -Wall -Wextra -Wpedantic -Werror'
+let g:ale_c_gcc_options = '-std=c11 -Wall -Wextra -Wpedantic -Werror'
 
-if executable('rls')
-    au User lsp_setup call lsp#register_server({
-                \ 'name': 'lsp',
-                \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-                \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-                \ 'whitelist': ['rust'],
-                \ })
-endif
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+let g:coc_snippet_next = '<tab>'
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
 
 """ }}}
 
@@ -216,6 +246,8 @@ nnoremap <leader>ah         :ALEHover<CR>
 nnoremap <leader>ag         :ALEGoToDefinition<CR>
 nnoremap <leader>ar         :ALERename<CR>
 
+nnoremap <leader>wp         :FzfFiles ~/.vimwiki<CR>
+
 nnoremap ]c :ALENextWrap<CR>
 nnoremap [c :ALEPreviousWrap<CR>
 
@@ -225,13 +257,6 @@ omap ø [
 omap æ ]
 xmap ø [
 xmap æ ]
-
-inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-
-
 
 """ }}}
 
@@ -250,9 +275,11 @@ augroup init
     autocmd CompleteDone * pclose
     autocmd FileType qf wincmd J
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
     autocmd User GoyoEnter Limelight
     autocmd User GoyoLeave Limelight!
-    autocmd BufEnter * call ncm2#enable_for_buffer()
 augroup END
 
 """ }}}

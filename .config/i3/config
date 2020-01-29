@@ -5,15 +5,15 @@ set $mod                    Mod4
 set $font                   FuraCode Nerd Font
 set $font_size              9
 
-set $terminal               alacritty
+set $terminal               urxvt
 set $web_browser            google-chrome --proxy-pac-url="http://wpad/proxy.pac"
 set $mail_client            thunderbird
 set $vm_manager             vmware
 set $music_player           spotify
 set $doc_viewer             evince
-set $file_manager           nautilus
+set $file_manager           thunar
 
-set $play_sound             paplay /usr/share/sounds/gnome/default/alerts/drip.ogg
+set $play_sound             paplay /usr/share/sounds/freedesktop/stereo/bell.oga
 set $volume_mute            pactl set-sink-mute @DEFAULT_SINK@ toggle
 set $volume_up              pactl set-sink-volume @DEFAULT_SINK@ +5%
 set $volume_down            pactl set-sink-volume @DEFAULT_SINK@ -5%
@@ -191,3 +191,4 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id dropbox start
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id xfce4-power-manager
