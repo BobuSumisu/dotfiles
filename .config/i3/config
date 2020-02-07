@@ -1,194 +1,181 @@
-# i3 config file (v4)
+# ~/.config/i3/config
 
-set $mod                    Mod4
+set $mod 			Mod4
 
-set $font                   FuraCode Nerd Font
-set $font_size              9
+set $font 			Fira Code
+set $font_size 			10
 
-set $terminal               urxvt
-set $web_browser            google-chrome --proxy-pac-url="http://wpad/proxy.pac"
-set $mail_client            thunderbird
-set $vm_manager             vmware
-set $music_player           spotify
-set $doc_viewer             evince
-set $file_manager           thunar
+set $terminal 			urxvt
+set $web_browser 		google-chrome
+set $file_manager 		nautilus
 
-set $play_sound             paplay /usr/share/sounds/freedesktop/stereo/bell.oga
-set $volume_mute            pactl set-sink-mute @DEFAULT_SINK@ toggle
-set $volume_up              pactl set-sink-volume @DEFAULT_SINK@ +5%
-set $volume_down            pactl set-sink-volume @DEFAULT_SINK@ -5%
+set $play_sound             	paplay /usr/share/sounds/freedesktop/stereo/bell.oga
+set $volume_mute            	pactl set-sink-mute @DEFAULT_SINK@ toggle
+set $volume_up              	pactl set-sink-volume @DEFAULT_SINK@ +5%
+set $volume_down            	pactl set-sink-volume @DEFAULT_SINK@ -5%
 
-set $lock_command           i3lock -u -c 282828
-set $suspend_command        systemctl suspend
-set $hibernate_command      systemctl hibernate
-set $reboot_command         systemctl reboot
-set $shutdown_command       systemctl poweroff
+set $lock_command           	i3lock -u -c 282828
+set $suspend_command        	systemctl suspend
+set $hibernate_command      	systemctl hibernate
+set $reboot_command         	systemctl reboot
+set $shutdown_command       	systemctl poweroff
 
-set $ws1                    "1"
-set $ws2                    "2"
-set $ws3                    "3"
-set $ws4                    "4"
-set $ws5                    "5"
-set $ws6                    "6"
-set $ws7                    "7"
-set $ws8                    "8"
-set $ws9                    "9"
-set $ws10                   "10"
+set $bg     			#282828
+set $fg     			#ebdbb2
+set $red    			#cc241d
+set $bg1    			#3c3836
+set $bg2    			#504945
+set $green  			#98971a
+set $fg1    			#ebdbb2
+set $fg2    			#d5c4a1
+set $fg4    			#a89984
+set $blue   			#458588
+set $purple 			#d3869b
 
-font                        pango:$font $font_size
-floating_modifier           $mod
-default_border              none
+set $lock_command           	i3lock -u -c 282828
 
-bindsym $mod+Return         exec $terminal
-bindsym $mod+Shift+q        kill
-bindsym $mod+d              exec dmenu_run
+set $ws1 			"1"
+set $ws2 			"2"
+set $ws3 			"3"
+set $ws4 			"4"
+set $ws5 			"5"
+set $ws6 			"6"
+set $ws7 			"7"
+set $ws8 			"8"
+set $ws9 			"9"
+set $ws10 			"10"
 
-bindsym $mod+h              focus left
-bindsym $mod+j              focus down
-bindsym $mod+k              focus up
-bindsym $mod+l              focus right
+font 				pango:$font $font_size
+floating_modifier 		$mod
 
-bindsym $mod+Shift+h        move left
-bindsym $mod+Shift+j        move down
-bindsym $mod+Shift+k        move up
-bindsym $mod+Shift+l        move right
+default_border 			none
 
-bindsym $mod+Shift+Left     move workspace to output left
-bindsym $mod+Shift+Right    move workspace to output right
+# Property Name             	Border  BG      Text    Indicator   Child Border
+client.focused              	$gray   $bg     $fg     $gray       $bg
+client.focused_inactive     	$gray   $bg     $fg     $gray       $bg
+client.unfocused            	$gray   $bg     $fg     $gray       $bg
+client.urgent               	$red    $bg     $fg     $gray       $red
+client.placeholder          	$gray   $bg     $fg     $gray       $bg
+client.background           	$bg
 
-bindsym $mod+o              split h
-bindsym $mod+v              split v
-bindsym $mod+f              fullscreen toggle
-bindsym $mod+s              layout stacking
-bindsym $mod+w              layout tabbed
-bindsym $mod+e              layout toggle split
+bindsym $mod+Return 		exec $terminal
+bindsym $mod+Shift+q 		kill
+bindsym $mod+d 			exec dmenu_run
 
-bindsym $mod+Shift+space    floating toggle
-bindsym $mod+space          focus mode_toggle
-bindsym $mod+a              focus parent
+bindsym $mod+h 			focus left
+bindsym $mod+j 			focus down
+bindsym $mod+k 			focus up
+bindsym $mod+l 			focus right
 
-bindsym $mod+1              workspace $ws1
-bindsym $mod+2              workspace $ws2
-bindsym $mod+3              workspace $ws3
-bindsym $mod+4              workspace $ws4
-bindsym $mod+5              workspace $ws5
-bindsym $mod+6              workspace $ws6
-bindsym $mod+7              workspace $ws7
-bindsym $mod+8              workspace $ws8
-bindsym $mod+9              workspace $ws9
-bindsym $mod+0              workspace $ws10
+bindsym $mod+Shift+h 		move left
+bindsym $mod+Shift+j 		move down
+bindsym $mod+Shift+k 		move up
+bindsym $mod+Shift+l 		move right
 
-bindsym $mod+Shift+1        move container to workspace $ws1
-bindsym $mod+Shift+2        move container to workspace $ws2
-bindsym $mod+Shift+3        move container to workspace $ws3
-bindsym $mod+Shift+4        move container to workspace $ws4
-bindsym $mod+Shift+5        move container to workspace $ws5
-bindsym $mod+Shift+6        move container to workspace $ws6
-bindsym $mod+Shift+7        move container to workspace $ws7
-bindsym $mod+Shift+8        move container to workspace $ws8
-bindsym $mod+Shift+9        move container to workspace $ws9
-bindsym $mod+Shift+0        move container to workspace $ws10
+bindsym $mod+Shift+Left 	move workspace to output left
+bindsym $mod+Shift+Right 	move workspace to output right
 
-bindsym $mod+Shift+c        reload
-bindsym $mod+Shift+r        restart
+bindsym $mod+o 			split h
+bindsym $mod+v 			split v
+bindsym $mod+f 			fullscreen toggle
+
+bindsym $mod+s 			layout stacking
+bindsym $mod+w 			layout tabbed
+bindsym $mod+e 			layout toggle split
+
+bindsym $mod+Shift+space 	floating toggle
+bindsym $mod+space 		focus mode_toggle
+
+bindsym $mod+a 			focus parent
+
+bindsym $mod+1 			workspace $ws1
+bindsym $mod+2 			workspace $ws2
+bindsym $mod+3 			workspace $ws3
+bindsym $mod+4 			workspace $ws4
+bindsym $mod+5 			workspace $ws5
+bindsym $mod+6 			workspace $ws6
+bindsym $mod+7 			workspace $ws7
+bindsym $mod+8 			workspace $ws8
+bindsym $mod+9 			workspace $ws9
+bindsym $mod+0 			workspace $ws10
+
+bindsym $mod+Shift+1 		move container to workspace $ws1
+bindsym $mod+Shift+2 		move container to workspace $ws2
+bindsym $mod+Shift+3 		move container to workspace $ws3
+bindsym $mod+Shift+4 		move container to workspace $ws4
+bindsym $mod+Shift+5 		move container to workspace $ws5
+bindsym $mod+Shift+6 		move container to workspace $ws6
+bindsym $mod+Shift+7 		move container to workspace $ws7
+bindsym $mod+Shift+8 		move container to workspace $ws8
+bindsym $mod+Shift+9 		move container to workspace $ws9
+bindsym $mod+Shift+0 		move container to workspace $ws10
+
+bindsym $mod+Shift+c 		reload
+bindsym $mod+Shift+r 		restart
+bindsym $mod+Shift+e 		exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 bindsym XF86AudioMute           exec $volume_mute
 bindsym XF86AudioLowerVolume    exec $volume_down && $play_sound
 bindsym XF86AudioRaiseVolume    exec $volume_up && $play_sound
 
-bindsym XF86MonBrightnessUp     exec backlight up
-bindsym XF86MonBrightnessDown   exec backlight down
-
 bindsym --release $mod+p        exec scrot -q 100 -s /tmp/%F-%T.png -e 'xclip -selection c -t image/png < $f'
 bindsym --release $mod+Shift+p  exec scrot -q 100 /tmp/%F-%T.png -e 'xclip -selection c -t image/png < $f'
 
-bindsym Shift+Ctrl+l            mode "$meta_mode"
-bindsym $mod+q                  mode "$quicklaunch_mode"
-bindsym $mod+r                  mode "$resize_mode"
+bindsym $mod+r 			mode "$resize_mode"
+bindsym $mod+q			mode "$quicklaunch_mode"
+bindsym Shift+Ctrl+l 		mode "$meta_mode"
 
-set $bg     #282828
-set $fg     #ebdbb2
-set $red    #cc241d
-set $bg1    #3c3836
-set $bg2    #504945
-set $green  #98971a
-set $fg1    #ebdbb2
-set $fg2    #d5c4a1
-set $fg4    #a89984
-set $blue   #458588
-set $purple #d3869b
+set $resize_mode Resize: h-j-k-l to grow
+mode "$resize_mode" {
+        bindsym h resize grow left
+        bindsym j resize grow down
+        bindsym k resize grow up
+        bindsym l resize grow right
 
-# Property Name             Border  BG      Text    Indicator   Child Border
-client.focused              $gray   $bg     $fg     $gray       $bg
-client.focused_inactive     $gray   $bg     $fg     $gray       $bg
-client.unfocused            $gray   $bg     $fg     $gray       $bg
-client.urgent               $red    $bg     $fg     $gray       $red
-client.placeholder          $gray   $bg     $fg     $gray       $bg
-client.background           $bg
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
 
-bar {
-    status_command i3status
+set $quicklaunch_mode Quicklaunch: (w)eb, (f)iles
+mode "$quicklaunch_mode" {
+	bindsym w             exec --no-startup-id $web_browser, mode "default"
+	bindsym f             exec --no-startup-id $file_manager, mode "default"
 
-    colors {
-        background      $bg1
-        separator       $fg4
-        statusline      $fg
-
-        # State                 Border  BG      Text
-        focused_workspace       $bg1    $bg     $fg
-        active_workspace        $bg1    $bg1    $fg
-        inactive_workspace      $bg1    $bg1    $fg
-        urgent_workspace        $bg1    $bg1    $red
-        binding_mode            $bg1    $bg1    $fg
-    }
+	bindsym Return        mode "default"
+	bindsym Escape        mode "default"
 }
 
 set $meta_mode Meta: e(X)it i3, (l)ock screen, (H)ibernate, (S)uspend, (R)eboot, shut(D)own
 mode "$meta_mode" {
-    bindsym Shift+x     exec i3-msg exit, mode "default"
-    bindsym l           exec --no-startup-id $lock_command, mode "default"
-    bindsym Shift+s     exec --no-startup-id $lock_command && sleep 1 && $suspend_command, mode "default"
-    bindsym Shift+h     exec --no-startup-id $lock_command && sleep 1 && $hibernate_command, mode "default"
-    bindsym Shift+r     exec --no-startup-id $reboot_command, mode "default"
-    bindsym Shift+d     exec --no-startup-id $shutdown_command, mode "default"
+	bindsym Shift+x     exec i3-msg exit, mode "default"
+	bindsym l           exec --no-startup-id $lock_command, mode "default"
+	bindsym Shift+s     exec --no-startup-id $lock_command && sleep 1 && $suspend_command, mode "default"
+	bindsym Shift+h     exec --no-startup-id $lock_command && sleep 1 && $hibernate_command, mode "default"
+	bindsym Shift+r     exec --no-startup-id $reboot_command, mode "default"
+	bindsym Shift+d     exec --no-startup-id $shutdown_command, mode "default"
 
-    bindsym Return      mode "default"
-    bindsym Escape      mode "default"
+	bindsym Return      mode "default"
+	bindsym Escape      mode "default"
 }
 
-set $quicklaunch_mode Quicklaunch: (w)eb, (m)ail, (v)m, mu(s)ic, (d)oc, (f)iles, (c)ode
-mode "$quicklaunch_mode" {
-  bindsym w             exec --no-startup-id $web_browser, mode "default"
-  bindsym m             exec --no-startup-id $mail_client, mode "default"
-  bindsym v             exec --no-startup-id $vm_manager, mode "default"
-  bindsym s             exec --no-startup-id $music_player, mode "default"
-  bindsym d             exec --no-startup-id $doc_viewer, mode "default"
-  bindsym f             exec --no-startup-id $file_manager, mode "default"
-  bindsym c             exec --no-startup-id code, mode "default"
+bar {
+        status_command i3status
 
-  bindsym Return        mode "default"
-  bindsym Escape        mode "default"
+	colors {
+        	background      $bg1
+        	separator       $fg4
+        	statusline      $fg
+
+        	# State                 Border  BG      Text
+        	focused_workspace       $bg1    $bg     $fg
+        	active_workspace        $bg1    $bg1    $fg
+        	inactive_workspace      $bg1    $bg1    $fg
+        	urgent_workspace        $bg1    $bg1    $red
+        	binding_mode            $bg1    $bg1    $fg
+	}
 }
 
-set $resize_mode Resize: h-j-k-l to grow, H-J-K-L to shrink
-mode "$resize_mode" {
-    bindsym h           resize grow left
-    bindsym j           resize grow down
-    bindsym k           resize grow up
-    bindsym l           resize grow right
-
-    bindsym shift+h     resize shrink left
-    bindsym shift+j     resize shrink down
-    bindsym shift+k     resize shrink up
-    bindsym shift+l     resize shrink right
-
-    bindsym Return      mode "default"
-    bindsym Escape      mode "default"
-}
-
+exec --no-startup-id vmware-user-suid-wrapper
 exec --no-startup-id hsetroot -solid "$bg"
 exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
-exec --no-startup-id dropbox start
-exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id xfce4-power-manager

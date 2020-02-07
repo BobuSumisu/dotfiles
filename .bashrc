@@ -5,6 +5,8 @@ case $- in
       *) return;;
 esac
 
+stty -ixon
+
 HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
