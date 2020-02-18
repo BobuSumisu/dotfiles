@@ -32,7 +32,6 @@ scripts=(
     "/etc/bash_completion"
     "$HOME/.bash_aliases"
     "$HOME/.bashrc_local"
-    "$HOME/.nvm/nvm.sh"
     "$HOME/.nvm/bash_completion"
     "$HOME/.local/bin/tmuxinator.bash"
     "$HOME/.fzf.bash"
@@ -42,6 +41,8 @@ unset scripts
 
 folders=(
     "/usr/local/go/bin"
+    "/opt/node/bin"
+    "/opt/fleet"
     "$HOME/.cargo/bin"
     "$HOME/projects/go/bin"
     "$HOME/.local/bin"
@@ -49,12 +50,7 @@ folders=(
 for folder in "${folders[@]}"; do [[ -d "$folder" ]] && export PATH="$folder:$PATH"; done
 unset folders
 
-if hash fd 2>/dev/null; then
-    export FZF_DEFAULT_COMMAND='fd --type f'
+if hash fdfind 2>/dev/null; then
+    export FZF_DEFAULT_COMMAND='fdfind --type f'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-[[ -s "/home/oyvind/.gvm/scripts/gvm" ]] && source "/home/oyvind/.gvm/scripts/gvm"
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
