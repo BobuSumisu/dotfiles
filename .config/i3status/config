@@ -1,0 +1,50 @@
+general {
+    output_format = "i3bar"
+    colors = true
+    interval = 5
+    color_good = "#98971a"
+    color_degraded = "#d3869b"
+    color_bad = "#cc241d"
+}
+
+order += "volume master"
+order += "disk /"
+order += "wireless _first_"
+order += "battery all"
+order += "cpu_temperature 0"
+order += "load"
+order += "tztime local"
+
+volume master {
+    format = "♪: %volume"
+    format_muted = "♪: muted (%volume)"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+}
+
+wireless _first_ {
+    format_up = "W: (%quality at %essid, %bitrate) %ip"
+    format_down = "W: down"
+}
+
+battery all {
+    format = "%status %percentage %remaining"
+}
+
+tztime local {
+    format = "%Y-%m-%d %H:%M:%S"
+}
+
+load {
+    format = "%5min"
+}
+
+cpu_temperature 0 {
+    format = "T: %degrees °C"
+    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input"
+}
+
+disk "/" {
+    format = "%free"
+}
