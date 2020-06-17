@@ -15,17 +15,17 @@ shopt -s checkwinsize
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+alias vim='nvim'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias ll='ls -Alh'
-# alias vim=nvim
 
 export EDITOR=vim
 export GPG_TTY=$(tty)
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export GOPATH=$HOME/projects/go
 
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 scripts=(
     "/usr/share/bash-completion/bash_completion"
@@ -41,7 +41,7 @@ unset scripts
 
 folders=(
     "/usr/local/go/bin"
-    "/opt/node/bin"
+    "/opt/node/node-v13.9.0-linux-x64/bin"
     "/opt/fleet"
     "$HOME/.cargo/bin"
     "$HOME/projects/go/bin"
@@ -54,3 +54,7 @@ if hash fdfind 2>/dev/null; then
     export FZF_DEFAULT_COMMAND='fdfind --type f'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
+
+md() {
+    pandoc -s -f markdown -t man "$1" | man -l -
+}

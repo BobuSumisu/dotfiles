@@ -8,6 +8,9 @@ set $font_size              10
 set $terminal               urxvt
 set $web_browser            google-chrome
 set $file_manager           nautilus
+set $note_editor            typora
+set $todo_manager           everdo --no-sandbox
+set $music                  spotify
 
 set $play_sound             paplay /usr/share/sounds/freedesktop/stereo/bell.oga
 set $volume_mute            pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -137,13 +140,17 @@ mode "$resize_mode" {
     bindsym $mod+r mode "default"
 }
 
-set $quicklaunch_mode Quicklaunch: (w)eb, (f)iles
+set $quicklaunch_mode Quicklaunch: (w)eb, (f)iles, (v)mware, (n)otes, (t)odo, mu(s)ic
 mode "$quicklaunch_mode" {
-    bindsym w             exec --no-startup-id $web_browser, mode "default"
-    bindsym f             exec --no-startup-id $file_manager, mode "default"
+    bindsym w           exec --no-startup-id $web_browser, mode "default"
+    bindsym f           exec --no-startup-id $file_manager, mode "default"
+    bindsym v           exec --no-startup-id vmware, mode "default"
+    bindsym n           exec --no-startup-id $note_editor, mode "default"
+    bindsym t           exec --no-startup-id $todo_manager, mode "default"
+    bindsym s           exec --no-startup-id $music, mode "default"
 
-    bindsym Return        mode "default"
-    bindsym Escape        mode "default"
+    bindsym Return      mode "default"
+    bindsym Escape      mode "default"
 }
 
 set $meta_mode Meta: e(X)it i3, (l)ock screen, (H)ibernate, (S)uspend, (R)eboot, shut(D)own
@@ -180,3 +187,4 @@ exec --no-startup-id vmware-user-suid-wrapper
 exec --no-startup-id hsetroot -solid "$bg"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1

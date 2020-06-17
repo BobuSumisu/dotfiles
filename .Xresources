@@ -1,4 +1,4 @@
-URxvt.font:                             xft:Fira Code:style=Regular:pixelsize=15:Medium, xft:Symbola
+URxvt.font:                             xft:Fira Code:style=Regular:pixelsize=15:Regular, xft:Symbola
 URxvt.boldFont:                         xft:Fira Code:style=Bold:pixelsize=15:Bold, xft:Symbola
 URxvt.italicFont:                       xft:Fira Code:style=Regular:pixelsize=15:Italic, xft:Symbola
 URxvt.boldItalicFont:                   xft:Fira Code:style=Bold:pixelsize=15:Bold:Italic, xft:Symbola
