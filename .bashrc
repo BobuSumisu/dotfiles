@@ -46,6 +46,7 @@ folders=(
     "$HOME/.cargo/bin"
     "$HOME/projects/go/bin"
     "$HOME/.local/bin"
+    "/snap/bin"
 )
 for folder in "${folders[@]}"; do [[ -d "$folder" ]] && export PATH="$folder:$PATH"; done
 unset folders

@@ -7,12 +7,8 @@ general {
     color_bad = "#cc241d"
 }
 
-order += "volume master"
-order += "disk /"
-order += "wireless _first_"
 order += "battery all"
 order += "cpu_temperature 0"
-order += "load"
 order += "tztime local"
 
 volume master {
@@ -41,7 +37,7 @@ load {
 }
 
 cpu_temperature 0 {
-    format = "T: %degrees °C"
+    format = "%degrees °C"
     path = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input"
 }
 

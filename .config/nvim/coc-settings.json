@@ -30,34 +30,29 @@
                 }
             }
         },
-        "clangd": {
-            "command": "clangd",
-            "args": [
-                "--background-index"
-            ],
+        "golang": {
+            "command": "gopls",
             "rootPatterns": [
-                "compile_flags.txt",
-                "compile_commands.json",
+                "go.mod",
                 ".vim/",
                 ".git/",
                 ".hg/"
             ],
             "filetypes": [
-                "c",
-                "cpp",
-                "objc",
-                "objcpp"
+                "go"
             ]
-        },
-        "golang": {
-            "command": "gopls",
-            "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-            "filetypes": ["go"]
         },
         "crystal": {
             "command": "scry",
-            "rootPatterns": ["shard.yml", ".vim/", ".git/", ".hg/"],
-            "filetypes": ["crystal"]
+            "rootPatterns": [
+                "shard.yml",
+                ".vim/",
+                ".git/",
+                ".hg/"
+            ],
+            "filetypes": [
+                "crystal"
+            ]
         }
     }
 }
