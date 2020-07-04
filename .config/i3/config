@@ -5,7 +5,7 @@ set $mod                    Mod4
 set $font                   Fira Code
 set $font_size              10
 
-set $terminal               urxvt
+set $terminal               alacritty
 set $web_browser            google-chrome
 set $file_manager           nautilus
 set $note_editor            typora
@@ -166,25 +166,27 @@ mode "$meta_mode" {
     bindsym Escape      mode "default"
 }
 
-bar {
-    status_command i3status
-
-    colors {
-        background      $bg1
-        separator       $fg4
-        statusline      $fg
-
-        # State                 Border  BG      Text
-        focused_workspace       $bg1    $bg     $fg
-        active_workspace        $bg1    $bg1    $fg
-        inactive_workspace      $bg1    $bg1    $fg
-        urgent_workspace        $bg1    $bg1    $red
-        binding_mode            $bg1    $bg1    $fg
-    }
-}
+# bar {
+#     status_command i3status
+#
+#     colors {
+#         background      $bg1
+#         separator       $fg4
+#         statusline      $fg
+#
+#         # State                 Border  BG      Text
+#         focused_workspace       $bg1    $bg     $fg
+#         active_workspace        $bg1    $bg1    $fg
+#         inactive_workspace      $bg1    $bg1    $fg
+#         urgent_workspace        $bg1    $bg1    $red
+#         binding_mode            $bg1    $bg1    $fg
+#     }
+# }
 
 exec --no-startup-id vmware-user-suid-wrapper
 exec --no-startup-id hsetroot -solid "$bg"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
+exec --no-startup-id xfce4-power-manager
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh

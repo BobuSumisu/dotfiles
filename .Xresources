@@ -1,4 +1,5 @@
-URxvt.font:                             xft:Fira Code:style=Regular:pixelsize=15:Regular, xft:Symbola
+!URxvt.font:                             xft:Fira Code:style=Regular:pixelsize=15:Regular, xft:Noto Mono
+URxvt.font: xft:Fira Code:pixelsize=15,xft:Symbola,xft:PowerlineSymbols:minspace=False,sft:Noto Emoji:minspace=False
 URxvt.boldFont:                         xft:Fira Code:style=Bold:pixelsize=15:Bold, xft:Symbola
 URxvt.italicFont:                       xft:Fira Code:style=Regular:pixelsize=15:Italic, xft:Symbola
 URxvt.boldItalicFont:                   xft:Fira Code:style=Bold:pixelsize=15:Bold:Italic, xft:Symbola
