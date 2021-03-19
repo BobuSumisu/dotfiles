@@ -1,2 +1,6 @@
 set disassembly-flavor intel
-source /home/oyvind/projects/3rd/pwndbg/gdbinit.py
+
+define xxd
+dump binary memory dump.bin $arg0 $arg0+$arg1
+shell xxd dump.bin
+end

@@ -41,10 +41,10 @@ set $ws1                    "1"
 set $ws2                    "2"
 set $ws3                    "3"
 set $ws4                    "4"
-set $ws5                    "5"
-set $ws6                    "6"
-set $ws7                    "7"
-set $ws8                    "8"
+set $ws5                    "q"
+set $ws6                    "w"
+set $ws7                    "e"
+set $ws8                    "r"
 set $ws9                    "9"
 set $ws10                   "10"
 
@@ -62,7 +62,7 @@ client.placeholder          $gray   $bg     $fg     $gray       $bg
 client.background           $bg
 
 bindsym $mod+Return         exec $terminal
-bindsym $mod+Shift+q        kill
+bindsym $mod+Shift+i        kill
 bindsym $mod+d              exec dmenu_run
 
 bindsym $mod+h              focus left
@@ -83,8 +83,8 @@ bindsym $mod+v              split v
 bindsym $mod+f              fullscreen toggle
 
 bindsym $mod+s              layout stacking
-bindsym $mod+w              layout tabbed
-bindsym $mod+e              layout toggle split
+bindsym $mod+t              layout tabbed
+bindsym $mod+i              layout toggle split
 
 bindsym $mod+Shift+space    floating toggle
 bindsym $mod+space          focus mode_toggle
@@ -95,10 +95,10 @@ bindsym $mod+1              workspace $ws1
 bindsym $mod+2              workspace $ws2
 bindsym $mod+3              workspace $ws3
 bindsym $mod+4              workspace $ws4
-bindsym $mod+5              workspace $ws5
-bindsym $mod+6              workspace $ws6
-bindsym $mod+7              workspace $ws7
-bindsym $mod+8              workspace $ws8
+bindsym $mod+q              workspace $ws5
+bindsym $mod+w              workspace $ws6
+bindsym $mod+e              workspace $ws7
+bindsym $mod+r              workspace $ws8
 bindsym $mod+9              workspace $ws9
 bindsym $mod+0              workspace $ws10
 
@@ -106,16 +106,16 @@ bindsym $mod+Shift+1        move container to workspace $ws1
 bindsym $mod+Shift+2        move container to workspace $ws2
 bindsym $mod+Shift+3        move container to workspace $ws3
 bindsym $mod+Shift+4        move container to workspace $ws4
-bindsym $mod+Shift+5        move container to workspace $ws5
-bindsym $mod+Shift+6        move container to workspace $ws6
-bindsym $mod+Shift+7        move container to workspace $ws7
-bindsym $mod+Shift+8        move container to workspace $ws8
+bindsym $mod+Shift+q        move container to workspace $ws5
+bindsym $mod+Shift+w        move container to workspace $ws6
+bindsym $mod+Shift+e        move container to workspace $ws7
+bindsym $mod+Shift+r        move container to workspace $ws8
 bindsym $mod+Shift+9        move container to workspace $ws9
 bindsym $mod+Shift+0        move container to workspace $ws10
 
 bindsym $mod+Shift+c        reload
-bindsym $mod+Shift+r        restart
-bindsym $mod+Shift+e        exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+v        restart
+bindsym $mod+Shift+x        exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 bindsym XF86AudioMute           exec $volume_mute
 bindsym XF86AudioLowerVolume    exec $volume_down && $play_sound
@@ -124,8 +124,8 @@ bindsym XF86AudioRaiseVolume    exec $volume_up && $play_sound
 bindsym --release $mod+p        exec scrot -q 100 -s /tmp/%F-%T.png -e 'xclip -selection c -t image/png < $f'
 bindsym --release $mod+Shift+p  exec scrot -q 100 /tmp/%F-%T.png -e 'xclip -selection c -t image/png < $f'
 
-bindsym $mod+r              mode "$resize_mode"
-bindsym $mod+q              mode "$quicklaunch_mode"
+bindsym $mod+Shift+z        mode "$resize_mode"
+bindsym $mod+Shift+d        mode "$quicklaunch_mode"
 bindsym Shift+Ctrl+l        mode "$meta_mode"
 
 set $resize_mode Resize: h-j-k-l to grow
@@ -188,3 +188,4 @@ exec --no-startup-id hsetroot -solid "$bg"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id redshift-gtk

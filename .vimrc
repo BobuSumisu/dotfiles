@@ -10,9 +10,14 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
+Plug 'preservim/nerdtree'
+
+Plug 'vimwiki/vimwiki'
 
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
+
+Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'honza/vim-snippets'
 
@@ -21,6 +26,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
+
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
@@ -71,11 +78,15 @@ set wildmenu
 
 let g:mapleader = ' '
 
+let g:gutentags_ctags_exclude = ['.ccls-cache']
+
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \}
 let g:ale_fix_on_save = 1
 
+let g:go_code_completion_enabled = 0
+let g:go_fmt_command = 'goimports'
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
@@ -96,7 +107,7 @@ nnoremap <C-k>              <C-w><C-k>
 nnoremap <C-l>              <C-w><C-l>
 
 nnoremap <C-p>              :Files<CR>
-nnoremap <S-t>              :Buffers<CR>
+nnoremap <S-t>              :Tags<CR>
 
 nnoremap <leader><Space>    :noh<CR>
 nnoremap <leader>ee         :vsplit ~/.vimrc<CR>
@@ -104,8 +115,20 @@ nnoremap <leader>ni         :vsplit ~/notes/index.md<CR>
 nnoremap <leader>so         :so %<CR>
 nnoremap <leader>pa         :set invpaste<CR>
 nnoremap <leader>li         :set invlist<CR>
+nnoremap <leader>nt         :NERDTreeToggle<CR>
+nnoremap <leader>cg         :sign unplace *<CR>
 
-nmap <leader>rn <Plug>(coc-rename)
+
+nmap <silent> [g            <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g            <Plug>(coc-diagnostic-next)
+
+nmap <silent> gd            <Plug>(coc-definition)
+nmap <silent> gy            <Plug>(coc-type-definition)
+nmap <silent> gi            <Plug>(coc-implementation)
+nmap <silent> gr            <Plug>(coc-references)
+
+nmap <leader>rn             <Plug>(coc-rename)
+nmap <leader>qf             <Plug>(coc-fix-current)
 
 nmap ø [
 nmap æ ]
@@ -118,6 +141,7 @@ augroup init
     autocmd!
     autocmd FileType css,html,yaml,javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2 textwidth=79
+    autocmd FileType go setlocal nolist
 augroup END
 
 if has('packloadall')

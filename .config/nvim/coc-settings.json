@@ -1,4 +1,5 @@
 {
+    "suggest.floatEnable": false,
     "coc.preferences.formatOnSaveFiletypes": [
         "javascript",
         "typescript",
@@ -30,18 +31,6 @@
                 }
             }
         },
-        "golang": {
-            "command": "gopls",
-            "rootPatterns": [
-                "go.mod",
-                ".vim/",
-                ".git/",
-                ".hg/"
-            ],
-            "filetypes": [
-                "go"
-            ]
-        },
         "crystal": {
             "command": "scry",
             "rootPatterns": [
@@ -53,6 +42,11 @@
             "filetypes": [
                 "crystal"
             ]
+        },
+        "golang": {
+            "command": "gopls",
+            "rootPatterns": ["go.mod", ".git/"],
+            "filetypes": ["go"]
         }
     }
 }
