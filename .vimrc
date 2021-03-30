@@ -29,6 +29,9 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+
 call plug#end()
 
 silent! colorscheme gruvbox
