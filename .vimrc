@@ -8,39 +8,32 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'morhetz/gruvbox'
-Plug 'itchyny/lightline.vim'
-Plug 'preservim/nerdtree'
 
-Plug 'vimwiki/vimwiki'
+" Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
+Plug 'itchyny/lightline.vim'
 
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
 Plug 'ludovicchabant/vim-gutentags'
-
 Plug 'honza/vim-snippets'
 
 Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'fatih/vim-go'
 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
-silent! colorscheme gruvbox
+silent! colorscheme gruvbox-material
 set autoindent
 set autoread
 set background=dark
 set backspace=indent,eol,start
 set cmdheight=1
-set conceallevel=2
+set conceallevel=0
 set colorcolumn=+1
 set completeopt=noinsert,menuone,noselect
 set expandtab
@@ -64,7 +57,11 @@ set shiftwidth=4
 set shortmess+=c
 set showmatch
 set showtabline=0
-set signcolumn=yes
+if has('patch-8.1.1564')
+    set signcolumn=number
+else
+    set signcolumn=yes
+endif
 set smartcase
 set smartindent
 set smarttab
@@ -81,15 +78,17 @@ set wildmenu
 
 let g:mapleader = ' '
 
-let g:gutentags_ctags_exclude = ['.ccls-cache']
-
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \}
 let g:ale_fix_on_save = 1
 
+let g:gutentags_ctags_exclude = ['.ccls-cache']
+
 let g:go_code_completion_enabled = 0
 let g:go_fmt_command = 'goimports'
+
+let g:coc_snippet_next = '<tab>'
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
@@ -101,8 +100,6 @@ function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-let g:coc_snippet_next = '<tab>'
 
 nnoremap <C-h>              <C-w><C-h>
 nnoremap <C-j>              <C-w><C-j>
@@ -118,20 +115,18 @@ nnoremap <leader>ni         :vsplit ~/notes/index.md<CR>
 nnoremap <leader>so         :so %<CR>
 nnoremap <leader>pa         :set invpaste<CR>
 nnoremap <leader>li         :set invlist<CR>
-nnoremap <leader>nt         :NERDTreeToggle<CR>
 nnoremap <leader>cg         :sign unplace *<CR>
-
 
 nmap <silent> [g            <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g            <Plug>(coc-diagnostic-next)
-
 nmap <silent> gd            <Plug>(coc-definition)
 nmap <silent> gy            <Plug>(coc-type-definition)
 nmap <silent> gi            <Plug>(coc-implementation)
 nmap <silent> gr            <Plug>(coc-references)
-
 nmap <leader>rn             <Plug>(coc-rename)
 nmap <leader>qf             <Plug>(coc-fix-current)
+nmap <leader>ca             <Plug>(coc-codeaction)
+nnoremap <silent> K :call CocAction('doHover')<CR>
 
 nmap ø [
 nmap æ ]
@@ -142,9 +137,11 @@ xmap æ ]
 
 augroup init
     autocmd!
-    autocmd FileType css,html,yaml,javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2 textwidth=79
+    autocmd FileType css,html,yaml,javascript,markdown setlocal sw=2 ts=2 sts=2
+    autocmd FileType markdown setlocal textwidth=79
     autocmd FileType go setlocal nolist
+    autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+    autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 augroup END
 
 if has('packloadall')

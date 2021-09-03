@@ -1,52 +1,46 @@
 {
-    "suggest.floatEnable": false,
-    "coc.preferences.formatOnSaveFiletypes": [
-        "javascript",
-        "typescript",
-        "python",
-        "rust",
-        "json",
-        "html",
-        "crystal"
-    ],
-    "languageserver": {
-        "ccls": {
-            "command": "ccls",
-            "filetypes": [
-                "c",
-                "cpp",
-                "objc",
-                "objcpp"
-            ],
-            "rootPatterns": [
-                ".ccls",
-                "compile_commands.json",
-                ".vim/",
-                ".git/",
-                ".hg/"
-            ],
-            "initializationOptions": {
-                "cache": {
-                    "directory": "/tmp/ccls"
-                }
-            }
-        },
-        "crystal": {
-            "command": "scry",
-            "rootPatterns": [
-                "shard.yml",
-                ".vim/",
-                ".git/",
-                ".hg/"
-            ],
-            "filetypes": [
-                "crystal"
-            ]
-        },
-        "golang": {
-            "command": "gopls",
-            "rootPatterns": ["go.mod", ".git/"],
-            "filetypes": ["go"]
+  "suggest.floatEnable": false,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "python",
+    "rust",
+    "json",
+    "html",
+    "crystal"
+  ],
+  "coc.preferences.formatOnType": true,
+  "tsserver.formatOnType": true,
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
         }
+      }
+    },
+    "crystal": {
+      "command": "scry",
+      "rootPatterns": ["shard.yml", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["crystal"]
+    },
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".git/"],
+      "filetypes": ["go"]
     }
+  },
+  "eslint.autoFixOnSave": true,
+  "prettier.disableSuccessMessage": true
 }

@@ -5,7 +5,7 @@ set $mod                    Mod4
 set $font                   Fira Code
 set $font_size              10
 
-set $terminal               urxvt
+set $terminal               alacritty
 set $web_browser            google-chrome
 set $file_manager           nautilus
 set $note_editor            typora
@@ -50,11 +50,11 @@ set $ws10                   "10"
 
 font                        pango:$font $font_size
 floating_modifier           $mod
+default_border              pixel 1
 
-default_border              none
 
 # Property Name             Border  BG      Text    Indicator   Child Border
-client.focused              $gray   $bg     $fg     $gray       $bg
+client.focused              $gray   $bg     $fg     $gray       $bg2
 client.focused_inactive     $gray   $bg     $fg     $gray       $bg
 client.unfocused            $gray   $bg     $fg     $gray       $bg
 client.urgent               $red    $bg     $fg     $gray       $red
@@ -91,9 +91,11 @@ bindsym $mod+space          focus mode_toggle
 
 bindsym $mod+a              focus parent
 
+set $unity_sucks exec i3-msg [class="Unity"] fullscreen toggle; exec i3-msg [class="Unity"] fullscreen toggle
+
 bindsym $mod+1              workspace $ws1
 bindsym $mod+2              workspace $ws2
-bindsym $mod+3              workspace $ws3
+bindsym $mod+3              workspace $ws3; $unity_sucks
 bindsym $mod+4              workspace $ws4
 bindsym $mod+q              workspace $ws5
 bindsym $mod+w              workspace $ws6
