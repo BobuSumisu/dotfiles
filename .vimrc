@@ -9,12 +9,12 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'morhetz/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 Plug 'itchyny/lightline.vim'
 
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
+Plug 'preservim/nerdtree'
 
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'honza/vim-snippets'
@@ -78,10 +78,16 @@ set wildmenu
 
 let g:mapleader = ' '
 
+let g:ale_fix_on_save = 1
+
+let g:ale_linters = {
+\   'python': ['flake8', 'mypy'],
+\}
+
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['autoflake', 'autopep8'],
 \}
-let g:ale_fix_on_save = 1
 
 let g:gutentags_ctags_exclude = ['.ccls-cache']
 
@@ -116,6 +122,7 @@ nnoremap <leader>so         :so %<CR>
 nnoremap <leader>pa         :set invpaste<CR>
 nnoremap <leader>li         :set invlist<CR>
 nnoremap <leader>cg         :sign unplace *<CR>
+nnoremap <leader>nt         :NERDTreeToggle<CR>
 
 nmap <silent> [g            <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g            <Plug>(coc-diagnostic-next)
@@ -127,6 +134,9 @@ nmap <leader>rn             <Plug>(coc-rename)
 nmap <leader>qf             <Plug>(coc-fix-current)
 nmap <leader>ca             <Plug>(coc-codeaction)
 nnoremap <silent> K :call CocAction('doHover')<CR>
+
+" Hack to close hanging CoC popups :(
+nmap <Esc> :call coc#float#close_all() <CR>
 
 nmap ø [
 nmap æ ]

@@ -20,7 +20,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias ll='ls -Alh'
 
-export EDITOR=vim
+export EDITOR=nvim
 export GPG_TTY=$(tty)
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export GOPATH=$HOME/projects/go
@@ -59,3 +59,9 @@ fi
 md() {
     pandoc -s -f markdown -t man "$1" | man -l -
 }
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
